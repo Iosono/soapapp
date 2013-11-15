@@ -685,7 +685,7 @@ public class SoapAPPProvider extends ContentProvider implements
 			*/
 			db.execSQL("DROP INDEX IF EXISTS " + SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX + ";");
 
-			db.execSQL("DROP INDEX IF EXISTS " + SoapAPPContract.RicetteSaponiMagazzino.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX + ";");
+			db.execSQL("DROP INDEX IF EXISTS " + SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX + ";");
 
 			/* Query DDL per eliminare lo schema della tabella ricettesaponi_magazzino
 			*/
@@ -800,16 +800,22 @@ public class SoapAPPProvider extends ContentProvider implements
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 
-		SQLiteDatabase db = mCoefficientiSaponificazioneHelper.getReadableDatabase();
-
-		/**
-		 * Choose the projection and adjust the "where" clause based on URI
-		 * pattern-matching.
-		 */
 		switch (sUriMatcher.match(uri)) {
-		// If the incoming URI is for notes, chooses the Notes projection
-		case COEFFICIENTI:
+		
+		case URI_MATCH_RICETTESAPONI:
+			// da completare
+			break;
+		
+		case URI_MATCH_RICETTESAPONI_ID:
+			// da completare
+			break;
+		
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+			
+			SQLiteDatabase db = mCoefficientiSaponificazioneHelper.getReadableDatabase();
+			
 			String orderBy;
+			
 			if (TextUtils.isEmpty(sortOrder)) {
 				orderBy = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
 			} else {
@@ -823,12 +829,31 @@ public class SoapAPPProvider extends ContentProvider implements
 							orderBy);
 			break;
 
-		/*
-		 * If the incoming URI is for a single note identified by its ID,
-		 * chooses the note ID projection, and appends "_ID = <noteID>" to the
-		 * where clause, so that it selects that single note
-		 */
-		case COEFFICIENTE_ID:
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
+			// da completare
+			break;
+			
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
 			// da completare
 			break;
 
@@ -862,16 +887,36 @@ public class SoapAPPProvider extends ContentProvider implements
 		 */
 		switch (sUriMatcher.match(uri)) {
 
-		// If the pattern is for notes, returns the general content type.
-		case COEFFICIENTI:
+		case URI_MATCH_RICETTESAPONI:
+			return SoapAPPContract.RicetteSaponi.CONTENT_TYPE;
+
+		case URI_MATCH_RICETTESAPONI_ID:
+			return SoapAPPContract.RicetteSaponi.CONTENT_ITEM_TYPE;
+			
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
 			return SoapAPPContract.CoefficientiSaponificazione.CONTENT_TYPE;
 
-			// If the pattern is for note IDs, returns the note ID content type.
-		case COEFFICIENTE_ID:
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
 			return SoapAPPContract.CoefficientiSaponificazione.CONTENT_ITEM_TYPE;
+		
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
+			return SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_TYPE;
 
-			// If the URI pattern doesn't match any permitted patterns, throws
-			// an exception.
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
+			return SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_ITEM_TYPE;
+		
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
+			return SoapAPPContract.RicetteSaponiMagazzino.CONTENT_TYPE;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
+			return SoapAPPContract.RicetteSaponiMagazzino.CONTENT_ITEM_TYPE;
+		
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
+			return SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_TYPE;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
+			return SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_ITEM_TYPE;
+
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
