@@ -5,13 +5,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 
+	private Button btnAddIngredient;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// riferimenti agli oggetti del layout
+		btnAddIngredient = (Button) findViewById(R.id.btn_insertStore);
+		
+		// aggiungo un ingrediente al magazzino (gestione del click sul bottone btn_insert_store)
+		btnAddIngredient.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent addIngredient = new Intent(view.getContext(), StoreActivity.class);
+				startActivity(addIngredient);
+			}
+		});
+		
 	}
 
 	/** Metodo chiamato quando si preme il bottone Magazzino */

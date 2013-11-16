@@ -5,6 +5,12 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_magazzino">MagazzinoActivity</string>
-	<string name="provider_SoapAPP">Provider SoapAPP</string>
-    
+    <string name="provider_SoapAPP">Provider SoapAPP</string>
+    <string name="add_store">Aggiungi un materiale nel magazzino</string>
+    <string name="insert">Inserisci</string>
+    <string name="title_activity_store">StoreActivity</string>
+    <string name="insert_name_ingredient">Inserisci il nome dell\'ingrediente</string>
+    <string name="insert_alias_ingredient">Inserisci l\'alias dell\'ingrediente</string>
+    <string name="insert_description_ingredient">Inserisci la descrizione dell\'ingrediente</string>
+
 </resources>

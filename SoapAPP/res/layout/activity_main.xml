@@ -9,19 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_insertStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="84dp"
-        android:text="Magazzino"
+        android:text="@string/insert"
         android:onClick="startMagazzino" />
+
+    <TextView
+        android:id="@+id/tv_insertIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" 
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/add_store" />
 
 </RelativeLayout>

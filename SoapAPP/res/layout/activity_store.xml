@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StoreActivity" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_ingredientName"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="34dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_ingredientType"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_above="@+id/et_ingredientDescription"
+        android:layout_alignParentTop="true" >
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/et_ingredientAlias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_ingredientName"
+        android:layout_alignLeft="@+id/listView1"
+        android:ems="10"
+        android:text="@string/insert_alias_ingredient" />
+
+    <EditText
+        android:id="@+id/et_ingredientDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_ingredientAlias"
+        android:layout_alignLeft="@+id/listView1"
+        android:ems="10"
+        android:text="@string/insert_description_ingredient" />
+
+    <EditText
+        android:id="@+id/et_ingredientName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_ingredientAlias"
+        android:layout_alignParentBottom="true"
+        android:ems="10"
+        android:text="@string/insert_name_ingredient" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>
