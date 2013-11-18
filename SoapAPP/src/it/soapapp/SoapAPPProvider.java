@@ -387,6 +387,144 @@ public class SoapAPPProvider extends ContentProvider implements
 				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE);
 
+		// HashMap per la tabella RicetteSaponiMagazzino
+		ricetteSaponiMagazzinoProjectionMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino._ID,
+				SoapAPPContract.RicetteSaponiMagazzino._ID);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME);
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS);
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION);
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE);
+
+		ricetteSaponiMagazzinoProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE);
+
+		// HashMap per la tabella RicetteSaponiMagazzinoRicetta
+		ricetteSaponiMagazzinoRicettaProjectionMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoRicettaProjectionMap.put(
+				SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID,
+				SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE);
+
+		ricetteSaponiMagazzinoRicettaProjectionMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE);
+
 	}
 
 	/**
@@ -1241,11 +1379,264 @@ public class SoapAPPProvider extends ContentProvider implements
 	}
 
 	/**
-	 * This describes the MIME types that are supported for opening a note URI
-	 * as a stream.
+	 * This is called when a client calls
+	 * {@link android.content.ContentResolver#insert(Uri, ContentValues)}.
+	 * Inserts a new row into the database. This method sets up default values
+	 * for any columns that are not included in the incoming map. If rows were
+	 * inserted, then listeners are notified of the change.
+	 * 
+	 * @return The row ID of the inserted row.
+	 * @throws SQLException
+	 *             if the insertion fails.
 	 */
-	static ClipDescription NOTE_STREAM_TYPES = new ClipDescription(null,
-			new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN });
+	@Override
+	public Uri insert(Uri uri, ContentValues initialValues) {
+
+		switch (sUriMatcher.match(uri)) {
+
+		case URI_MATCH_RICETTESAPONI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTESAPONI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+
+			// SQLiteDatabase db =
+			// mCoefficientiSaponificazioneHelper.getWritableDatabase();
+			// da completare
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
+			// da completare
+			break;
+
+		default:
+			// If the URI doesn't match any of the known patterns, throw an
+			// exception.
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		if (mCursor.getCount() <= 0) {
+			mCursor = null;
+		}
+
+		return uri; // da riscivere
+	}
+
+	/**
+	 * This is called when a client calls
+	 * {@link android.content.ContentResolver#delete(Uri, String, String[])}.
+	 * Deletes records from the database. If the incoming URI matches the note
+	 * ID URI pattern, this method deletes the one record specified by the ID in
+	 * the URI. Otherwise, it deletes a a set of records. The record or records
+	 * must also match the input selection criteria specified by where and
+	 * whereArgs.
+	 * 
+	 * If rows were deleted, then listeners are notified of the change.
+	 * 
+	 * @return If a "where" clause is used, the number of rows affected is
+	 *         returned, otherwise 0 is returned. To delete all rows and get a
+	 *         row count, use "1" as the where clause.
+	 * @throws IllegalArgumentException
+	 *             if the incoming URI pattern is invalid.
+	 */
+	@Override
+	public int delete(Uri uri, String where, String[] whereArgs) {
+
+		String finalWhere;
+
+		int count = 0;
+
+		// Does the delete based on the incoming URI pattern.
+		switch (sUriMatcher.match(uri)) {
+
+		case URI_MATCH_RICETTESAPONI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTESAPONI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+
+			SQLiteDatabase db = mCoefficientiSaponificazioneHelper
+					.getWritableDatabase();
+			count = db.delete(
+					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
+																			// database
+																			// table
+																			// name
+					where, // The incoming where clause column names
+					whereArgs // The incoming where clause values
+					);
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
+			// da completare
+			break;
+
+		default:
+			// If the URI doesn't match any of the known patterns, throw an
+			// exception.
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		/*
+		 * Gets a handle to the content resolver object for the current context,
+		 * and notifies it that the incoming URI changed. The object passes this
+		 * along to the resolver framework, and observers that have registered
+		 * themselves for the provider are notified.
+		 */
+		getContext().getContentResolver().notifyChange(uri, null);
+
+		// Returns the number of rows deleted.
+		return count;
+	}
+
+	/**
+	 * This is called when a client calls
+	 * {@link android.content.ContentResolver#update(Uri,ContentValues,String,String[])}
+	 * Updates records in the database. The column names specified by the keys
+	 * in the values map are updated with new data specified by the values in
+	 * the map. If the incoming URI matches the note ID URI pattern, then the
+	 * method updates the one record specified by the ID in the URI; otherwise,
+	 * it updates a set of records. The record or records must match the input
+	 * selection criteria specified by where and whereArgs. If rows were
+	 * updated, then listeners are notified of the change.
+	 * 
+	 * @param uri
+	 *            The URI pattern to match and update.
+	 * @param values
+	 *            A map of column names (keys) and new values (values).
+	 * @param where
+	 *            An SQL "WHERE" clause that selects records based on their
+	 *            column values. If this is null, then all records that match
+	 *            the URI pattern are selected.
+	 * @param whereArgs
+	 *            An array of selection criteria. If the "where" param contains
+	 *            value placeholders ("?"), then each placeholder is replaced by
+	 *            the corresponding element in the array.
+	 * @return The number of rows updated.
+	 * @throws IllegalArgumentException
+	 *             if the incoming URI pattern is invalid.
+	 */
+	@Override
+	public int update(Uri uri, ContentValues values, String where,
+			String[] whereArgs) {
+
+		String finalWhere;
+
+		int count = 0;
+
+		// Does the delete based on the incoming URI pattern.
+		switch (sUriMatcher.match(uri)) {
+
+		case URI_MATCH_RICETTESAPONI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTESAPONI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+			// da completare
+			break;
+
+		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
+			// da completare
+			break;
+
+		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
+			// da completare
+			break;
+
+		default:
+			// If the URI doesn't match any of the known patterns, throw an
+			// exception.
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+		/*
+		 * Gets a handle to the content resolver object for the current context,
+		 * and notifies it that the incoming URI changed. The object passes this
+		 * along to the resolver framework, and observers that have registered
+		 * themselves for the provider are notified.
+		 */
+		getContext().getContentResolver().notifyChange(uri, null);
+
+		// Returns the number of rows deleted.
+		return count;
+	}
 
 	/**
 	 * Returns the types of available data streams. URIs to specific notes are
@@ -1384,337 +1775,6 @@ public class SoapAPPProvider extends ContentProvider implements
 			} catch (IOException e) {
 			}
 		}
-	}
-
-	/**
-	 * This is called when a client calls
-	 * {@link android.content.ContentResolver#insert(Uri, ContentValues)}.
-	 * Inserts a new row into the database. This method sets up default values
-	 * for any columns that are not included in the incoming map. If rows were
-	 * inserted, then listeners are notified of the change.
-	 * 
-	 * @return The row ID of the inserted row.
-	 * @throws SQLException
-	 *             if the insertion fails.
-	 */
-	@Override
-	public Uri insert(Uri uri, ContentValues initialValues) {
-
-		// Validates the incoming URI. Only the full provider URI is allowed for
-		// inserts.
-		if (sUriMatcher.match(uri) != COEFFICIENTI) {
-			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-
-		// A map to hold the new record's values.
-		ContentValues values;
-
-		// If the incoming values map is not null, uses it for the new values.
-		if (initialValues != null) {
-			values = new ContentValues(initialValues);
-
-		} else {
-			// Otherwise, create a new value map
-			values = new ContentValues();
-		}
-
-		// Gets the current system time in milliseconds
-		Long now = Long.valueOf(System.currentTimeMillis());
-
-		// If the values map doesn't contain the creation date, sets the value
-		// to the current time.
-		if (values
-				.containsKey(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE) == false) {
-			values.put(
-					SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE,
-					now);
-		}
-
-		// If the values map doesn't contain the modification date, sets the
-		// value to the current
-		// time.
-		if (values
-				.containsKey(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE) == false) {
-			values.put(
-					SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE,
-					now);
-		}
-
-		// If the values map doesn't contain a title, sets the value to the
-		// default title.
-		if (values
-				.containsKey(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME) == false) {
-			Resources r = Resources.getSystem();
-			values.put(
-					SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
-					r.getString(android.R.string.untitled));
-		}
-
-		// If the values map doesn't contain note text, sets the value to an
-		// empty string.
-		if (values
-				.containsKey(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF) == false) {
-			values.put(
-					SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF,
-					"");
-		}
-
-		// Opens the database object in "write" mode.
-		SQLiteDatabase db = mCoefficientiSaponificazioneHelper
-				.getWritableDatabase();
-
-		// Performs the insert and returns the ID of the new note.
-		long rowId = db.insert(
-				SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																		// table
-																		// to
-																		// insert
-																		// into.
-				null, // A hack, SQLite sets this column value to null
-						// if values is empty.
-				values // A map of column names, and the values to
-						// insert
-						// into the columns.
-				);
-
-		// If the insert succeeded, the row ID exists.
-		if (rowId > 0) {
-			// Creates a URI with the note ID pattern and the new row ID
-			// appended to it.
-			Uri noteUri = ContentUris
-					.withAppendedId(
-							SoapAPPContract.CoefficientiSaponificazione.CONTENT_ID_URI_BASE,
-							rowId);
-
-			// Notifies observers registered against this provider that the data
-			// changed.
-			getContext().getContentResolver().notifyChange(noteUri, null);
-			return noteUri;
-		}
-
-		// If the insert didn't succeed, then the rowID is <= 0. Throws an
-		// exception.
-		throw new SQLException("Failed to insert row into " + uri);
-	}
-
-	/**
-	 * This is called when a client calls
-	 * {@link android.content.ContentResolver#delete(Uri, String, String[])}.
-	 * Deletes records from the database. If the incoming URI matches the note
-	 * ID URI pattern, this method deletes the one record specified by the ID in
-	 * the URI. Otherwise, it deletes a a set of records. The record or records
-	 * must also match the input selection criteria specified by where and
-	 * whereArgs.
-	 * 
-	 * If rows were deleted, then listeners are notified of the change.
-	 * 
-	 * @return If a "where" clause is used, the number of rows affected is
-	 *         returned, otherwise 0 is returned. To delete all rows and get a
-	 *         row count, use "1" as the where clause.
-	 * @throws IllegalArgumentException
-	 *             if the incoming URI pattern is invalid.
-	 */
-	@Override
-	public int delete(Uri uri, String where, String[] whereArgs) {
-
-		// Opens the database object in "write" mode.
-		SQLiteDatabase db = mCoefficientiSaponificazioneHelper
-				.getWritableDatabase();
-		String finalWhere;
-
-		int count;
-
-		// Does the delete based on the incoming URI pattern.
-		switch (sUriMatcher.match(uri)) {
-
-		// If the incoming pattern matches the general pattern for notes, does a
-		// delete
-		// based on the incoming "where" columns and arguments.
-		case COEFFICIENTI:
-			count = db.delete(
-					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																			// database
-																			// table
-																			// name
-					where, // The incoming where clause column names
-					whereArgs // The incoming where clause values
-					);
-			break;
-
-		// If the incoming URI matches a single note ID, does the delete based
-		// on the
-		// incoming data, but modifies the where clause to restrict it to the
-		// particular note ID.
-		case COEFFICIENTE_ID:
-			/*
-			 * Starts a final WHERE clause by restricting it to the desired note
-			 * ID.
-			 */
-			finalWhere = SoapAPPContract.CoefficientiSaponificazione._ID + // The
-																			// ID
-																			// column
-																			// name
-					" = "
-					+ // test for equality
-					uri.getPathSegments()
-							. // the incoming note ID
-							get(SoapAPPContract.CoefficientiSaponificazione.COEFFICIENTI_SAPONIFICAZIONE_ID_PATH_POSITION);
-
-			// If there were additional selection criteria, append them to the
-			// final
-			// WHERE clause
-			if (where != null) {
-				finalWhere = finalWhere + " AND " + where;
-			}
-
-			// Performs the delete.
-			count = db.delete(
-					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																			// database
-																			// table
-																			// name.
-					finalWhere, // The final WHERE clause
-					whereArgs // The incoming where clause values.
-					);
-			break;
-
-		// If the incoming pattern is invalid, throws an exception.
-		default:
-			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-
-		/*
-		 * Gets a handle to the content resolver object for the current context,
-		 * and notifies it that the incoming URI changed. The object passes this
-		 * along to the resolver framework, and observers that have registered
-		 * themselves for the provider are notified.
-		 */
-		getContext().getContentResolver().notifyChange(uri, null);
-
-		// Returns the number of rows deleted.
-		return count;
-	}
-
-	/**
-	 * This is called when a client calls
-	 * {@link android.content.ContentResolver#update(Uri,ContentValues,String,String[])}
-	 * Updates records in the database. The column names specified by the keys
-	 * in the values map are updated with new data specified by the values in
-	 * the map. If the incoming URI matches the note ID URI pattern, then the
-	 * method updates the one record specified by the ID in the URI; otherwise,
-	 * it updates a set of records. The record or records must match the input
-	 * selection criteria specified by where and whereArgs. If rows were
-	 * updated, then listeners are notified of the change.
-	 * 
-	 * @param uri
-	 *            The URI pattern to match and update.
-	 * @param values
-	 *            A map of column names (keys) and new values (values).
-	 * @param where
-	 *            An SQL "WHERE" clause that selects records based on their
-	 *            column values. If this is null, then all records that match
-	 *            the URI pattern are selected.
-	 * @param whereArgs
-	 *            An array of selection criteria. If the "where" param contains
-	 *            value placeholders ("?"), then each placeholder is replaced by
-	 *            the corresponding element in the array.
-	 * @return The number of rows updated.
-	 * @throws IllegalArgumentException
-	 *             if the incoming URI pattern is invalid.
-	 */
-	@Override
-	public int update(Uri uri, ContentValues values, String where,
-			String[] whereArgs) {
-
-		// Opens the database object in "write" mode.
-		SQLiteDatabase db = mCoefficientiSaponificazioneHelper
-				.getWritableDatabase();
-		int count;
-		String finalWhere;
-
-		// Does the update based on the incoming URI pattern
-		switch (sUriMatcher.match(uri)) {
-
-		// If the incoming URI matches the general notes pattern, does the
-		// update based on
-		// the incoming data.
-		case COEFFICIENTI:
-
-			// Does the update and returns the number of rows updated.
-			count = db.update(
-					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																			// database
-																			// table
-																			// name.
-					values, // A map of column names and new values to
-							// use.
-					where, // The where clause column names.
-					whereArgs // The where clause column values to
-								// select on.
-					);
-			break;
-
-		// If the incoming URI matches a single note ID, does the update based
-		// on the incoming
-		// data, but modifies the where clause to restrict it to the particular
-		// note ID.
-		case COEFFICIENTE_ID:
-			// From the incoming URI, get the note ID
-			// ?????String noteId =
-			// uri.getPathSegments().get(SoapAPPContract.CoefficientiSaponificazione.COEFFICIENTI_SAPONIFICAZIONE_ID_PATH_POSITION);
-
-			/*
-			 * Starts creating the final WHERE clause by restricting it to the
-			 * incoming note ID.
-			 */
-			finalWhere = SoapAPPContract.CoefficientiSaponificazione._ID + // The
-																			// ID
-																			// column
-																			// name
-					" = "
-					+ // test for equality
-					uri.getPathSegments()
-							. // the incoming note ID
-							get(SoapAPPContract.CoefficientiSaponificazione.COEFFICIENTI_SAPONIFICAZIONE_ID_PATH_POSITION);
-
-			// If there were additional selection criteria, append them to the
-			// final WHERE
-			// clause
-			if (where != null) {
-				finalWhere = finalWhere + " AND " + where;
-			}
-
-			// Does the update and returns the number of rows updated.
-			count = db.update(
-					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																			// database
-																			// table
-																			// name.
-					values, // A map of column names and new values to
-							// use.
-					finalWhere, // The final WHERE clause to use
-								// placeholders for whereArgs
-					whereArgs // The where clause column values to
-								// select on, or
-								// null if the values are in the where
-								// argument.
-					);
-			break;
-		// If the incoming pattern is invalid, throws an exception.
-		default:
-			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-
-		/*
-		 * Gets a handle to the content resolver object for the current context,
-		 * and notifies it that the incoming URI changed. The object passes this
-		 * along to the resolver framework, and observers that have registered
-		 * themselves for the provider are notified.
-		 */
-		getContext().getContentResolver().notifyChange(uri, null);
-
-		// Returns the number of rows updated.
-		return count;
 	}
 
 	/**
