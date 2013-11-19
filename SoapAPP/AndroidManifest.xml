@@ -35,13 +35,13 @@
             android:name="it.soapapp.MagazzinoActivity"
             android:label="@string/title_activity_magazzino"
             android:parentActivityName="it.soapapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.soapapp.MainActivity" />
         </activity>
         <activity
             android:name="it.soapapp.StoreActivity"
             android:label="@string/title_activity_store" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.soapapp.MainActivity" />
         </activity>
     </application>
 
