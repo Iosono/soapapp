@@ -64,7 +64,8 @@ public final class SoapAPPContract {
 
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.it.soapapp.provider.ricettesaponi";
 
-		public static final String DEFAULT_SORT_ORDER = "modified ASC";
+		public static final String DEFAULT_SORT_ORDER = SoapAPPContract.RicetteSaponi._ID
+				+ " ASC";
 
 		/*
 		 * Column definitions
@@ -159,7 +160,8 @@ public final class SoapAPPContract {
 
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.it.soapapp.provider.coefficienti_saponificazione";
 
-		public static final String DEFAULT_SORT_ORDER = "modified ASC";
+		public static final String DEFAULT_SORT_ORDER = SoapAPPContract.CoefficientiSaponificazione._ID
+				+ " ASC";
 
 		/*
 		 * Column definitions
@@ -234,7 +236,8 @@ public final class SoapAPPContract {
 
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.it.soapapp.provider.ricettesaponi_tipi_ingredienti";
 
-		public static final String DEFAULT_SORT_ORDER = "modified ASC";
+		public static final String DEFAULT_SORT_ORDER = SoapAPPContract.RicetteSaponiTipiIngredienti._ID
+				+ " ASC";
 
 		/*
 		 * Column definitions
@@ -295,7 +298,8 @@ public final class SoapAPPContract {
 
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.it.soapapp.provider.ricettesaponi_magazzino";
 
-		public static final String DEFAULT_SORT_ORDER = "modified ASC";
+		public static final String DEFAULT_SORT_ORDER = SoapAPPContract.RicetteSaponiMagazzino._ID
+				+ " ASC";
 
 		/*
 		 * Column definitions
@@ -396,7 +400,8 @@ public final class SoapAPPContract {
 
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.it.soapapp.provider.ricettesaponi_magazzino_ricetta";
 
-		public static final String DEFAULT_SORT_ORDER = "modified ASC";
+		public static final String DEFAULT_SORT_ORDER = SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID
+				+ " ASC";
 
 		/*
 		 * Column definitions

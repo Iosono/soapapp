@@ -603,6 +603,7 @@ public class SoapAPPProvider extends ContentProvider implements
 
 			/*
 			 * Query per popolare con due righe la tabella ricettesaponi
+			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
 			 */
 			db.execSQL("INSERT INTO "
 					+ SoapAPPContract.RicetteSaponi.TABLE_NAME
@@ -740,6 +741,7 @@ public class SoapAPPProvider extends ContentProvider implements
 
 			/*
 			 * Query per popolare la tabella coefficienti_saponificazione
+			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
 			 */
 			db.execSQL("INSERT INTO "
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
@@ -920,6 +922,7 @@ public class SoapAPPProvider extends ContentProvider implements
 			/*
 			 * Query per popolare con due righe la tabella
 			 * ricettesaponi_tipi_ingredienti
+			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
 			 */
 			db.execSQL("INSERT INTO "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
@@ -1254,7 +1257,12 @@ public class SoapAPPProvider extends ContentProvider implements
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
-
+		
+		String[] projectionPrivate;
+		String selectionPrivate;
+		String[] selectionArgsPrivate;
+		String sortOrderPrivate;
+		
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1267,22 +1275,21 @@ public class SoapAPPProvider extends ContentProvider implements
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
 
-			SQLiteDatabase db = mCoefficientiSaponificazioneHelper
+			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
 					.getReadableDatabase();
 
-			String orderBy;
-
 			if (TextUtils.isEmpty(sortOrder)) {
-				orderBy = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
+				sortOrderPrivate = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
 			} else {
-				// otherwise, uses the incoming sort order
-				orderBy = sortOrder;
+				// da inserire verifiche sul contenuto della stringa per l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa tabella?
+				sortOrderPrivate = sortOrder;
 			}
 
-			mCursor = db.query(
+			mCursor = dbCoefficientiSaponificazione.query(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 					READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION, selection,
-					selectionArgs, null, null, orderBy);
+					selectionArgs, null, null, sortOrderPrivate);
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
@@ -1290,7 +1297,49 @@ public class SoapAPPProvider extends ContentProvider implements
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
-			// da completare
+			// Controlli sulla variabile String[] projection
+			if (projection == null || projection.length == 0) { 
+				projectionPrivate = READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe conyenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				projectionPrivate = projection;
+			}
+			
+			// Controlli sulla variabile String selection
+			if (TextUtils.isEmpty(selection)) {
+				selectionPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa tabella?
+				selectionPrivate = selection;
+			}
+			
+			// Controlli sulla variabile String[] selectionArgs
+			if (selectionArgs == null || selectionArgs.length == 0) { 
+				selectionArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe conyenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				selectionArgsPrivate = selectionArgs;
+			}
+			
+			// Controlli sulla variabile String sortOrder
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrderPrivate = SoapAPPContract.RicetteSaponiTipiIngredienti.DEFAULT_SORT_ORDER;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa tabella?
+				sortOrderPrivate = sortOrder;
+			}
+			
+			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
+					.getReadableDatabase();
+			
+			mCursor = dbRicetteSaponiTipiIngredienti.query(
+					SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
+					projectionPrivate, selectionPrivate,
+					selectionArgsPrivate, null, null, sortOrderPrivate);
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
