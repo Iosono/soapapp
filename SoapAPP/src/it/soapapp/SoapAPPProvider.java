@@ -16,30 +16,21 @@
 
 package it.soapapp;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
-import android.content.ClipDescription;
 import android.content.ContentProvider;
-import android.content.ContentProvider.PipeDataWriter;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -47,8 +38,7 @@ import android.util.Log;
  * Provides access to a database of notes. Each note has a title, the note
  * itself, a creation date and a modified data.
  */
-public class SoapAPPProvider extends ContentProvider implements
-		PipeDataWriter<Cursor> {
+public class SoapAPPProvider extends ContentProvider {
 	// Used for debugging and logging
 	private static final String TAG = "SoapAPPProvider";
 
@@ -148,9 +138,6 @@ public class SoapAPPProvider extends ContentProvider implements
 	private static HashMap<String, String> ricetteSaponiTipiIngredientiProjectionMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoProjectionMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoRicettaProjectionMap;
-
-	private static final int READ_NOTE_NOTE_INDEX = 1;
-	private static final int READ_NOTE_TITLE_INDEX = 2;
 
 	/*
 	 * Constants used by the Uri matcher to choose an action based on the
@@ -603,52 +590,107 @@ public class SoapAPPProvider extends ContentProvider implements
 
 			/*
 			 * Query per popolare con due righe la tabella ricettesaponi
-			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
 			 */
-			db.execSQL("INSERT INTO "
-					+ SoapAPPContract.RicetteSaponi.TABLE_NAME
-					+ " ("
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE
-					+ ") VALUES (\'Prima Ricetta Prova\', \'Primo Alias Prova\', \'Prima Descrizione Prova\', \'Prima Patch file Sistem Prova\', 1000, 330, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, \'Prima Nota Prova\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Seconda Ricetta Prova\', \'Seconda Alias Prova\', \'Seconda Descrizione Prova\', \'Seconda Patch file Sistem Prova\', 1000, 330, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, \'Seconda Nota Prova\', 0, 0, datetime(\'now\'), datetime(\'now\'));");
+
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedDate = sdf.format(new Timestamp(date.getTime()));
+
+			ContentValues values = new ContentValues();
+
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
+					"Prima Ricetta Prova");
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
+					"Primo Alias Prova");
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
+					"Prima Descrizione Prova");
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
+					"Prima Patch file Sistem Prova");
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
+					1000);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
+					330);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
+					0.0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
+					0.0);
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
+					"Prima Nota Prova");
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE,
+					0);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
+					0);
+			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
+					formattedDate);
+			values.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
+					formattedDate);
+
+			Long rowID = db.insertOrThrow(
+					SoapAPPContract.RicetteSaponi.TABLE_NAME, null, values);
+			/*
+			 * Riscritto il codice per l'inserimento di due righe nella tabella
+			 * RicetteSaponi db.execSQL("INSERT INTO " +
+			 * SoapAPPContract.RicetteSaponi.TABLE_NAME + " (" +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA +
+			 * ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA +
+			 * ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA
+			 * + ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA
+			 * + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA
+			 * + ", " + SoapAPPContract.RicetteSaponi.
+			 * COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA + ", " +
+			 * SoapAPPContract
+			 * .RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA
+			 * + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA +
+			 * ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA
+			 * + ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA +
+			 * ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA +
+			 * ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE +
+			 * ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE
+			 * + ", " + SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE +
+			 * ", " +
+			 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE +
+			 * ") VALUES (\'Prima Ricetta Prova\', \'Primo Alias Prova\', \'Prima Descrizione Prova\', \'Prima Patch file Sistem Prova\', 1000, 330, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, \'Prima Nota Prova\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Seconda Ricetta Prova\', \'Seconda Alias Prova\', \'Seconda Descrizione Prova\', \'Seconda Patch file Sistem Prova\', 1000, 330, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, \'Seconda Nota Prova\', 0, 0, datetime(\'now\'), datetime(\'now\'));"
+			 * );
+			 */
 
 		}
 
@@ -740,8 +782,8 @@ public class SoapAPPProvider extends ContentProvider implements
 					+ " ASC);");
 
 			/*
-			 * Query per popolare la tabella coefficienti_saponificazione
-			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
+			 * Query per popolare la tabella coefficienti_saponificazione DA
+			 * RISCRIVERE USANDO IL METODO INSERT E NON execSQL
 			 */
 			db.execSQL("INSERT INTO "
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
@@ -921,8 +963,8 @@ public class SoapAPPProvider extends ContentProvider implements
 
 			/*
 			 * Query per popolare con due righe la tabella
-			 * ricettesaponi_tipi_ingredienti
-			 * DA RISCRIVERE USANDO IL METODO INSERT E NON execSQL
+			 * ricettesaponi_tipi_ingredienti DA RISCRIVERE USANDO IL METODO
+			 * INSERT E NON execSQL
 			 */
 			db.execSQL("INSERT INTO "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
@@ -1257,12 +1299,12 @@ public class SoapAPPProvider extends ContentProvider implements
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
-		
+
 		String[] projectionPrivate;
 		String selectionPrivate;
 		String[] selectionArgsPrivate;
 		String sortOrderPrivate;
-		
+
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1274,22 +1316,56 @@ public class SoapAPPProvider extends ContentProvider implements
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+			// Controlli sulla variabile String[] projection
+			if (projection == null || projection.length == 0) {
+				projectionPrivate = READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				projectionPrivate = projection;
+			}
+
+			// Controlli sulla variabile String selection
+			if (TextUtils.isEmpty(selection)) {
+				selectionPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				selectionPrivate = selection;
+			}
+
+			// Controlli sulla variabile String[] selectionArgs
+			if (selectionArgs == null || selectionArgs.length == 0) {
+				selectionArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				selectionArgsPrivate = selectionArgs;
+			}
+
+			// Controlli sulla variabile String sortOrder
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrderPrivate = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				sortOrderPrivate = sortOrder;
+			}
 
 			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
 					.getReadableDatabase();
 
-			if (TextUtils.isEmpty(sortOrder)) {
-				sortOrderPrivate = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
-			} else {
-				// da inserire verifiche sul contenuto della stringa per l'ordinamento
-				// Esiste la colonna fornita per l'ordinamento su questa tabella?
-				sortOrderPrivate = sortOrder;
-			}
-
 			mCursor = dbCoefficientiSaponificazione.query(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
-					READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION, selection,
-					selectionArgs, null, null, sortOrderPrivate);
+					projectionPrivate, selectionPrivate, selectionArgsPrivate,
+					null, null, sortOrderPrivate);
+
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
@@ -1298,48 +1374,54 @@ public class SoapAPPProvider extends ContentProvider implements
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
 			// Controlli sulla variabile String[] projection
-			if (projection == null || projection.length == 0) { 
+			if (projection == null || projection.length == 0) {
 				projectionPrivate = READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION;
 			} else {
-				// da inserire verifiche sul contenuto dell'array di stringhe conyenente la lista delle colonne da estrarre
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
 				// Esistono tutte le colonne fornite per questa tabella?
 				projectionPrivate = projection;
 			}
-			
+
 			// Controlli sulla variabile String selection
 			if (TextUtils.isEmpty(selection)) {
 				selectionPrivate = null;
 			} else {
-				// da inserire verifiche sul contenuto della stringa per l'ordinamento
-				// Esiste la colonna fornita per l'ordinamento su questa tabella?
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
 				selectionPrivate = selection;
 			}
-			
+
 			// Controlli sulla variabile String[] selectionArgs
-			if (selectionArgs == null || selectionArgs.length == 0) { 
+			if (selectionArgs == null || selectionArgs.length == 0) {
 				selectionArgsPrivate = null;
 			} else {
-				// da inserire verifiche sul contenuto dell'array di stringhe conyenente la lista delle colonne da estrarre
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
 				// Esistono tutte le colonne fornite per questa tabella?
 				selectionArgsPrivate = selectionArgs;
 			}
-			
+
 			// Controlli sulla variabile String sortOrder
 			if (TextUtils.isEmpty(sortOrder)) {
 				sortOrderPrivate = SoapAPPContract.RicetteSaponiTipiIngredienti.DEFAULT_SORT_ORDER;
 			} else {
-				// da inserire verifiche sul contenuto della stringa per l'ordinamento
-				// Esiste la colonna fornita per l'ordinamento su questa tabella?
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
 				sortOrderPrivate = sortOrder;
 			}
-			
+
 			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
 					.getReadableDatabase();
-			
+
 			mCursor = dbRicetteSaponiTipiIngredienti.query(
 					SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
-					projectionPrivate, selectionPrivate,
-					selectionArgsPrivate, null, null, sortOrderPrivate);
+					projectionPrivate, selectionPrivate, selectionArgsPrivate,
+					null, null, sortOrderPrivate);
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
@@ -1440,7 +1522,7 @@ public class SoapAPPProvider extends ContentProvider implements
 	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues initialValues) {
-
+		long id;
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1517,12 +1599,15 @@ public class SoapAPPProvider extends ContentProvider implements
 	 */
 	@Override
 	public int delete(Uri uri, String where, String[] whereArgs) {
+		// DA PREVEDERE UNA VERIFICA CHE LE RIGHE DA CANCELLARE NON ABBIANO LA
+		// COLONNA MODIFICABILE A ZERO, ALTRIMENTI QUELLE RIGHE NON POSSONO
+		// ESSERE MODIFICATE.
+		String wherePrivate;
 
-		String finalWhere;
+		String[] whereArgsPrivate;
 
 		int count = 0;
 
-		// Does the delete based on the incoming URI pattern.
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1534,17 +1619,35 @@ public class SoapAPPProvider extends ContentProvider implements
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
+			// Controlli sulla variabile String where
+			if (TextUtils.isEmpty(where)) {
+				wherePrivate = "1";
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				wherePrivate = where;
+			}
 
-			SQLiteDatabase db = mCoefficientiSaponificazioneHelper
+			// Controlli sulla variabile String[] whereArgs
+			if (whereArgs == null || whereArgs.length == 0) {
+				whereArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				whereArgsPrivate = whereArgs;
+			}
+
+			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
 					.getWritableDatabase();
-			count = db.delete(
-					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME, // The
-																			// database
-																			// table
-																			// name
-					where, // The incoming where clause column names
-					whereArgs // The incoming where clause values
-					);
+			// the number of rows affected if a whereClause is passed in, 0
+			// otherwise. To remove all rows and get a count pass "1" as the
+			// whereClause.
+			count = dbCoefficientiSaponificazione.delete(
+					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
+					wherePrivate, whereArgsPrivate);
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
@@ -1580,15 +1683,9 @@ public class SoapAPPProvider extends ContentProvider implements
 			// exception.
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		/*
-		 * Gets a handle to the content resolver object for the current context,
-		 * and notifies it that the incoming URI changed. The object passes this
-		 * along to the resolver framework, and observers that have registered
-		 * themselves for the provider are notified.
-		 */
-		getContext().getContentResolver().notifyChange(uri, null);
 
-		// Returns the number of rows deleted.
+		// getContext().getContentResolver().notifyChange(uri, null); ?????????
+
 		return count;
 	}
 
@@ -1623,11 +1720,8 @@ public class SoapAPPProvider extends ContentProvider implements
 	public int update(Uri uri, ContentValues values, String where,
 			String[] whereArgs) {
 
-		String finalWhere;
-
 		int count = 0;
 
-		// Does the delete based on the incoming URI pattern.
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1675,155 +1769,10 @@ public class SoapAPPProvider extends ContentProvider implements
 			// exception.
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		/*
-		 * Gets a handle to the content resolver object for the current context,
-		 * and notifies it that the incoming URI changed. The object passes this
-		 * along to the resolver framework, and observers that have registered
-		 * themselves for the provider are notified.
-		 */
-		getContext().getContentResolver().notifyChange(uri, null);
 
-		// Returns the number of rows deleted.
+		// getContext().getContentResolver().notifyChange(uri, null);
+
 		return count;
-	}
-
-	/**
-	 * Returns the types of available data streams. URIs to specific notes are
-	 * supported. The application can convert such a note to a plain text
-	 * stream.
-	 * 
-	 * @param uri
-	 *            the URI to analyze
-	 * @param mimeTypeFilter
-	 *            The MIME type to check for. This method only returns a data
-	 *            stream type for MIME types that match the filter. Currently,
-	 *            only text/plain MIME types match.
-	 * @return a data stream MIME type. Currently, only text/plan is returned.
-	 * @throws IllegalArgumentException
-	 *             if the URI pattern doesn't match any supported patterns.
-	 */
-	@Override
-	public String[] getStreamTypes(Uri uri, String mimeTypeFilter) {
-		/**
-		 * Chooses the data stream type based on the incoming URI pattern.
-		 */
-		switch (sUriMatcher.match(uri)) {
-
-		// If the pattern is for notes, return null. Data streams are not
-		// supported for this type of URI.
-		case COEFFICIENTI:
-			return null;
-
-			// If the pattern is for note IDs and the MIME filter is text/plain,
-			// then return
-			// text/plain
-		case COEFFICIENTE_ID:
-			return NOTE_STREAM_TYPES.filterMimeTypes(mimeTypeFilter);
-
-			// If the URI pattern doesn't match any permitted patterns, throws
-			// an exception.
-		default:
-			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-	}
-
-	/**
-	 * Returns a stream of data for each supported stream type. This method does
-	 * a query on the incoming URI, then uses
-	 * {@link android.content.ContentProvider#openPipeHelper(Uri, String, Bundle, Object, PipeDataWriter)}
-	 * to start another thread in which to convert the data into a stream.
-	 * 
-	 * @param uri
-	 *            The URI pattern that points to the data stream
-	 * @param mimeTypeFilter
-	 *            A String containing a MIME type. This method tries to get a
-	 *            stream of data with this MIME type.
-	 * @param opts
-	 *            Additional options supplied by the caller. Can be interpreted
-	 *            as desired by the content provider.
-	 * @return AssetFileDescriptor A handle to the file.
-	 * @throws FileNotFoundException
-	 *             if there is no file associated with the incoming URI.
-	 */
-	@Override
-	public AssetFileDescriptor openTypedAssetFile(Uri uri,
-			String mimeTypeFilter, Bundle opts) throws FileNotFoundException {
-
-		// Checks to see if the MIME type filter matches a supported MIME type.
-		String[] mimeTypes = getStreamTypes(uri, mimeTypeFilter);
-
-		// If the MIME type is supported
-		if (mimeTypes != null) {
-
-			// Retrieves the note for this URI. Uses the query method defined
-			// for this provider,
-			// rather than using the database query method.
-			Cursor c = query(uri, // The URI of a note
-					READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION, // Gets a
-																	// projection
-																	// containing
-																	// the
-					// note's ID, title,
-					// and contents
-					null, // No WHERE clause, get all matching records
-					null, // Since there is no WHERE clause, no selection
-							// criteria
-					null // Use the default sort order (modification date,
-							// descending
-			);
-
-			// If the query fails or the cursor is empty, stop
-			if (c == null || !c.moveToFirst()) {
-
-				// If the cursor is empty, simply close the cursor and return
-				if (c != null) {
-					c.close();
-				}
-
-				// If the cursor is null, throw an exception
-				throw new FileNotFoundException("Unable to query " + uri);
-			}
-
-			// Start a new thread that pipes the stream data back to the caller.
-			return new AssetFileDescriptor(openPipeHelper(uri, mimeTypes[0],
-					opts, c, this), 0, AssetFileDescriptor.UNKNOWN_LENGTH);
-		}
-
-		// If the MIME type is not supported, return a read-only handle to the
-		// file.
-		return super.openTypedAssetFile(uri, mimeTypeFilter, opts);
-	}
-
-	/**
-	 * Implementation of {@link android.content.ContentProvider.PipeDataWriter}
-	 * to perform the actual work of converting the data in one of cursors to a
-	 * stream of data for the client to read.
-	 */
-	@Override
-	public void writeDataToPipe(ParcelFileDescriptor output, Uri uri,
-			String mimeType, Bundle opts, Cursor c) {
-		// We currently only support conversion-to-text from a single note
-		// entry,
-		// so no need for cursor data type checking here.
-		FileOutputStream fout = new FileOutputStream(output.getFileDescriptor());
-		PrintWriter pw = null;
-		try {
-			pw = new PrintWriter(new OutputStreamWriter(fout, "UTF-8"));
-			pw.println(c.getString(READ_NOTE_TITLE_INDEX));
-			pw.println("");
-			pw.println(c.getString(READ_NOTE_NOTE_INDEX));
-		} catch (UnsupportedEncodingException e) {
-			Log.w(TAG, "Ooops", e);
-		} finally {
-			c.close();
-			if (pw != null) {
-				pw.flush();
-			}
-			try {
-				fout.close();
-			} catch (IOException e) {
-			}
-		}
 	}
 
 	/**

@@ -2,12 +2,11 @@ package it.soapapp;
 
 import java.util.List;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -40,7 +39,9 @@ public class StoreActivity extends Activity {
 	private void populateIngType() {
 		
 		ContentResolver resolver = getContentResolver();
-		Uri uri = Uri.parse("URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI");
+		
+		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
+		//Uri uri = Uri.parse("URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI");???????
 		Cursor cursor = resolver.query(uri, null, null, null, null);
 
 		int i;
