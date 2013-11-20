@@ -12,5 +12,7 @@
     <string name="insert_name_ingredient">Inserisci il nome dell\'ingrediente</string>
     <string name="insert_alias_ingredient">Inserisci l\'alias dell\'ingrediente</string>
     <string name="insert_description_ingredient">Inserisci la descrizione dell\'ingrediente</string>
+    <string name="store">STORE</string>
+    <string name="tv_store">ENTER TO STORE</string>
 
 </resources>

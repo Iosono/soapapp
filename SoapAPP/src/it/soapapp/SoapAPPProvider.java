@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;

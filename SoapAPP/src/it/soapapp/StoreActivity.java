@@ -1,6 +1,6 @@
 package it.soapapp;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,7 +13,15 @@ import android.widget.ListView;
 
 public class StoreActivity extends Activity {
 
-	private List<String> listIngType;
+	private static final String[] RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION = new String[] {
+		SoapAPPContract.RicetteSaponiTipiIngredienti._ID,
+		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME,
+		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE,
+		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE,
+		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE,
+		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE };
+	
+	private ArrayList<String> listIngType = new ArrayList<String>();
 	private ListView lvIngType;
 	
 	@Override
@@ -41,29 +49,62 @@ public class StoreActivity extends Activity {
 		ContentResolver resolver = getContentResolver();
 		
 		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
-		//Uri uri = Uri.parse("URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI");???????
+		
 		Cursor cursor = resolver.query(uri, null, null, null, null);
 
-		int i;
-		int j = cursor.getColumnCount();
+		int indexColumn;
+		//String nameColumn;
+		int typeColumn;
 		String rowType;
 		
-		// prelevo i valori inseriti nella tabella: tipi ingredienti
-		if (cursor.moveToFirst() && j > 0) {
+		//RISCRITTO IL CICLO PER CONCATENARE TUTTI GLI ATTRIBUTI DI UNA TUPLA IN UN UNICA STRINGA
+		if (cursor != null) {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				rowType = "";
+				for (int i = 0; i < cursor.getColumnCount(); i++) {
+					indexColumn = cursor.getColumnIndex(RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+					//nameColumn = mCursor.getColumnName(indexColumn);
+					typeColumn = cursor.getType(indexColumn);
 
-			i = 0;
-			rowType = "";
+					switch (typeColumn) {
+					case Cursor.FIELD_TYPE_BLOB:
+						rowType = rowType + "BLOB";
+						break;
 
-			// ciclo barbaro per prendere i valori di tutte le colonne
-			while (i < j) {
-				rowType = rowType + " " + cursor.getString(i);
-				i++;
+					case Cursor.FIELD_TYPE_FLOAT:
+						float dvaloreColumn = cursor.getFloat(indexColumn);
+						rowType = rowType + dvaloreColumn + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_INTEGER:
+						int ivaloreColumn = cursor.getInt(indexColumn);
+						rowType = rowType + ivaloreColumn + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_STRING:
+						String svaloreColumn = (String) cursor.getString(indexColumn);
+						rowType = rowType + svaloreColumn + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_NULL:
+						rowType = rowType + " ";
+						break;
+
+					default:
+						rowType = rowType + "";
+					}
+				}
+				listIngType.add(rowType);
+				cursor.moveToNext();
 			}
 
+		} else {
+			cursor.close();
+			rowType = "NESSUNA RIGA ESTRATTA DALLA TABELLA TIPI INGREDIENTI";
 			listIngType.add(rowType);
-
 		}
-		while (cursor.moveToNext());
+		
 		
 		// se non funziona provare:
 		// ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listIngType);

@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StoreActivity" >
-
+<!-- COMMENTATO TEMPORANEAMENTE
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_marginTop="34dp"
         android:orientation="vertical" >
     </LinearLayout>
-
+ -->
     <ListView
         android:id="@+id/lv_ingredientType"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_alignParentTop="true" >
 
     </ListView>
-
+<!-- COMMENTATO TEMPORANEAMENTE
     <EditText
         android:id="@+id/et_ingredientAlias"
         android:layout_width="wrap_content"
@@ -55,5 +55,5 @@
 
         <requestFocus />
     </EditText>
-
+ -->
 </RelativeLayout>
