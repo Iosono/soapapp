@@ -155,7 +155,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	private static final UriMatcher sUriMatcher;
 
-	private Cursor mCursor;
+	private Cursor queryCursor;
 
 	/**
 	 * A block that instantiates and sets static objects
@@ -1303,6 +1303,7 @@ public class SoapAPPProvider extends ContentProvider {
 		String selectionPrivate;
 		String[] selectionArgsPrivate;
 		String sortOrderPrivate;
+		boolean existsProjection = true;
 
 		switch (sUriMatcher.match(uri)) {
 
@@ -1319,9 +1320,17 @@ public class SoapAPPProvider extends ContentProvider {
 			if (projection == null || projection.length == 0) {
 				projectionPrivate = READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION;
 			} else {
-				// da inserire verifiche sul contenuto dell'array di stringhe
-				// contenente la lista delle colonne da estrarre
-				// Esistono tutte le colonne fornite per questa tabella?
+				for (int i = 0; i < projection.length; i++) {
+					existsProjection = coefficientiSaponificazioneProjectionMap
+							.containsKey(projection[i]);
+					if (!existsProjection) {
+						throw new IllegalArgumentException(
+								"Unknown projection "
+										+ projection[i]
+										+ " for table "
+										+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME);
+					}
+				}
 				projectionPrivate = projection;
 			}
 
@@ -1330,8 +1339,8 @@ public class SoapAPPProvider extends ContentProvider {
 				selectionPrivate = null;
 			} else {
 				// da inserire verifiche sul contenuto della stringa per
-				// l'ordinamento
-				// Esiste la colonna fornita per l'ordinamento su questa
+				// la selezione
+				// Esiste la colonna fornita per la selezione su questa
 				// tabella?
 				selectionPrivate = selection;
 			}
@@ -1360,7 +1369,7 @@ public class SoapAPPProvider extends ContentProvider {
 			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
 					.getReadableDatabase();
 
-			mCursor = dbCoefficientiSaponificazione.query(
+			queryCursor = dbCoefficientiSaponificazione.query(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -1376,9 +1385,17 @@ public class SoapAPPProvider extends ContentProvider {
 			if (projection == null || projection.length == 0) {
 				projectionPrivate = READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION;
 			} else {
-				// da inserire verifiche sul contenuto dell'array di stringhe
-				// contenente la lista delle colonne da estrarre
-				// Esistono tutte le colonne fornite per questa tabella?
+				for (int i = 0; i < projection.length; i++) {
+					existsProjection = ricetteSaponiTipiIngredientiProjectionMap
+							.containsKey(projection[i]);
+					if (!existsProjection) {
+						throw new IllegalArgumentException(
+								"Unknown projection "
+										+ projection[i]
+										+ " for table "
+										+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME);
+					}
+				}
 				projectionPrivate = projection;
 			}
 
@@ -1387,8 +1404,8 @@ public class SoapAPPProvider extends ContentProvider {
 				selectionPrivate = null;
 			} else {
 				// da inserire verifiche sul contenuto della stringa per
-				// l'ordinamento
-				// Esiste la colonna fornita per l'ordinamento su questa
+				// la selezione
+				// Esiste la colonna fornita per la selezione su questa
 				// tabella?
 				selectionPrivate = selection;
 			}
@@ -1417,7 +1434,7 @@ public class SoapAPPProvider extends ContentProvider {
 			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
 					.getReadableDatabase();
 
-			mCursor = dbRicetteSaponiTipiIngredienti.query(
+			queryCursor = dbRicetteSaponiTipiIngredienti.query(
 					SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -1428,7 +1445,64 @@ public class SoapAPPProvider extends ContentProvider {
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
-			// da completare
+			// Controlli sulla variabile String[] projection
+			if (projection == null || projection.length == 0) {
+				projectionPrivate = READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION;
+			} else {
+				for (int i = 0; i < projection.length; i++) {
+					existsProjection = ricetteSaponiMagazzinoProjectionMap
+							.containsKey(projection[i]);
+					if (!existsProjection) {
+						throw new IllegalArgumentException(
+								"Unknown projection "
+										+ projection[i]
+										+ " for table "
+										+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME);
+					}
+				}
+				projectionPrivate = projection;
+			}
+
+			// Controlli sulla variabile String selection
+			if (TextUtils.isEmpty(selection)) {
+				selectionPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// la selezione
+				// Esiste la colonna fornita per la selezione su questa
+				// tabella?
+				selectionPrivate = selection;
+			}
+
+			// Controlli sulla variabile String[] selectionArgs
+			if (selectionArgs == null || selectionArgs.length == 0) {
+				selectionArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// contenente la lista delle colonne da estrarre
+				// Esistono tutte le colonne fornite per questa tabella?
+				selectionArgsPrivate = selectionArgs;
+			}
+
+			// Controlli sulla variabile String sortOrder
+			if (TextUtils.isEmpty(sortOrder)) {
+				sortOrderPrivate = SoapAPPContract.RicetteSaponiMagazzino.DEFAULT_SORT_ORDER;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				sortOrderPrivate = sortOrder;
+			}
+
+			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
+					.getReadableDatabase();
+
+			queryCursor = dbRicetteSaponiMagazzino.query(
+					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
+					projectionPrivate, selectionPrivate, selectionArgsPrivate,
+					null, null, sortOrderPrivate);
+
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
@@ -1448,10 +1522,10 @@ public class SoapAPPProvider extends ContentProvider {
 			// exception.
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		if (mCursor.getCount() <= 0) {
-			mCursor = null;
+		if (queryCursor.getCount() <= 0) {
+			queryCursor = null;
 		}
-		return mCursor;
+		return queryCursor;
 	}
 
 	/**
@@ -1468,9 +1542,6 @@ public class SoapAPPProvider extends ContentProvider {
 	@Override
 	public String getType(Uri uri) {
 
-		/**
-		 * Chooses the MIME type based on the incoming URI pattern
-		 */
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1521,7 +1592,9 @@ public class SoapAPPProvider extends ContentProvider {
 	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues initialValues) {
-		long id;
+		long idPrivate;
+		boolean existsValues = true;
+		
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1534,7 +1607,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
 
-			// SQLiteDatabase db =
+			// SQLiteDatabase dbCoefficientiSaponificazione =
 			// mCoefficientiSaponificazioneHelper.getWritableDatabase();
 			// da completare
 			break;
@@ -1552,7 +1625,21 @@ public class SoapAPPProvider extends ContentProvider {
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
-			// da completare
+			
+			if (initialValues.size() <= 0) {
+				throw new IllegalArgumentException("Empty ContentValues " + initialValues);
+			} else {
+				// DA INSERIRE UNA CONTROLLO SUL CONTENUTO DELLA VARIABILE ContentValues initialValues
+				//ContentValues -> public boolean containsKey (String key)
+			}
+			
+			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
+			.getWritableDatabase();
+			
+			idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
+					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null, initialValues);
+			//DA SCRIVERE IL CODICE PER COSTRUIRE IL NUOVO URI USANDO LA VARIABILE idPrivate
+			
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
@@ -1572,9 +1659,9 @@ public class SoapAPPProvider extends ContentProvider {
 			// exception.
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		if (mCursor.getCount() <= 0) {
-			mCursor = null;
-		}
+		// if (mCursor.getCount() <= 0) {
+		// mCursor = null;
+		// }
 
 		return uri; // da riscivere
 	}
