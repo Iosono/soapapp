@@ -1,6 +1,9 @@
 package it.soapapp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -8,9 +11,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class StoreActivity extends Activity {
 
@@ -24,9 +31,26 @@ public class StoreActivity extends Activity {
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE };
 	*/
 	
+	private SimpleDateFormat dataFormat;
 	private ArrayList<String> listIngType = new ArrayList<String>();
 	//private ListView lvIngType;
+	
+	// riferimenti agli oggetti del layout
 	private Spinner spIngType;
+
+	// variabili che memorizzano il valore dei campi Store
+	private String ingName, ingAlias, ingDesc, ingShop, ingNotes;
+	private double ingGrossPrice, ingNetPrice, ingPriceGram, ingGrossWeight, ingNetWeight;
+	private Date ingBuyDate, ingMaturityDate;
+
+	private EditText etIngName, etIngAlias, etIngDesc, etIngGrossPrice,
+			etIngNetPrice, etIngPriceGram, etIngGrossWeight, etIngNetWeight,
+			etIngBuyDate, etIngMaturityDate, etIngShop, etIngNotes;
+
+	/*
+	private EditText tvIngName, tvIngAlias, tvIngDesc, tvIngGrossPrice, tvIngNetPrice, tvIngPriceGram,
+		tvIngGrossWeight, tvIngNetWeight, tvIngBuyDate, tvIngMaturityDate, tvIngShop, tvIngNotes;
+	*/
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +58,25 @@ public class StoreActivity extends Activity {
 		setContentView(R.layout.activity_store);
 				
 		//lvIngType = (ListView) findViewById(R.id.lv_ingredientType);
-		spIngType = (Spinner) findViewById(R.id.sp_ingredientType);
 		
+		// EditText contenenti i valori inseriti dall'utente
+		spIngType = (Spinner) findViewById(R.id.sp_ingredientType);
+		etIngName = (EditText) findViewById(R.id.et_ingName);
+		etIngAlias = (EditText) findViewById(R.id.et_ingAlias);
+		etIngDesc = (EditText) findViewById(R.id.et_ingDesc);
+		etIngGrossPrice = (EditText) findViewById(R.id.et_ingGrossPrice);
+		etIngNetPrice = (EditText) findViewById(R.id.et_ingNetPrice);
+		etIngPriceGram = (EditText) findViewById(R.id.et_ingPriceGram);
+		etIngGrossWeight = (EditText) findViewById(R.id.et_ingGrossWeight);
+		etIngNetWeight = (EditText) findViewById(R.id.et_ingNetWeight);
+		etIngBuyDate = (EditText) findViewById(R.id.et_ingBuyDate);
+		etIngMaturityDate = (EditText) findViewById(R.id.et_ingMaturityDate);
+		etIngShop = (EditText) findViewById(R.id.et_ingShop);
+		etIngNotes = (EditText) findViewById(R.id.et_ingNotes);
+		
+		
+		// formato della data
+		dataFormat = new SimpleDateFormat("yyyy/MM/dd");
 		
 	}
 	
@@ -132,6 +173,30 @@ public class StoreActivity extends Activity {
 		listIngType.toArray(arrIngType);
 		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
 		spIngType.setAdapter(ingAdapter);
+	}
+	
+	/** Metodo chiamato quando si preme il bottone Salva */
+	public void saveStore(View view)
+	{
+		// TODO
+		// FINIRE DI GESTIRE TUTTE LE ECCEZIONI
+		try {
+		ingName = etIngName.getText().toString();
+		ingAlias = etIngAlias.getText().toString();
+		ingDesc = etIngDesc.getText().toString();
+		ingGrossPrice = Double.parseDouble(etIngGrossPrice.getText().toString());
+		ingNetPrice = Double.parseDouble(etIngNetPrice.getText().toString());
+		ingPriceGram = Double.parseDouble(etIngPriceGram.getText().toString());
+		ingGrossWeight = Double.parseDouble(etIngGrossWeight.getText().toString());
+		ingNetWeight = Double.parseDouble(etIngNetWeight.getText().toString());
+		ingBuyDate = dataFormat.parse(etIngBuyDate.getText().toString());
+		ingMaturityDate = dataFormat.parse(etIngMaturityDate.getText().toString());
+		ingShop = etIngShop.getText().toString();
+		ingNotes = etIngNotes.getText().toString();
+		} catch (ParseException e) {
+			Toast.makeText(this, "Errore nel prelevare i valori della data", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		}
 	}
 	
 	private void updateUI()
