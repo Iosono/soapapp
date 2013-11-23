@@ -55,6 +55,29 @@
 
         <requestFocus />
     </EditText>
+    
+    
+        <ListView
+            android:id="@+id/lv_ingredientType"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_above="@+id/et_ingredientDescription"
+            android:layout_alignParentTop="true" >
+        </ListView>
+        
+        
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo:"
+            android:textSize="30px" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     -->
 
     <FrameLayout
@@ -74,37 +97,13 @@
             android:textSize="35px" />
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignLeft="@+id/frameLayout1"
-        android:layout_below="@+id/frameLayout1"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp" >
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo:"
-            android:textSize="30px" />
-
-        <ListView
-            android:id="@+id/lv_ingredientType"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_above="@+id/et_ingredientDescription"
-            android:layout_alignParentTop="true" >
-        </ListView>
-    </LinearLayout>
-
+    <!--
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_alignLeft="@+id/frameLayout1"
+        android:layout_below="@+id/frameLayout1"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
         android:orientation="vertical" >
@@ -162,6 +161,120 @@
             android:layout_height="wrap_content"
             android:text="Nome:"
             android:textSize="30px" />
+
+    </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/frameLayout1"
+        android:layout_below="@+id/frameLayout1"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo:"
+            android:textSize="30px" />
+
+        <Spinner
+            android:id="@+id/sp_ingredientType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Coefficiente:"
+            android:textSize="30px" />
+
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Aggiungi"
+            android:textSize="25px" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Seleziona"
+            android:textSize="25px" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button2"
+            android:layout_alignBottom="@+id/button2"
+            android:layout_alignParentLeft="true"
+            android:text="Valore Coefficiente"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button2"
+            android:layout_alignParentLeft="true"
+            android:text="Nome grasso scelto"
+            android:textSize="30px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/relativeLayout1"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp" >
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp" >
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="Non salvare"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salva"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class StoreActivity extends Activity {
 
+	/*
 	private static final String[] RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION = new String[] {
 		SoapAPPContract.RicetteSaponiTipiIngredienti._ID,
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME,
@@ -20,19 +22,20 @@ public class StoreActivity extends Activity {
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE,
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE,
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE };
+	*/
 	
 	private ArrayList<String> listIngType = new ArrayList<String>();
-	private ListView lvIngType;
+	//private ListView lvIngType;
+	private Spinner spIngType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_store);
 				
-		lvIngType = (ListView) findViewById(R.id.lv_ingredientType);
+		//lvIngType = (ListView) findViewById(R.id.lv_ingredientType);
+		spIngType = (Spinner) findViewById(R.id.sp_ingredientType);
 		
-		// popola la lista contenente le tipologie di ingredienti
-		populateIngType();
 		
 	}
 	
@@ -40,7 +43,9 @@ public class StoreActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateUI();
-		
+
+		// popola la lista contenente le tipologie di ingredienti
+		populateIngType();
 	}
 	
 	/** Metodo chiamato per prelevare nella tabella "tipi ingredienti" i valori: tipi ingredienti*/
@@ -57,6 +62,7 @@ public class StoreActivity extends Activity {
 		int typeColumn;
 		String rowType;
 		
+		/*
 		//RISCRITTO IL CICLO PER CONCATENARE TUTTI GLI ATTRIBUTI DI UNA TUPLA IN UN UNICA STRINGA
 		if (cursor != null) {
 			cursor.moveToFirst();
@@ -98,7 +104,19 @@ public class StoreActivity extends Activity {
 				listIngType.add(rowType);
 				cursor.moveToNext();
 			}
-
+			*/
+		if (cursor != null) {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				indexColumn = 1;
+				typeColumn = cursor.getType(indexColumn);
+				if(typeColumn == Cursor.FIELD_TYPE_STRING){
+					listIngType.add((String) cursor.getString(indexColumn));
+				} else {
+					listIngType.add("ERRORE NEL PRELIEVO DEL NOME DELL'INGREDIENTE");
+				}
+				cursor.moveToNext();
+			}
 		} else {
 			cursor.close();
 			rowType = "NESSUNA RIGA ESTRATTA DALLA TABELLA TIPI INGREDIENTI";
@@ -112,19 +130,9 @@ public class StoreActivity extends Activity {
 		// popolo un arrayAdapter di stringhe con la lista precedentemente usata
 		String[] arrIngType = new String[listIngType.size()];
 		listIngType.toArray(arrIngType);
-		ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrIngType);		
-		lvIngType.setAdapter(adapter);
-	}	
-		
-	
-	
-	/*
-	private void populateList() {
-		listIngType.add("Farina");
-		listIngType.add("Olio");
-		listIngType.add("Liquido");
+		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
+		spIngType.setAdapter(ingAdapter);
 	}
-	*/
 	
 	private void updateUI()
 	{
