@@ -527,51 +527,56 @@ public class SoapAPPProvider extends ContentProvider {
 			/*
 			 * Query DDL per creare la tabella ricettesaponi
 			 */
-			db.execSQL("CREATE TABLE IF NOT EXISTS "
-					+ SoapAPPContract.RicetteSaponi.TABLE_NAME
-					+ " ("
-					+ SoapAPPContract.RicetteSaponi._ID
-					+ " INTEGER PRIMARY KEY ASC,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME
-					+ " TEXT UNIQUE,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
-					+ " TEXT UNIQUE,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION
-					+ " TEXT DEFAULT NULL,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE
-					+ " TEXT NOT NULL DEFAULT 'ImmagineRicettaStandar',"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA
-					+ " INTEGER NOT NULL DEFAULT 0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA
-					+ " INTEGER NOT NULL DEFAULT 0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA
-					+ " REAL NOT NULL DEFAULT 0.0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA
-					+ " TEXT DEFAULT 'note ricetta',"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE
-					+ " INTEGER NOT NULL DEFAULT 0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE
-					+ " INTEGER NOT NULL DEFAULT 0,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE
-					+ " TEXT DEFAULT NULL,"
-					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE
-					+ " TEXT DEFAULT NULL" + ");");
+			try {
+				db.execSQL("CREATE TABLE IF NOT EXISTS "
+
+						+ SoapAPPContract.RicetteSaponi.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.RicetteSaponi._ID
+						+ " INTEGER PRIMARY KEY ASC,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME
+						+ " TEXT UNIQUE,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
+						+ " TEXT UNIQUE,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE
+						+ " TEXT NOT NULL DEFAULT 'ImmagineRicettaStandar',"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA
+						+ " TEXT DEFAULT 'note ricetta',"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE
+						+ " TEXT DEFAULT NULL" + ");");
+			} catch (SQLException e) {
+				Log.e(DATABASE_NAME, e.toString());
+			}
 
 			/*
 			 * Query DDL per creare gli indici della tabella ricettesaponi
@@ -1592,9 +1597,10 @@ public class SoapAPPProvider extends ContentProvider {
 	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues initialValues) {
+		Uri uriPrivate = Uri.EMPTY;
 		long idPrivate;
 		boolean existsValues = true;
-		
+
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
@@ -1625,21 +1631,32 @@ public class SoapAPPProvider extends ContentProvider {
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
-			
+
 			if (initialValues.size() <= 0) {
-				throw new IllegalArgumentException("Empty ContentValues " + initialValues);
+				throw new IllegalArgumentException("Empty ContentValues "
+						+ initialValues);
 			} else {
-				// DA INSERIRE UNA CONTROLLO SUL CONTENUTO DELLA VARIABILE ContentValues initialValues
-				//ContentValues -> public boolean containsKey (String key)
+				// DA INSERIRE UNA CONTROLLO SUL CONTENUTO DELLA VARIABILE
+				// ContentValues initialValues
+				// ContentValues -> public boolean containsKey (String key)
 			}
-			
+
 			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
-			.getWritableDatabase();
-			
+					.getWritableDatabase();
+
 			idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
-					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null, initialValues);
-			//DA SCRIVERE IL CODICE PER COSTRUIRE IL NUOVO URI USANDO LA VARIABILE idPrivate
-			
+					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null,
+					initialValues); // da gestire eccezione
+
+			try {
+				uriPrivate = Uri
+						.withAppendedPath(
+								SoapAPPContract.RicetteSaponiMagazzino.CONTENT_ID_URI_BASE,
+								String.valueOf(idPrivate));
+			} catch (NullPointerException e) {
+				Log.e(TAG + " " + DATABASE_NAME, e.toString());
+			}
+
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
@@ -1663,7 +1680,7 @@ public class SoapAPPProvider extends ContentProvider {
 		// mCursor = null;
 		// }
 
-		return uri; // da riscivere
+		return uriPrivate; // da riscivere
 	}
 
 	/**

@@ -55,7 +55,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + RICETTE_SAPONI_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + RICETTE_SAPONI_ID + "/#");
+				+ AUTHORITY + RICETTE_SAPONI_ID + "#");
 
 		/*
 		 * MIME type definitions
@@ -151,7 +151,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + COEFFICIENTI_SAPONIFICAZIONE_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + COEFFICIENTI_SAPONIFICAZIONE_ID + "/#");
+				+ AUTHORITY + COEFFICIENTI_SAPONIFICAZIONE_ID + "#");
 
 		/*
 		 * MIME type definitions
@@ -227,7 +227,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID + "/#");
+				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID+ "#"); 
 
 		/*
 		 * MIME type definitions
@@ -288,7 +288,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_ID + "/#");
+				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_ID + "#");
 
 		/*
 		 * MIME type definitions
@@ -391,7 +391,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_RICETTA_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_RICETTA_ID + "/#");
+				+ AUTHORITY + RICETTE_SAPONI_MAGAZZINO_RICETTA_ID + "#");
 
 		/*
 		 * MIME type definitions
