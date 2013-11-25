@@ -1639,6 +1639,20 @@ public class SoapAPPProvider extends ContentProvider {
 				// DA INSERIRE UNA CONTROLLO SUL CONTENUTO DELLA VARIABILE
 				// ContentValues initialValues
 				// ContentValues -> public boolean containsKey (String key)
+				for (int i = 0; i < READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION.length; i++) {
+					existsValues = initialValues
+							.containsKey(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+					if (existsValues) {
+						// da verificare se la colonna fornita nel ContentValues
+						// ha il valore del formato corretto
+					} else {
+						//throw new IllegalArgumentException(
+							//	"ContentValues value " + initialValues);
+						// Anche la una colonna non viene trovata potrebbe non essere fornita 
+						// da valutare se obbligare a fare inserimenti fornendo tutti i parametri d'ingresso?
+					}
+				}
+
 			}
 
 			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
