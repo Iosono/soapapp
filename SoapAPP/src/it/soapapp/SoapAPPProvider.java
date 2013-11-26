@@ -1598,8 +1598,9 @@ public class SoapAPPProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues initialValues) {
 		Uri uriPrivate = Uri.EMPTY;
-		long idPrivate;
+		long idPrivate = 0;
 		boolean existsValues = true;
+		ContentValues valuesPrivate;
 
 		switch (sUriMatcher.match(uri)) {
 
@@ -1634,39 +1635,44 @@ public class SoapAPPProvider extends ContentProvider {
 
 			if (initialValues.size() <= 0) {
 				throw new IllegalArgumentException("Empty ContentValues "
-						+ initialValues);
+						+ initialValues.toString());
 			} else {
-				// DA INSERIRE UNA CONTROLLO SUL CONTENUTO DELLA VARIABILE
-				// ContentValues initialValues
-				// ContentValues -> public boolean containsKey (String key)
 				for (int i = 0; i < READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION.length; i++) {
 					existsValues = initialValues
 							.containsKey(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
 					if (existsValues) {
 						// da verificare se la colonna fornita nel ContentValues
 						// ha il valore del formato corretto
+
 					} else {
-						//throw new IllegalArgumentException(
-							//	"ContentValues value " + initialValues);
-						// Anche la una colonna non viene trovata potrebbe non essere fornita 
-						// da valutare se obbligare a fare inserimenti fornendo tutti i parametri d'ingresso?
+						throw new IllegalArgumentException(
+								"Columns wrong or don't exists  "
+										+ initialValues.toString());
+						// Obbligatorio fornire tutte le colonne della tabella
 					}
 				}
 
 			}
+
+			valuesPrivate = new ContentValues(initialValues);
 
 			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
 					.getWritableDatabase();
 
 			idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
 					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null,
-					initialValues); // da gestire eccezione
+					valuesPrivate); // da gestire eccezione
 
 			try {
-				uriPrivate = Uri
-						.withAppendedPath(
-								SoapAPPContract.RicetteSaponiMagazzino.CONTENT_ID_URI_BASE,
-								String.valueOf(idPrivate));
+				if (idPrivate > 0) {
+					uriPrivate = Uri
+							.withAppendedPath(
+									SoapAPPContract.RicetteSaponiMagazzino.CONTENT_ID_URI_BASE,
+									String.valueOf(idPrivate));
+					getContext().getContentResolver().notifyChange(uriPrivate,
+							null);
+				}
+
 			} catch (NullPointerException e) {
 				Log.e(TAG + " " + DATABASE_NAME, e.toString());
 			}
