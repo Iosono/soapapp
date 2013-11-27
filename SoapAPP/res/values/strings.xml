@@ -14,5 +14,26 @@
     <string name="insert_description_ingredient">Inserisci la descrizione dell\'ingrediente</string>
     <string name="store">STORE</string>
     <string name="tv_store">ENTER TO STORE</string>
+    <string name="aggiungiIng">Aggiungi un ingrediente</string>
+    <string name="visualizzaIng">Visualizza gli ingredienti</string>
+    <string name="title_activity_aggiungi_ingrediente">AggiungiIngredienteActivity</string>
+    <string name="ingrediente">INGREDIENTE</string>
+    <string name="tipo">Tipo:</string>
+    <string name="coefficiente">Coefficiente:</string>
+    <string name="aggiungi">Aggiungi</string>
+    <string name="seleziona">Seleziona</string>
+    <string name="valore_coefficiente">Valore coefficiente</string>
+    <string name="nome_grasso_scelto">Nome grasso scelto</string>
+    <string name="salva">Salva</string>
+    <string name="nome">Nome:</string>
+    <string name="alias">Alias:</string>
+    <string name="descrizione">Descrizione:</string>
+    <string name="costo_lordo">Costo lordo:</string>
+    <string name="costo_netto">Costo netto:</string>
+    <string name="costo_grammo">Costo al grammo</string>
+    <string name="peso_lordo">Peso lordo:</string>
+    <string name="peso_netto">Peso netto:</string>
+    <string name="nome_negozio">Nome negozio:</string>
+    <string name="note">Note:</string>
 
 </resources>

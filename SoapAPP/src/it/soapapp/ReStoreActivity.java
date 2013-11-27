@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StoreActivity extends Activity {
+public class ReStoreActivity extends Activity {
 
 	/*
 	private static final String[] RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION = new String[] {
@@ -61,18 +61,18 @@ public class StoreActivity extends Activity {
 		
 		// EditText contenenti i valori inseriti dall'utente
 		spIngType = (Spinner) findViewById(R.id.sp_ingredientType);
-		etIngName = (EditText) findViewById(R.id.et_ingName);
-		etIngAlias = (EditText) findViewById(R.id.et_ingAlias);
-		etIngDesc = (EditText) findViewById(R.id.et_ingDesc);
-		etIngGrossPrice = (EditText) findViewById(R.id.et_ingGrossPrice);
-		etIngNetPrice = (EditText) findViewById(R.id.et_ingNetPrice);
-		etIngPriceGram = (EditText) findViewById(R.id.et_ingPriceGram);
-		etIngGrossWeight = (EditText) findViewById(R.id.et_ingGrossWeight);
-		etIngNetWeight = (EditText) findViewById(R.id.et_ingNetWeight);
+		etIngName = (EditText) findViewById(R.id.et_nomeIng);
+		etIngAlias = (EditText) findViewById(R.id.et_aliasIng);
+		etIngDesc = (EditText) findViewById(R.id.et_descrizioneIng);
+		etIngGrossPrice = (EditText) findViewById(R.id.et_costoLordoIng);
+		etIngNetPrice = (EditText) findViewById(R.id.et_costoNettoIng);
+		etIngPriceGram = (EditText) findViewById(R.id.et_costoGrammoIng);
+		etIngGrossWeight = (EditText) findViewById(R.id.et_pesoLordoIng);
+		etIngNetWeight = (EditText) findViewById(R.id.et_pesoNettoIng);
 		etIngBuyDate = (EditText) findViewById(R.id.et_ingBuyDate);
 		etIngMaturityDate = (EditText) findViewById(R.id.et_ingMaturityDate);
-		etIngShop = (EditText) findViewById(R.id.et_ingShop);
-		etIngNotes = (EditText) findViewById(R.id.et_ingNotes);
+		etIngShop = (EditText) findViewById(R.id.et_nomeNegozioIng);
+		etIngNotes = (EditText) findViewById(R.id.et_noteIng);
 		
 		
 		// formato della data
@@ -211,5 +211,69 @@ public class StoreActivity extends Activity {
 		getMenuInflater().inflate(R.menu.store, menu);
 		return true;
 	}
+	
+
+	// TODO
+	// METODI DA IMPLEMENTARE
+	
+	@Override
+	protected void onStart() {
+		// Metodo chiamato quando l’activity diventa visibile all’utente
+		super.onStart();
+	}
+	
+	@Override
+	protected void onPause() {
+		// Metodo  chiamato quando l’attuale activity viene messa in pausa e un’activity precedente viene ripristinata
+		super.onPause();		
+	}
+	
+	@Override
+	protected void onStop() {
+		// Metodo chiamato quando l’activity non è più visibile all’utente
+		super.onStop();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// Metodo chiamato prima che l’activity venga distrutta, manualmente o dal sistema operativo per liberare memoria
+		super.onDestroy();
+	}
+	
+	@Override
+	protected void onRestart() {
+		// Metodo chiamato dopo che l’activity era stata stoppata e quando è pronta ad essere ripristinata
+		super.onRestart();
+	}
+		
+	@Override
+	public void onBackPressed() {
+		// Metodo utile per eliminare dati salvati temporaneamente prima che si cambi activity
+		super.onBackPressed();
+	}	
+	
+	/*
+	 
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {	
+	}	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	}	
+	protected boolean onKeyDown(int keyCode, KeyEvent event) {		
+	}	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {		
+	}	
+	@Override
+	public void onProviderDisabled(String provider) {
+	}
+	@Override
+	public void onProviderEnabled(String provider) {
+	}
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+	}
+	
+	*/
 
 }

@@ -8,9 +8,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MagazzinoActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <Button
+        android:id="@+id/btn_aggiungiIng"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="146dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/aggiungiIng"
+        android:textSize="20px"
+        android:onClick="startAggiungiIngrediente" />
+
+    <Button
+        android:id="@+id/btn_visualizzaIng"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignTop="@+id/btn_aggiungiIng"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/btn_aggiungiIng"
+        android:text="@string/visualizzaIng"
+        android:textSize="20px" />
 
 </RelativeLayout>
