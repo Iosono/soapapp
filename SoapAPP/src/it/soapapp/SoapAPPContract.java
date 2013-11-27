@@ -347,6 +347,53 @@ public final class SoapAPPContract {
 		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
 
 		/*
+		 * Column Type
+		 */
+		public static final String COLUMN_TYPE_ID = "Integer";
+		
+		public static final String COLUMN_TYPE_TIPO_INGREDIENTE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_COEFFICIENTESAPONIFICAZIONE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_NAME = "String";
+
+		public static final String COLUMN_TYPE_ALIAS = "String";
+
+		public static final String COLUMN_TYPE_DESCRIPTION = "String";
+
+		public static final String COLUMN_TYPE_IMAGE = "String";
+
+		public static final String COLUMN_TYPE_COSTO_LORDO_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_COSTO_NETTO_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_COSTO_TARA_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_COSTO_INGREDIENTE_GRAMMO = "Double";
+
+		public static final String COLUMN_TYPE_PESO_LORDO_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_PESO_NETTO_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_PESO_TARA_INGREDIENTE = "Double";
+
+		public static final String COLUMN_TYPE_DATA_ACQUISTO_INGREDIENTE = "String";
+
+		public static final String COLUMN_TYPE_NOME_NEGOZIO_ACQUISTO = "String";
+
+		public static final String COLUMN_TYPE_DATA_SCADENZA_INGREDIENTE = "String";
+
+		public static final String COLUMN_TYPE_NOTE_INGREDIENTE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICABILE = "Integer";
+
+		public static final String COLUMN_TYPE_CARICATO_UTENTE = "Integer";
+
+		public static final String COLUMN_TYPE_CREATE_DATE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+		
+		/*
 		 * index definitions
 		 */
 		public static final String TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX = "tipo_ingrediente_id_ricettesaponi_magazzino_idx";

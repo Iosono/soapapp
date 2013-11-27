@@ -126,17 +126,28 @@ public class SoapAPPProvider extends ContentProvider {
 			SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE,
 			SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE };
 
+	// Oggetti che servono per usare i metodi getReadableDatabase() o
+	// getWritableDatabase() per farsi restituire un oggetto SQLiteDatabase
 	private RicetteSaponiHelper mRicetteSaponiHelper;
 	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper;
 	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper;
 	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper;
 	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;
 
+	// Oggetti che servono per mappare i nomi delle colonne delle varie tabelle
 	private static HashMap<String, String> ricetteSaponiProjectionMap;
 	private static HashMap<String, String> coefficientiSaponificazioneProjectionMap;
 	private static HashMap<String, String> ricetteSaponiTipiIngredientiProjectionMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoProjectionMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoRicettaProjectionMap;
+
+	// Oggetti che servono per mappare il nome della colonna con il proprio tipo
+	// dato
+	private static HashMap<String, String> ricetteSaponiTypeMap;
+	private static HashMap<String, String> coefficientiSaponificazioneTypeMap;
+	private static HashMap<String, String> ricetteSaponiTipiIngredientiTypeMap;
+	private static HashMap<String, String> ricetteSaponiMagazzinoTypeMap;
+	private static HashMap<String, String> ricetteSaponiMagazzinoRicettaTypeMap;
 
 	/*
 	 * Constants used by the Uri matcher to choose an action based on the
@@ -510,6 +521,98 @@ public class SoapAPPProvider extends ContentProvider {
 		ricetteSaponiMagazzinoRicettaProjectionMap
 				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo tipo dato per la tabella
+		// RicetteSaponiMagazzino
+		ricetteSaponiMagazzinoTypeMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino._ID,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_ID);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_TIPO_INGREDIENTE_ID);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_COEFFICIENTESAPONIFICAZIONE_ID);
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_NAME);
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_ALIAS);
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_DESCRIPTION);
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_IMAGE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_COSTO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_COSTO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_COSTO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_COSTO_INGREDIENTE_GRAMMO);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_PESO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_PESO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_PESO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_DATA_ACQUISTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_NOME_NEGOZIO_ACQUISTO);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_DATA_SCADENZA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_NOTE_INGREDIENTE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_MODIFICABILE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+				SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_CREATE_DATE);
+
+		ricetteSaponiMagazzinoTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_MODIFICATION_DATE);
 
 	}
 
@@ -1601,6 +1704,8 @@ public class SoapAPPProvider extends ContentProvider {
 		long idPrivate = 0;
 		boolean existsValues = true;
 		ContentValues valuesPrivate;
+		Object checkValues;
+		String typeColumn;
 
 		switch (sUriMatcher.match(uri)) {
 
@@ -1643,7 +1748,23 @@ public class SoapAPPProvider extends ContentProvider {
 					if (existsValues) {
 						// da verificare se la colonna fornita nel ContentValues
 						// ha il valore del formato corretto
+						checkValues = initialValues
+								.get(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+						if (checkValues == null) {
 
+						} else if (checkValues instanceof Double) {
+							typeColumn = ricetteSaponiMagazzinoTypeMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+							
+						} else if (checkValues instanceof Integer) {
+
+						} else if (checkValues instanceof String) {
+
+						} else {
+							throw new IllegalArgumentException(
+									"Columns wrong or don't exists  "
+											+ initialValues.toString());
+						}
 					} else {
 						throw new IllegalArgumentException(
 								"Columns wrong or don't exists  "
