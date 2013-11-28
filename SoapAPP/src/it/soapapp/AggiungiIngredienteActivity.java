@@ -32,7 +32,6 @@ public class AggiungiIngredienteActivity extends Activity {
 	
 	private SimpleDateFormat dataFormat;
 	private ArrayList<String> listaTipiIng = new ArrayList<String>();
-	//private ListView lvIngType;
 	
 	// riferimenti agli oggetti del layout
 	private Spinner spTipoIng;
@@ -46,18 +45,11 @@ public class AggiungiIngredienteActivity extends Activity {
 			etCostoNettoIng, etCostoGrammoIng, etPesoLordoIng, etPesoNettoIng,
 			etNegozioIng, etNoteIng;
 
-	/*
-	private EditText tvIngName, tvIngAlias, tvIngDesc, tvIngGrossPrice, tvIngNetPrice, tvIngPriceGram,
-		tvIngGrossWeight, tvIngNetWeight, tvIngBuyDate, tvIngMaturityDate, tvIngShop, tvIngNotes;
-	*/
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_aggiungi_ingrediente);
-		
-		
-		//lvIngType = (ListView) findViewById(R.id.lv_ingredientType);
 		
 		// EditText contenenti i valori inseriti dall'utente
 		spTipoIng = (Spinner) findViewById(R.id.sp_ingredientType);
@@ -77,31 +69,31 @@ public class AggiungiIngredienteActivity extends Activity {
 		
 		// formato della data
 		dataFormat = new SimpleDateFormat("yyyy/MM/dd");
-		
 
-		// popola la lista contenente le tipologie di ingredienti
+		// metodo che popola la lista contenente le tipologie di ingredienti
 		popolaTipiIng();
+
+		// metodo che popola il layout
+		updateLayout();
 	}
 	
 	@Override
 	protected void onResume() {
-		super.onResume();
 		
+		super.onResume();
 	}
 	
 	/** Metodo chiamato per prelevare nella tabella "tipi ingredienti" i valori: tipi ingredienti*/
 	private void popolaTipiIng() {
 		
-		ContentResolver resolver = getContentResolver();
-		
-		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
-		
+		ContentResolver resolver = getContentResolver();		
+		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;		
 		Cursor cursor = resolver.query(uri, null, null, null, null);
-
 		int indiceColonna;
-		//String nameColumn;
 		int tipoColonna;
-		String tipoRiga;
+		// String tipoRiga;
+		//String nameColumn;
+		
 		
 		/*
 		//RISCRITTO IL CICLO PER CONCATENARE TUTTI GLI ATTRIBUTI DI UNA TUPLA IN UN UNICA STRINGA
@@ -146,6 +138,7 @@ public class AggiungiIngredienteActivity extends Activity {
 				cursor.moveToNext();
 			}
 			*/
+		
 		if (cursor != null) {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
@@ -154,24 +147,29 @@ public class AggiungiIngredienteActivity extends Activity {
 				if(tipoColonna == Cursor.FIELD_TYPE_STRING){
 					listaTipiIng.add((String) cursor.getString(indiceColonna));
 				} else {
-					listaTipiIng.add("ERRORE NEL PRELIEVO DEL NOME DELL'INGREDIENTE");
+					listaTipiIng.add(getString(R.string.errore_inserimento_riga_tipo_ing));
 				}
 				cursor.moveToNext();
 			}
 		} else {
-			cursor.close();
-			tipoRiga = "NESSUNA RIGA ESTRATTA DALLA TABELLA TIPI INGREDIENTI";
-			listaTipiIng.add(tipoRiga);
+			listaTipiIng.add(getString(R.string.errore_inserimento_tipi_ing));
 		}
 		
-		
-		// se non funziona provare:
-		// ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listIngType);
-		
+		cursor.close();
+	}
+	
+	/** Metodo chiamato per popolare ogni componente del layout */
+	private void updateLayout()
+	{
 		// popolo un arrayAdapter di stringhe con la lista precedentemente usata
+		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
+		
+		/*
 		String[] arrIngType = new String[listaTipiIng.size()];
 		listaTipiIng.toArray(arrIngType);
 		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
+		*/
+		
 		spTipoIng.setAdapter(ingAdapter);
 	}
 	
