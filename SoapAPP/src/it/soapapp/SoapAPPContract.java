@@ -111,6 +111,51 @@ public final class SoapAPPContract {
 		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
 
 		/*
+		 * Column Type
+		 */
+		public static final String COLUMN_TYPE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_NAME = "String";
+
+		public static final String COLUMN_TYPE_ALIAS = "String";
+
+		public static final String COLUMN_TYPE_DESCRIPTION = "String";
+
+		public static final String COLUMN_TYPE_IMAGE = "String";
+
+		public static final String COLUMN_TYPE_TOT_GRASSI_RICETTA = "Integer";
+
+		public static final String COLUMN_TYPE_TOT_LIQUIDI_RICETTA = "Integer";
+
+		public static final String COLUMN_TYPE_TOT_SODA_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_SCONTO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_SODA_SCONTO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_COSTO_INGREDIENTI_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_COSTO_MANODOPERA_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_COSTO_VARIE_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_COSTO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_TOT_ETTI_STIMATI_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_COSTO_ETTO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_NOTE_RICETTA = "String";
+
+		public static final String COLUMN_TYPE_MODIFICABILE = "Integer";
+
+		public static final String COLUMN_TYPE_CARICATO_UTENTE = "Integer";
+
+		public static final String COLUMN_TYPE_CREATE_DATE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
 		 * index definitions
 		 */
 		public static final String NAME_RICETTESAPONI_IDX = "ricettesaponi_name_idx";
@@ -187,6 +232,31 @@ public final class SoapAPPContract {
 		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
 
 		/*
+		 * Column Type
+		 */
+		public static final String COLUMN_TYPE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_NAME = "String";
+
+		public static final String COLUMN_TYPE_INCI = "String";
+
+		public static final String COLUMN_TYPE_KOH_96_98 = "Double";
+
+		public static final String COLUMN_TYPE_KOH_80 = "Double";
+
+		public static final String COLUMN_TYPE_NAOH = "Double";
+
+		public static final String COLUMN_TYPE_NOTE_COEFF = "String";
+
+		public static final String COLUMN_TYPE_MODIFICABILE = "Integer";
+
+		public static final String COLUMN_TYPE_CARICATO_UTENTE = "Integer";
+
+		public static final String COLUMN_TYPE_CREATE_DATE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
 		 * index definitions
 		 */
 		public static final String NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX = "name_coefficienti_saponificazione_idx";
@@ -227,7 +297,7 @@ public final class SoapAPPContract {
 				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID);
 
 		public static final Uri CONTENT_ID_URI_PATTERN = Uri.parse(SCHEME
-				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID+ "#"); 
+				+ AUTHORITY + RICETTE_SAPONI_TIPI_INGREDIENTI_ID + "#");
 
 		/*
 		 * MIME type definitions
@@ -251,6 +321,21 @@ public final class SoapAPPContract {
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
 		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+
+		/*
+		 * Column Type
+		 */
+		public static final String COLUMN_TYPE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_NAME = "String";
+
+		public static final String COLUMN_TYPE_MODIFICABILE = "Integer";
+
+		public static final String COLUMN_TYPE_CARICATO_UTENTE = "Integer";
+
+		public static final String COLUMN_TYPE_CREATE_DATE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
 
 		/*
 		 * index definitions
@@ -350,7 +435,7 @@ public final class SoapAPPContract {
 		 * Column Type
 		 */
 		public static final String COLUMN_TYPE_ID = "Integer";
-		
+
 		public static final String COLUMN_TYPE_TIPO_INGREDIENTE_ID = "Integer";
 
 		public static final String COLUMN_TYPE_COEFFICIENTESAPONIFICAZIONE_ID = "Integer";
@@ -392,7 +477,7 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_CREATE_DATE = "String";
 
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
-		
+
 		/*
 		 * index definitions
 		 */
@@ -472,6 +557,31 @@ public final class SoapAPPContract {
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
 		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+
+		/*
+		 * Column Type
+		 */
+		public static final String COLUMN_TYPE_ID = "Integer";
+
+		public static final String COLUMN_TYPE_RICETTESAPONI_ID = "Integer";
+
+		public static final String COLUMN_TYPE_RICETTESAPONI_MAGAZZINO_ID = "Integer";
+
+		public static final String COLUMN_TYPE_PERCENTUALE_GRASSO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_PESO_INGREDIENTE_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_SODA_GRASSO_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_COSTO_INGREDIENTE_RICETTA = "Double";
+
+		public static final String COLUMN_TYPE_MODIFICABILE = "Integer";
+
+		public static final String COLUMN_TYPE_CARICATO_UTENTE = "Integer";
+
+		public static final String COLUMN_TYPE_CREATE_DATE = "String";
+
+		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
 
 		/*
 		 * index definitions

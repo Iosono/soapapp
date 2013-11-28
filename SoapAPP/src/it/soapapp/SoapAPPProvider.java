@@ -26,8 +26,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -526,6 +528,170 @@ public class SoapAPPProvider extends ContentProvider {
 				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE);
 
+		// TYPE TYPE TYPE TYPE
+		// HashMap tra nome colonna e il relativo tipo dato per la tabella
+		// RicetteSaponi
+		ricetteSaponiTypeMap = new HashMap<String, String>();
+
+		ricetteSaponiTypeMap.put(SoapAPPContract.RicetteSaponi._ID,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_ID);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_NAME);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_ALIAS);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_DESCRIPTION);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_IMAGE);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_GRASSI_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_LIQUIDI_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_SODA_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_SCONTO_RICETTA);
+
+		ricetteSaponiTypeMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_SODA_SCONTO_RICETTA);
+
+		ricetteSaponiTypeMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_COSTO_INGREDIENTI_RICETTA);
+
+		ricetteSaponiTypeMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_COSTO_MANODOPERA_RICETTA);
+
+		ricetteSaponiTypeMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_COSTO_VARIE_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_COSTO_RICETTA);
+
+		ricetteSaponiTypeMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_TYPE_TOT_ETTI_STIMATI_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_COSTO_ETTO_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_NOTE_RICETTA);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_MODIFICABILE);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_CARICATO_UTENTE);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_CREATE_DATE);
+
+		ricetteSaponiTypeMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
+				SoapAPPContract.RicetteSaponi.COLUMN_TYPE_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo tipo dato per la tabella
+		// CoefficientiSaponificazione
+		coefficientiSaponificazioneTypeMap = new HashMap<String, String>();
+
+		coefficientiSaponificazioneTypeMap.put(
+				SoapAPPContract.CoefficientiSaponificazione._ID,
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_ID);
+
+		coefficientiSaponificazioneTypeMap.put(
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_NAME);
+
+		coefficientiSaponificazioneTypeMap.put(
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI,
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_INCI);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_KOH_96_98);
+
+		coefficientiSaponificazioneTypeMap.put(
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80,
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_KOH_80);
+
+		coefficientiSaponificazioneTypeMap.put(
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH,
+				SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_NAOH);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_NOTE_COEFF);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_MODIFICABILE);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_CARICATO_UTENTE);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_CREATE_DATE);
+
+		coefficientiSaponificazioneTypeMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_TYPE_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo tipo dato per la tabella
+		// RicetteSaponiTipiIngredienti
+		ricetteSaponiTipiIngredientiTypeMap = new HashMap<String, String>();
+
+		ricetteSaponiTipiIngredientiTypeMap.put(
+				SoapAPPContract.RicetteSaponiTipiIngredienti._ID,
+				SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_ID);
+
+		ricetteSaponiTipiIngredientiTypeMap.put(
+				SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME,
+				SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_NAME);
+
+		ricetteSaponiTipiIngredientiTypeMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_MODIFICABILE);
+
+		ricetteSaponiTipiIngredientiTypeMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_CARICATO_UTENTE);
+
+		ricetteSaponiTipiIngredientiTypeMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_CREATE_DATE);
+
+		ricetteSaponiTipiIngredientiTypeMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_TYPE_MODIFICATION_DATE);
+
 		// HashMap tra nome colonna e il relativo tipo dato per la tabella
 		// RicetteSaponiMagazzino
 		ricetteSaponiMagazzinoTypeMap = new HashMap<String, String>();
@@ -618,6 +784,54 @@ public class SoapAPPProvider extends ContentProvider {
 				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_TYPE_MODIFICATION_DATE);
 
+		// HashMap tra nome colonna e il relativo tipo dato per la tabella
+		// RicetteSaponiMagazzinoRicetta
+		ricetteSaponiMagazzinoRicettaTypeMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoRicettaTypeMap.put(
+				SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID,
+				SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_ID);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_RICETTESAPONI_ID);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_RICETTESAPONI_MAGAZZINO_ID);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_PERCENTUALE_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_PESO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_SODA_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_COSTO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_MODIFICABILE);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_CREATE_DATE);
+
+		ricetteSaponiMagazzinoRicettaTypeMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_MODIFICATION_DATE);
+
 	}
 
 	/**
@@ -707,64 +921,71 @@ public class SoapAPPProvider extends ContentProvider {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formattedDate = sdf.format(new Timestamp(date.getTime()));
 
-			ContentValues values = new ContentValues();
+			ContentValues insertRicetteSaponi = new ContentValues();
 
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
 					"Prima Ricetta Prova");
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
 					"Primo Alias Prova");
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
 					"Prima Descrizione Prova");
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
 					"Prima Patch file Sistem Prova");
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
-					1000);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
-					330);
-			values.put(
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
+							1000);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
+							330);
+			insertRicetteSaponi.put(
 					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
 					0.0);
-			values.put(
+			insertRicetteSaponi.put(
 					SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
 					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
-					0.0);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
-					0.0);
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
+							0.0);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
+							0.0);
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
 					"Prima Nota Prova");
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE,
-					0);
-			values.put(
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE, 0);
+			insertRicetteSaponi.put(
 					SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
 					0);
-			values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
+			insertRicetteSaponi.put(
+					SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
 					formattedDate);
-			values.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
-					formattedDate);
+			insertRicetteSaponi
+					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
+							formattedDate);
 
-			Long rowID = db.insertOrThrow(
-					SoapAPPContract.RicetteSaponi.TABLE_NAME, null, values);
+			long rowID = db.insertOrThrow(
+					SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
+					insertRicetteSaponi);
 			/*
 			 * Riscritto il codice per l'inserimento di due righe nella tabella
 			 * RicetteSaponi db.execSQL("INSERT INTO " +
@@ -1709,7 +1930,8 @@ public class SoapAPPProvider extends ContentProvider {
 		boolean existsValues = true;
 		ContentValues valuesPrivate;
 		Object checkValues;
-		String typeColumn;
+		String typeColumn = "";
+		String caratteriSpeciali = "";
 
 		switch (sUriMatcher.match(uri)) {
 
@@ -1780,9 +2002,9 @@ public class SoapAPPProvider extends ContentProvider {
 								throw new IllegalArgumentException(
 										"Il dato fornito "
 												+ checkValues
-												+ " è di tipo Double, mentre la colonna "
+												+ " e\' di tipo Double, mentre la colonna "
 												+ READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]
-												+ " è definita come "
+												+ " e\' definita come "
 												+ typeColumn);
 							}
 
@@ -1800,9 +2022,9 @@ public class SoapAPPProvider extends ContentProvider {
 								throw new IllegalArgumentException(
 										"Il dato fornito "
 												+ checkValues
-												+ " è di tipo Integer, mentre la colonna "
+												+ " e\' di tipo Integer, mentre la colonna "
 												+ READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]
-												+ " è definita come "
+												+ " e\' definita come "
 												+ typeColumn);
 							}
 
@@ -1812,22 +2034,21 @@ public class SoapAPPProvider extends ContentProvider {
 									.get(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
 
 							if (typeColumn.equals(TYPE_STRING)) {
-								// PRIMA DI INSERIRE IL VALORE NELLA VARIABILE
-								// valuesPrivate BISOGNEREBBE ESTRARRE IL VALORE
-								// E VERIFICARE I CARATTERI SPECIALI
-								// String caratteriSpeciali =
-								// initialValues.getAsString(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i];
+
+								caratteriSpeciali = DatabaseUtils
+										.sqlEscapeString(initialValues
+												.getAsString(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]));
+
 								valuesPrivate
 										.put(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i],
-												initialValues
-														.getAsString(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]));
+												caratteriSpeciali);
 							} else {
 								throw new IllegalArgumentException(
 										"Il dato fornito "
 												+ checkValues
-												+ " è di tipo String, mentre la colonna "
+												+ " e\' di tipo String, mentre la colonna "
 												+ READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]
-												+ " è definita come "
+												+ " e\' definita come "
 												+ typeColumn);
 							}
 
@@ -1849,16 +2070,14 @@ public class SoapAPPProvider extends ContentProvider {
 
 			}
 
-			// valuesPrivate = new ContentValues(initialValues);
-
-			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
-					.getWritableDatabase();
-
-			idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
-					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null,
-					valuesPrivate); // DA GESTIRE L'ECCEZIONE
-
 			try {
+				SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
+						.getWritableDatabase();
+
+				idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
+						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
+						null, valuesPrivate);
+
 				if (idPrivate > 0) {
 					uriPrivate = Uri
 							.withAppendedPath(
@@ -1868,8 +2087,10 @@ public class SoapAPPProvider extends ContentProvider {
 							null);
 				}
 
-			} catch (NullPointerException e) {
-				Log.e(TAG + " " + DATABASE_NAME, e.toString());
+			} catch (NullPointerException npe) {
+				Log.e(TAG + " " + DATABASE_NAME, npe.toString());
+			} catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
 			}
 
 			break;
