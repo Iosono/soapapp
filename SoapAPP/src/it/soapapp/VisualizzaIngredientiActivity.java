@@ -1,11 +1,16 @@
 package it.soapapp;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.view.Menu;
 
 public class VisualizzaIngredientiActivity extends Activity {
 
+	private ArrayList<String> listaIngredienti = new ArrayList<String>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,11 +29,14 @@ public class VisualizzaIngredientiActivity extends Activity {
 	/** Metodo chiamato per prelevare la lista degli ingredienti*/
 	private void popolaListaIng() {
 		
+		ContentValues getListaIngContent = new ContentValues();
+		
+		
 	}
 	
 	/** Metodo chiamato per popolare ogni componente del layout */
-	private void updateLayout()
-	{
+	private void updateLayout()	{
+		
 	}
 	
 	
