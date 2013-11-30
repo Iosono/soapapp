@@ -37,5 +37,8 @@
     <string name="note">Note:</string>
     <string name="errore_inserimento_riga_tipo_ing">ERRORE NEL PRELIEVO DEL NOME DELL\'INGREDIENTE&quot;</string>
     <string name="errore_inserimento_tipi_ing">NESSUNA RIGA ESTRATTA DALLA TABELLA TIPI INGREDIENTI</string>
+    <string name="title_activity_visualizza_ingredienti">VisualizzaIngredientiActivity</string>
+    <string name="title_activity_dettagli_ingrediente">DettagliIngredienteActivity</string>
+    <string name="title_activity_ricette">RicetteActivity</string>
 
 </resources>

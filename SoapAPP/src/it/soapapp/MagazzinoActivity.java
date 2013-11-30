@@ -27,6 +27,11 @@ public class MagazzinoActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	/** Metodo chiamato quando si preme il bottone Visualizza ingredienti */
+	public void startVisualizzaIngredienti(View view) {
+		Intent intent = new Intent(this, VisualizzaIngredientiActivity.class);
+		startActivity(intent);
+	}
 	
 	
 

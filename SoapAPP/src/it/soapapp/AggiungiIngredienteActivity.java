@@ -72,14 +72,12 @@ public class AggiungiIngredienteActivity extends Activity {
 
 		// metodo che popola la lista contenente le tipologie di ingredienti
 		popolaTipiIng();
-
-		// metodo che popola il layout
-		updateLayout();
 	}
 	
 	@Override
 	protected void onResume() {
-		
+		// metodo che popola il layout
+		updateLayout();
 		super.onResume();
 	}
 	

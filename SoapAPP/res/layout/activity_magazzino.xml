@@ -28,6 +28,7 @@
         android:layout_marginLeft="26dp"
         android:layout_toRightOf="@+id/btn_aggiungiIng"
         android:text="@string/visualizzaIng"
-        android:textSize="20px" />
-
+        android:textSize="20px"
+        android:onClick="startVisualizzaIngredienti" />
+    
 </RelativeLayout>

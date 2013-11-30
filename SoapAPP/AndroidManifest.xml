@@ -50,10 +50,34 @@
         <activity
             android:name="it.soapapp.AggiungiIngredienteActivity"
             android:label="@string/title_activity_aggiungi_ingrediente"
-            android:parentActivityName="it.soapapp.MainActivity" >
+            android:parentActivityName="it.soapapp.MagazzinoActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="it.soapapp.MagazzinoActivity" />
+        </activity>
+        <activity
+            android:name="it.soapapp.VisualizzaIngredientiActivity"
+            android:label="@string/title_activity_visualizza_ingredienti"
+            android:parentActivityName="it.soapapp.MagazzinoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.soapapp.MagazzinoActivity" />
+        </activity>
+        <activity
+            android:name="it.soapapp.DettagliIngredienteActivity"
+            android:label="@string/title_activity_dettagli_ingrediente"
+            android:parentActivityName="it.soapapp.VisualizzaIngredientiActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.soapapp.VisualizzaIngredientiActivity" />
+        </activity>
+        <activity
+            android:name="it.soapapp.RicetteActivity"
+            android:label="@string/title_activity_ricette"
+            android:parentActivityName="it.soapapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="it.soapapp.MainActivity" />
         </activity>
     </application>
 
