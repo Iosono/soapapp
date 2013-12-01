@@ -48,7 +48,13 @@ public class MainActivity extends Activity {
 		// intent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(intent);
 	}
-
+	
+	/** Metodo chiamato quando si preme il bottone Ricette */
+	public void startRicette(View view) {
+		Intent intent = new Intent(this, RicetteActivity.class);
+		startActivity(intent);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

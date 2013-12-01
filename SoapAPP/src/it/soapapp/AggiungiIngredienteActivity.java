@@ -35,16 +35,15 @@ public class AggiungiIngredienteActivity extends Activity {
 	
 	// riferimenti agli oggetti del layout
 	private Spinner spTipoIng;
-
+	private EditText etNomeIng, etAliasIng, etDescrizioneIng, etCostoLordoIng,
+	etCostoNettoIng, etCostoGrammoIng, etPesoLordoIng, etPesoNettoIng,
+	etNegozioIng, etNoteIng;
+	
 	// variabili che memorizzano il valore dei campi Store
 	private String nomeIng, aliasIng, descrizioneIng, negozioIng, noteIng;
 	private double costoLordoIng, costoNettoIng, costoGrammoIng, pesoLordoIng, pesoNettoIng;
 	//private Date ingBuyDate, ingMaturityDate;
-
-	private EditText etNomeIng, etAliasIng, etDescrizioneIng, etCostoLordoIng,
-			etCostoNettoIng, etCostoGrammoIng, etPesoLordoIng, etPesoNettoIng,
-			etNegozioIng, etNoteIng;
-
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -145,12 +144,12 @@ public class AggiungiIngredienteActivity extends Activity {
 				if(tipoColonna == Cursor.FIELD_TYPE_STRING){
 					listaTipiIng.add((String) cursor.getString(indiceColonna));
 				} else {
-					listaTipiIng.add(getString(R.string.errore_inserimento_riga_tipo_ing));
+					listaTipiIng.add(getString(R.string.errore_prelievo_riga_tipo_ing));
 				}
 				cursor.moveToNext();
 			}
 		} else {
-			listaTipiIng.add(getString(R.string.errore_inserimento_tipi_ing));
+			listaTipiIng.add(getString(R.string.errore_prelievo_tipi_ing));
 		}
 		
 		cursor.close();
@@ -159,16 +158,15 @@ public class AggiungiIngredienteActivity extends Activity {
 	/** Metodo chiamato per popolare ogni componente del layout */
 	private void updateLayout()
 	{
-		// popolo un arrayAdapter di stringhe con la lista precedentemente usata
+		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
 		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
-		
+		spTipoIng.setAdapter(ingAdapter);
+
 		/*
 		String[] arrIngType = new String[listaTipiIng.size()];
 		listaTipiIng.toArray(arrIngType);
 		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
 		*/
-		
-		spTipoIng.setAdapter(ingAdapter);
 	}
 	
 	/** Metodo chiamato quando si preme il bottone Salva */

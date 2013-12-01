@@ -9,24 +9,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:id="@+id/tv_store"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" 
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="@string/tv_store" />
-    
-    <Button
-        android:id="@+id/btn_startStoreActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="84dp"
-        android:text="@string/store"
-        android:onClick="startMagazzino" />
+    <FrameLayout
+        android:id="@+id/fl_magazzino"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true" >
 
-    
+        <Button
+            android:id="@+id/btn_startStoreActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="startMagazzino"
+            android:text="@string/magazzino"
+            android:textSize="20px" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_ricette"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/fl_magazzino" >
+
+        <Button
+            android:id="@+id/btn_startRicetteActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="startRicette"
+            android:text="@string/ricette"
+            android:textSize="20px" />
+    </FrameLayout>
 
 </RelativeLayout>
