@@ -85,24 +85,14 @@
             android:text="@string/seleziona"
             android:textSize="25px" />
 
-        <TextView
-            android:id="@+id/textView5"
+        <Spinner
+            android:id="@+id/sp_coeffSapon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button2"
-            android:layout_alignBottom="@+id/button2"
             android:layout_alignParentLeft="true"
-            android:text="@string/valore_coefficiente"
-            android:textSize="30px" />
+            android:layout_below="@+id/textView3"
+            android:layout_toLeftOf="@+id/button1" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button2"
-            android:layout_alignParentLeft="true"
-            android:text="@string/nome_grasso_scelto"
-            android:textSize="30px" />
     </RelativeLayout>
     
     

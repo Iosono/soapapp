@@ -3,12 +3,14 @@ package it.soapapp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.View;
@@ -30,11 +32,16 @@ public class AggiungiIngredienteActivity extends Activity {
 		SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE };
 	*/
 	
+	private static final String[] COLONNE_COEFFICIENTI_SAPONIFICAZIONE = new String[] {
+		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH};
+	
 	private SimpleDateFormat dataFormat;
 	private ArrayList<String> listaTipiIng = new ArrayList<String>();
+	private ArrayList<String> listaCoeffSap = new ArrayList<String>();
 	
 	// riferimenti agli oggetti del layout
-	private Spinner spTipoIng;
+	private Spinner spTipoIng, spCoeffSapon;
 	private EditText etNomeIng, etAliasIng, etDescrizioneIng, etCostoLordoIng,
 	etCostoNettoIng, etCostoGrammoIng, etPesoLordoIng, etPesoNettoIng,
 	etNegozioIng, etNoteIng;
@@ -52,6 +59,7 @@ public class AggiungiIngredienteActivity extends Activity {
 		
 		// EditText contenenti i valori inseriti dall'utente
 		spTipoIng = (Spinner) findViewById(R.id.sp_ingredientType);
+		spCoeffSapon = (Spinner) findViewById(R.id.sp_coeffSapon);
 		etNomeIng = (EditText) findViewById(R.id.et_nomeIng);
 		etAliasIng = (EditText) findViewById(R.id.et_aliasIng);
 		etDescrizioneIng = (EditText) findViewById(R.id.et_descrizioneIng);
@@ -71,6 +79,11 @@ public class AggiungiIngredienteActivity extends Activity {
 
 		// metodo che popola la lista contenente le tipologie di ingredienti
 		popolaTipiIng();
+		
+		// ATTENZIONE: DA ERRORE
+		// RENDERE SELEZIONABILE LO SPINNER SOLO QUANDO È SELEZIONATO IL GRASSO
+		// metodo che popola la lista dei coefficienti di saponificazione
+		// popolaCoeffSapon();
 	}
 	
 	@Override
@@ -83,8 +96,8 @@ public class AggiungiIngredienteActivity extends Activity {
 	/** Metodo chiamato per prelevare nella tabella "tipi ingredienti" i valori: tipi ingredienti*/
 	private void popolaTipiIng() {
 		
-		ContentResolver resolver = getContentResolver();		
-		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;		
+		ContentResolver resolver = getContentResolver();
+		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
 		Cursor cursor = resolver.query(uri, null, null, null, null);
 		int indiceColonna;
 		int tipoColonna;
@@ -112,7 +125,7 @@ public class AggiungiIngredienteActivity extends Activity {
 						float dvaloreColumn = cursor.getFloat(indexColumn);
 						rowType = rowType + dvaloreColumn + " ";
 						break;
-
+		
 					case Cursor.FIELD_TYPE_INTEGER:
 						int ivaloreColumn = cursor.getInt(indexColumn);
 						rowType = rowType + ivaloreColumn + " ";
@@ -155,13 +168,77 @@ public class AggiungiIngredienteActivity extends Activity {
 		cursor.close();
 	}
 	
+	/** Metodo chiamato per prelevare i valori dei coefficienti saponificazione*/
+	private void popolaCoeffSapon() {
+		ContentResolver resolver = getContentResolver();
+		Uri uri = SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI;
+		Cursor cursore = resolver.query(uri, null, null, null, null);
+		int indiceColonna;
+		int tipoColonna;
+		String rigaIng;
+		
+		if (cursore != null) {
+			cursore.moveToFirst();
+			while (!cursore.isAfterLast()) {
+				rigaIng = "";
+				
+				for(int i = 0; i < COLONNE_COEFFICIENTI_SAPONIFICAZIONE.length; i++)
+				{
+					indiceColonna = cursore.getColumnIndex(COLONNE_COEFFICIENTI_SAPONIFICAZIONE[i]);
+					tipoColonna = cursore.getType(indiceColonna);
+					
+					switch(tipoColonna) {
+					case Cursor.FIELD_TYPE_BLOB:
+						rigaIng = rigaIng + "BLOB";
+						break;
+
+					case Cursor.FIELD_TYPE_FLOAT:
+						float dvaloreColonna = cursore.getFloat(indiceColonna);
+						rigaIng = rigaIng + dvaloreColonna + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_INTEGER:
+						int ivaloreColonna = cursore.getInt(indiceColonna);
+						rigaIng = rigaIng + ivaloreColonna + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_STRING:
+						String svaloreColonna = (String) cursore
+								.getString(indiceColonna);
+						rigaIng = rigaIng + svaloreColonna + " ";
+						break;
+
+					case Cursor.FIELD_TYPE_NULL:
+						rigaIng = rigaIng + " ";
+						break;
+
+					default:
+						rigaIng = rigaIng + "campo mancante ";
+					}
+
+					listaCoeffSap.add(rigaIng);
+					cursore.moveToNext();
+				}
+			}
+		} else {
+			listaCoeffSap.add(getString(R.string.errore_prelievo_lista_ingredienti));
+		}
+		
+		cursore.close();
+	}
+	
 	/** Metodo chiamato per popolare ogni componente del layout */
 	private void updateLayout()
 	{
 		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
 		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
 		spTipoIng.setAdapter(ingAdapter);
-
+		
+		/*
+		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
+		spCoeffSapon.setAdapter(coeffAdapter);
+		*/
+		
 		/*
 		String[] arrIngType = new String[listaTipiIng.size()];
 		listaTipiIng.toArray(arrIngType);
@@ -191,6 +268,45 @@ public class AggiungiIngredienteActivity extends Activity {
 		//	Toast.makeText(this, "Errore nel prelevare i valori della data", Toast.LENGTH_SHORT).show();
 		//	e.printStackTrace();
 		//}
+		
+		
+		/*
+		// Inserimento ingrediente nel magazzino
+		ContentValues valori = new ContentValues();
+		ContentResolver resolver = getContentResolver();
+		Uri uri = SoapAPPContract.RicetteSaponiMagazzino.CONTENT_URI;
+		
+		
+		Calendar date = Calendar.getInstance();
+		SimpleDateFormat  formatta = new SimpleDateFormat("yyyy-MM-dd"); 
+		String dataOdierna = formatta.format(date.getTime());	
+		int VALOREPROVA = 1;
+		
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID, VALOREPROVA);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID, VALOREPROVA);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME, nomeIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS, aliasIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION, descrizioneIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE, "Path");
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE, costoLordoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE, costoNettoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE, costoLordoIng - costoNettoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO, costoGrammoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE, pesoLordoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE, pesoNettoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE, pesoLordoIng - pesoNettoIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE, "2013-01-01 01:01:01");
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO, negozioIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE, "2014-01-01 01:01:01");
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE, noteIng);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE, 1);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE, 1);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE, dataOdierna);
+		valori.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE, dataOdierna);
+		 
+		resolver.insert(uri, valori);
+		*/
+		
 	}
 	
 	private void updateUI()

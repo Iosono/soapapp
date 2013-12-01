@@ -115,7 +115,7 @@ public class VisualizzaIngredientiActivity extends Activity {
 		} else {
 			listaIngredienti.add(getString(R.string.errore_prelievo_lista_ingredienti));
 		}
-
+		
 		cursore.close();
 	}
 
