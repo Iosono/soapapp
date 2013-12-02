@@ -40,6 +40,9 @@ public class AggiungiIngredienteActivity extends Activity {
 	private ArrayList<String> listaTipiIng = new ArrayList<String>();
 	private ArrayList<String> listaCoeffSap = new ArrayList<String>();
 	
+	// cursori
+	Cursor cursoreTipi, cursoreCoeff;
+	
 	// riferimenti agli oggetti del layout
 	private Spinner spTipoIng, spCoeffSapon;
 	private EditText etNomeIng, etAliasIng, etDescrizioneIng, etCostoLordoIng,
@@ -88,28 +91,23 @@ public class AggiungiIngredienteActivity extends Activity {
 	
 	@Override
 	protected void onResume() {
+		super.onResume();
 		// metodo che popola il layout
 		updateLayout();
-		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		// Metodo  chiamato quando l’attuale activity viene messa in pausa e un’activity precedente viene ripristinata
+		super.onPause();
+		cursoreCoeff.close();
+		cursoreTipi.close();
 	}
 	
 	/** Metodo chiamato per popolare ogni componente del layout */
 	private void updateLayout()
 	{
-		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
-		ArrayAdapter<String> ingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
-		spTipoIng.setAdapter(ingAdapter);
 		
-		
-		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
-		spCoeffSapon.setAdapter(coeffAdapter);
-		
-		
-		/*
-		String[] arrIngType = new String[listaTipiIng.size()];
-		listaTipiIng.toArray(arrIngType);
-		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
-		*/
 	}
 	
 	/** Metodo chiamato per prelevare nella tabella "tipi ingredienti" i valori: tipi ingredienti*/
@@ -117,7 +115,7 @@ public class AggiungiIngredienteActivity extends Activity {
 		
 		ContentResolver resolverTipi = getContentResolver();
 		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
-		Cursor cursoreTipi = resolverTipi.query(uri, null, null, null, null);
+		cursoreTipi = resolverTipi.query(uri, null, null, null, null);
 		int indiceColonna;
 		int tipoColonna;
 		// String tipoRiga;
@@ -182,16 +180,19 @@ public class AggiungiIngredienteActivity extends Activity {
 			}
 		} else {
 			listaTipiIng.add(getString(R.string.errore_prelievo_tipi_ing));
+			cursoreTipi.close();
 		}
 		
-		cursoreTipi.close();
+		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
+		ArrayAdapter<String> ingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
+		spTipoIng.setAdapter(ingAdapter);
 	}
 	
 	/** Metodo chiamato per prelevare i valori dei coefficienti saponificazione*/
 	private void popolaCoeffSapon() {
 		ContentResolver resolverCoeff = getContentResolver();
 		Uri uri = SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI;
-		Cursor cursoreCoeff = resolverCoeff.query(uri, null, null, null, null);
+		cursoreCoeff = resolverCoeff.query(uri, null, null, null, null);
 		int indiceColonna;
 		int tipoColonna;
 		String rigaIng;
@@ -240,9 +241,12 @@ public class AggiungiIngredienteActivity extends Activity {
 			}
 		} else {
 			listaCoeffSap.add(getString(R.string.errore_prelievo_lista_ingredienti));
+			cursoreCoeff.close();
 		}
 		
-		cursoreCoeff.close();
+		// popolo un arrayAdapter di stringhe con la lista dei coefficenti saponificazione e carico nello spinner
+		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
+		spCoeffSapon.setAdapter(coeffAdapter);
 	}
 	
 	/** Metodo chiamato quando si preme il bottone Salva */
@@ -331,12 +335,6 @@ public class AggiungiIngredienteActivity extends Activity {
 	protected void onStart() {
 		// Metodo chiamato quando l’activity diventa visibile all’utente
 		super.onStart();
-	}
-	
-	@Override
-	protected void onPause() {
-		// Metodo  chiamato quando l’attuale activity viene messa in pausa e un’activity precedente viene ripristinata
-		super.onPause();		
 	}
 	
 	@Override
