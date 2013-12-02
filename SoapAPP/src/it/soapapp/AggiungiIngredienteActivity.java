@@ -83,7 +83,7 @@ public class AggiungiIngredienteActivity extends Activity {
 		// ATTENZIONE: DA ERRORE
 		// RENDERE SELEZIONABILE LO SPINNER SOLO QUANDO È SELEZIONATO IL GRASSO
 		// metodo che popola la lista dei coefficienti di saponificazione
-		// popolaCoeffSapon();
+		popolaCoeffSapon();
 	}
 	
 	@Override
@@ -93,12 +93,31 @@ public class AggiungiIngredienteActivity extends Activity {
 		super.onResume();
 	}
 	
+	/** Metodo chiamato per popolare ogni componente del layout */
+	private void updateLayout()
+	{
+		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
+		ArrayAdapter<String> ingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
+		spTipoIng.setAdapter(ingAdapter);
+		
+		
+		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
+		spCoeffSapon.setAdapter(coeffAdapter);
+		
+		
+		/*
+		String[] arrIngType = new String[listaTipiIng.size()];
+		listaTipiIng.toArray(arrIngType);
+		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
+		*/
+	}
+	
 	/** Metodo chiamato per prelevare nella tabella "tipi ingredienti" i valori: tipi ingredienti*/
 	private void popolaTipiIng() {
 		
-		ContentResolver resolver = getContentResolver();
+		ContentResolver resolverTipi = getContentResolver();
 		Uri uri = SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI;
-		Cursor cursor = resolver.query(uri, null, null, null, null);
+		Cursor cursoreTipi = resolverTipi.query(uri, null, null, null, null);
 		int indiceColonna;
 		int tipoColonna;
 		// String tipoRiga;
@@ -149,43 +168,43 @@ public class AggiungiIngredienteActivity extends Activity {
 			}
 			*/
 		
-		if (cursor != null) {
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast()) {
+		if (cursoreTipi != null) {
+			cursoreTipi.moveToFirst();
+			while (!cursoreTipi.isAfterLast()) {
 				indiceColonna = 1;
-				tipoColonna = cursor.getType(indiceColonna);
+				tipoColonna = cursoreTipi.getType(indiceColonna);
 				if(tipoColonna == Cursor.FIELD_TYPE_STRING){
-					listaTipiIng.add((String) cursor.getString(indiceColonna));
+					listaTipiIng.add((String) cursoreTipi.getString(indiceColonna));
 				} else {
 					listaTipiIng.add(getString(R.string.errore_prelievo_riga_tipo_ing));
 				}
-				cursor.moveToNext();
+				cursoreTipi.moveToNext();
 			}
 		} else {
 			listaTipiIng.add(getString(R.string.errore_prelievo_tipi_ing));
 		}
 		
-		cursor.close();
+		cursoreTipi.close();
 	}
 	
 	/** Metodo chiamato per prelevare i valori dei coefficienti saponificazione*/
 	private void popolaCoeffSapon() {
-		ContentResolver resolver = getContentResolver();
+		ContentResolver resolverCoeff = getContentResolver();
 		Uri uri = SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI;
-		Cursor cursore = resolver.query(uri, null, null, null, null);
+		Cursor cursoreCoeff = resolverCoeff.query(uri, null, null, null, null);
 		int indiceColonna;
 		int tipoColonna;
 		String rigaIng;
 		
-		if (cursore != null) {
-			cursore.moveToFirst();
-			while (!cursore.isAfterLast()) {
+		if (cursoreCoeff != null) {
+			cursoreCoeff.moveToFirst();
+			while (!cursoreCoeff.isAfterLast()) {
 				rigaIng = "";
 				
 				for(int i = 0; i < COLONNE_COEFFICIENTI_SAPONIFICAZIONE.length; i++)
 				{
-					indiceColonna = cursore.getColumnIndex(COLONNE_COEFFICIENTI_SAPONIFICAZIONE[i]);
-					tipoColonna = cursore.getType(indiceColonna);
+					indiceColonna = cursoreCoeff.getColumnIndex(COLONNE_COEFFICIENTI_SAPONIFICAZIONE[i]);
+					tipoColonna = cursoreCoeff.getType(indiceColonna);
 					
 					switch(tipoColonna) {
 					case Cursor.FIELD_TYPE_BLOB:
@@ -193,18 +212,17 @@ public class AggiungiIngredienteActivity extends Activity {
 						break;
 
 					case Cursor.FIELD_TYPE_FLOAT:
-						float dvaloreColonna = cursore.getFloat(indiceColonna);
+						float dvaloreColonna = cursoreCoeff.getFloat(indiceColonna);
 						rigaIng = rigaIng + dvaloreColonna + " ";
 						break;
 
 					case Cursor.FIELD_TYPE_INTEGER:
-						int ivaloreColonna = cursore.getInt(indiceColonna);
+						int ivaloreColonna = cursoreCoeff.getInt(indiceColonna);
 						rigaIng = rigaIng + ivaloreColonna + " ";
 						break;
 
 					case Cursor.FIELD_TYPE_STRING:
-						String svaloreColonna = (String) cursore
-								.getString(indiceColonna);
+						String svaloreColonna = (String) cursoreCoeff.getString(indiceColonna);
 						rigaIng = rigaIng + svaloreColonna + " ";
 						break;
 
@@ -217,33 +235,14 @@ public class AggiungiIngredienteActivity extends Activity {
 					}
 
 					listaCoeffSap.add(rigaIng);
-					cursore.moveToNext();
+					cursoreCoeff.moveToNext();
 				}
 			}
 		} else {
 			listaCoeffSap.add(getString(R.string.errore_prelievo_lista_ingredienti));
 		}
 		
-		cursore.close();
-	}
-	
-	/** Metodo chiamato per popolare ogni componente del layout */
-	private void updateLayout()
-	{
-		// popolo un arrayAdapter di stringhe con la lista dei tipi ingrediente e carico nello spinner
-		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipiIng);
-		spTipoIng.setAdapter(ingAdapter);
-		
-		/*
-		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
-		spCoeffSapon.setAdapter(coeffAdapter);
-		*/
-		
-		/*
-		String[] arrIngType = new String[listaTipiIng.size()];
-		listaTipiIng.toArray(arrIngType);
-		ArrayAdapter<String> ingAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrIngType);		
-		*/
+		cursoreCoeff.close();
 	}
 	
 	/** Metodo chiamato quando si preme il bottone Salva */
