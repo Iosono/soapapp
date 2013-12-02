@@ -50,7 +50,10 @@ public class SoapAPPProvider extends ContentProvider {
 	private static final String TYPE_DOUBLE = "Double";
 	private static final String TYPE_INTEGER = "Integer";
 	private static final String TYPE_STRING = "String";
+	private static final String CONSTRAINT_NULL = "";
+	private static final String CONSTRAINT_NOT_NULL = "NOT NULL";
 
+	// Lista di tutti i nomi di colonna per la tabella RicetteSaponi
 	private static final String[] READ_RICETTE_SAPONI_PROJECTION = new String[] {
 			SoapAPPContract.RicetteSaponi._ID,
 			SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
@@ -154,6 +157,14 @@ public class SoapAPPProvider extends ContentProvider {
 	private static HashMap<String, String> ricetteSaponiTipiIngredientiTypeMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoTypeMap;
 	private static HashMap<String, String> ricetteSaponiMagazzinoRicettaTypeMap;
+
+	// Oggetti che servono per mappare il nome della colonna con il proprio
+	// constraint not null DA FINIRE DI IMPLEMENTARE
+	private static HashMap<String, String> ricetteSaponiCnstrNotNullMap;
+	private static HashMap<String, String> coefficientiSaponificazioneCnstrNotNullMap;
+	private static HashMap<String, String> ricetteSaponiTipiIngredientiCnstrNotNullMap;
+	private static HashMap<String, String> ricetteSaponiMagazzinoCnstrNotNullMap;
+	private static HashMap<String, String> ricetteSaponiMagazzinoRicettaCnstrNotNullMap;
 
 	/*
 	 * Constants used by the Uri matcher to choose an action based on the
@@ -831,6 +842,101 @@ public class SoapAPPProvider extends ContentProvider {
 		ricetteSaponiMagazzinoRicettaTypeMap
 				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_MODIFICATION_DATE);
+
+		// CONSTRAINT NOT NULL
+
+		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
+		// tabella
+		// RicetteSaponiMagazzino
+		ricetteSaponiMagazzinoCnstrNotNullMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino._ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_ID);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_TIPO_INGREDIENTE_ID);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_COEFFICIENTESAPONIFICAZIONE_ID);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_NAME);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_ALIAS);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_DESCRIPTION);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_IMAGE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_COSTO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_COSTO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_COSTO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_COSTO_INGREDIENTE_GRAMMO);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_PESO_LORDO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_PESO_NETTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_PESO_TARA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_DATA_ACQUISTO_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_NOME_NEGOZIO_ACQUISTO);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_DATA_SCADENZA_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_NOTE_INGREDIENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_MODIFICABILE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_CREATE_DATE);
+
+		ricetteSaponiMagazzinoCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
 
 	}
 
@@ -2095,6 +2201,7 @@ public class SoapAPPProvider extends ContentProvider {
 		ContentValues valuesPrivate;
 		Object checkValues;
 		String typeColumn = "";
+		String cnstrNotNullColumn = "";
 		String caratteriSpeciali = "";
 
 		switch (sUriMatcher.match(uri)) {
@@ -2150,10 +2257,21 @@ public class SoapAPPProvider extends ContentProvider {
 								.get(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
 
 						if (checkValues == null) {
-							// VERIFICARE SE LA COLONNA ACCETTA VALORI NULL, SE
-							// SI INSERISCO IL VALORE
-							valuesPrivate
-									.putNull(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+
+							cnstrNotNullColumn = ricetteSaponiMagazzinoCnstrNotNullMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+							if (!cnstrNotNullColumn.equals(CONSTRAINT_NOT_NULL)) {
+								valuesPrivate
+										.putNull(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' nullo, mentre la colonna "
+												+ READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]
+												+ " non accetta valori nulli "
+												+ typeColumn);
+							}
 
 						} else if (checkValues instanceof Double) {
 
@@ -2231,7 +2349,8 @@ public class SoapAPPProvider extends ContentProvider {
 						throw new IllegalArgumentException(
 								"Colonna sbagliata o non fornita "
 										+ initialValues.toString());
-						// Obbligatorio fornire tutte le colonne della tabella tranne la prima _ID
+						// Obbligatorio fornire tutte le colonne della tabella
+						// tranne la prima _ID
 					}
 				}
 

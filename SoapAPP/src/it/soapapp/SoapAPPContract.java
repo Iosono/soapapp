@@ -479,6 +479,53 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
 
 		/*
+		 * Column constraint not null
+		 */
+		public static final String COLUMN_CNSTR_NOT_NULL_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TIPO_INGREDIENTE_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COEFFICIENTESAPONIFICAZIONE_ID = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NAME = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_ALIAS = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_DESCRIPTION = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_IMAGE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_LORDO_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_NETTO_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_TARA_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_INGREDIENTE_GRAMMO = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_PESO_LORDO_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_PESO_NETTO_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_PESO_TARA_INGREDIENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_DATA_ACQUISTO_INGREDIENTE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NOME_NEGOZIO_ACQUISTO = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_DATA_SCADENZA_INGREDIENTE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NOTE_INGREDIENTE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICABILE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
+		
+		/*
 		 * index definitions
 		 */
 		public static final String TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX = "tipo_ingrediente_id_ricettesaponi_magazzino_idx";
