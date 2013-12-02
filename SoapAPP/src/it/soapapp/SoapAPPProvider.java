@@ -914,7 +914,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ " ASC);");
 
 			/*
-			 * Query per popolare con due righe la tabella ricettesaponi
+			 * Query per popolare con una riga nella tabella ricettesaponi
 			 */
 
 			Date date = new Date();
@@ -982,10 +982,15 @@ public class SoapAPPProvider extends ContentProvider {
 			insertRicetteSaponi
 					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
 							formattedDate);
+			try {
+				long rowID = db.insertOrThrow(
+						SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
+						insertRicetteSaponi);
+			}
 
-			long rowID = db.insertOrThrow(
-					SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
-					insertRicetteSaponi);
+			catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
 			/*
 			 * Riscritto il codice per l'inserimento di due righe nella tabella
 			 * RicetteSaponi db.execSQL("INSERT INTO " +
@@ -1445,6 +1450,165 @@ public class SoapAPPProvider extends ContentProvider {
 					+ " ("
 					+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID
 					+ " ASC);");
+
+			/*
+			 * Query per popolare con una riga nella tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formattedDate = sdf.format(new Timestamp(date.getTime()));
+
+			ContentValues insertRicetteSaponiMagazzino = new ContentValues();
+			// Popolo la prima tupla
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+							1);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+							57);
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+					"Olio Oliva Default");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+					"Olio Oliva Default Alias");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+							"Olio Oliva Default Description");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+					"Patch file Sistem Image Oliva");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+							5.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+							4.5);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+							0.5);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+							0.0045);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+							1100.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+							1000.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+							100.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+							"Negozio di Fiducia");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+							"Nota Olio Oliva Default");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+							formattedDate);
+			try {
+				long rowID = db.insertOrThrow(
+						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
+						null, insertRicetteSaponiMagazzino);
+			}
+
+			catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
+			insertRicetteSaponiMagazzino.clear();
+
+			// Popolo la seconda tupla
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+							2);
+			insertRicetteSaponiMagazzino
+					.putNull(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+					"Acqua Default");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+					"Acqua Default Alias");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+							"Acqua Default Description");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+					"Patch file Sistem Image Acqua");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+							1.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+							0.9);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+							0.1);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+							0.0009);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+							1010.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+							1000.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+							10.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+							"Negozio di Fiducia");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+							"Nota Acqua Default");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+							formattedDate);
+			try {
+				long rowID = db.insertOrThrow(
+						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
+						null, insertRicetteSaponiMagazzino);
+			}
+
+			catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
 
 		}
 
@@ -1971,8 +2135,11 @@ public class SoapAPPProvider extends ContentProvider {
 
 				valuesPrivate = new ContentValues(
 						READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION.length);
-
-				for (int i = 0; i < READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION.length; i++) {
+				// Il ciclo for parte dalla seconda colonna saltando la verifica
+				// sulla colonna _ID. Per il metodo insert non si fornisce il
+				// valore della colonna _ID, lo calcola il metodo insertOrThrow
+				// se non fornito
+				for (int i = 1; i < READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION.length; i++) {
 
 					existsValues = initialValues
 							.containsKey(READ_RICETTE_SAPONI_MAGAZZINO_PROJECTION[i]);
@@ -2064,7 +2231,7 @@ public class SoapAPPProvider extends ContentProvider {
 						throw new IllegalArgumentException(
 								"Colonna sbagliata o non fornita "
 										+ initialValues.toString());
-						// Obbligatorio fornire tutte le colonne della tabella
+						// Obbligatorio fornire tutte le colonne della tabella tranne la prima _ID
 					}
 				}
 
