@@ -108,7 +108,7 @@ public final class SoapAPPContract {
 
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
-		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+		public static final String COLUMN_NAME_MODIFICATION_DATE = "modification_date";
 
 		/*
 		 * Column Type
@@ -154,6 +154,51 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_CREATE_DATE = "String";
 
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
+		 * Column constraint not null
+		 */
+		public static final String COLUMN_CNSTR_NOT_NULL_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NAME = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_ALIAS = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_DESCRIPTION = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_IMAGE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_GRASSI_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_LIQUIDI_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_SODA_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_SCONTO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_SODA_SCONTO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_COSTO_INGREDIENTI_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_COSTO_MANODOPERA_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_COSTO_VARIE_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_COSTO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_TOT_ETTI_STIMATI_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_ETTO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NOTE_RICETTA = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICABILE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
 
 		/*
 		 * index definitions
@@ -229,7 +274,7 @@ public final class SoapAPPContract {
 
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
-		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+		public static final String COLUMN_NAME_MODIFICATION_DATE = "modification_date";
 
 		/*
 		 * Column Type
@@ -255,6 +300,31 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_CREATE_DATE = "String";
 
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
+		 * Column constraint not null
+		 */
+		public static final String COLUMN_CNSTR_NOT_NULL_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NAME = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_INCI = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_KOH_96_98 = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_KOH_80 = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NAOH = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NOTE_COEFF = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICABILE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
 
 		/*
 		 * index definitions
@@ -320,7 +390,7 @@ public final class SoapAPPContract {
 
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
-		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+		public static final String COLUMN_NAME_MODIFICATION_DATE = "modification_date";
 
 		/*
 		 * Column Type
@@ -336,6 +406,21 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_CREATE_DATE = "String";
 
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
+		 * Column constraint not null
+		 */
+		public static final String COLUMN_CNSTR_NOT_NULL_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_NAME = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICABILE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
 
 		/*
 		 * index definitions
@@ -429,7 +514,7 @@ public final class SoapAPPContract {
 
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
-		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+		public static final String COLUMN_NAME_MODIFICATION_DATE = "modification_date";
 
 		/*
 		 * Column Type
@@ -524,7 +609,7 @@ public final class SoapAPPContract {
 		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
 
 		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
-		
+
 		/*
 		 * index definitions
 		 */
@@ -603,7 +688,7 @@ public final class SoapAPPContract {
 
 		public static final String COLUMN_NAME_CREATE_DATE = "create_date";
 
-		public static final String COLUMN_NAME_MODIFICATION_DATE = "modified_date";
+		public static final String COLUMN_NAME_MODIFICATION_DATE = "modification_date";
 
 		/*
 		 * Column Type
@@ -629,6 +714,31 @@ public final class SoapAPPContract {
 		public static final String COLUMN_TYPE_CREATE_DATE = "String";
 
 		public static final String COLUMN_TYPE_MODIFICATION_DATE = "String";
+
+		/*
+		 * Column constraint not null
+		 */
+		public static final String COLUMN_CNSTR_NOT_NULL_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_RICETTESAPONI_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_RICETTESAPONI_MAGAZZINO_ID = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_PERCENTUALE_GRASSO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_PESO_INGREDIENTE_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_SODA_GRASSO_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_COSTO_INGREDIENTE_RICETTA = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICABILE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE = "NOT NULL";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_CREATE_DATE = "";
+
+		public static final String COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE = "";
 
 		/*
 		 * index definitions

@@ -844,10 +844,143 @@ public class SoapAPPProvider extends ContentProvider {
 						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_TYPE_MODIFICATION_DATE);
 
 		// CONSTRAINT NOT NULL
+		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
+		// tabella RicetteSaponi
+		ricetteSaponiCnstrNotNullMap = new HashMap<String, String>();
+
+		ricetteSaponiCnstrNotNullMap.put(SoapAPPContract.RicetteSaponi._ID,
+				SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_ID);
+
+		ricetteSaponiCnstrNotNullMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
+				SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_NAME);
+
+		ricetteSaponiCnstrNotNullMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
+				SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_ALIAS);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_DESCRIPTION);
+
+		ricetteSaponiCnstrNotNullMap.put(
+				SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
+				SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_IMAGE);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_GRASSI_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_LIQUIDI_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_SODA_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_SCONTO_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_SODA_SCONTO_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_COSTO_INGREDIENTI_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_COSTO_MANODOPERA_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_COSTO_VARIE_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_COSTO_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_TOT_ETTI_STIMATI_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_COSTO_ETTO_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_NOTE_RICETTA);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_MODIFICABILE);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_CREATE_DATE);
+
+		ricetteSaponiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponi.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
 
 		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
-		// tabella
-		// RicetteSaponiMagazzino
+		// tabella CoefficientiSaponificazione
+		coefficientiSaponificazioneCnstrNotNullMap = new HashMap<String, String>();
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione._ID,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_ID);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_NAME);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_INCI);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_KOH_96_98);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_KOH_80);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_NAOH);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_NOTE_COEFF);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_MODIFICABILE);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_CREATE_DATE);
+
+		coefficientiSaponificazioneCnstrNotNullMap
+				.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
+		// tabella RicetteSaponiMagazzino
 		ricetteSaponiMagazzinoCnstrNotNullMap = new HashMap<String, String>();
 
 		ricetteSaponiMagazzinoCnstrNotNullMap

@@ -52,8 +52,8 @@ public class VisualizzaIngredientiActivity extends Activity {
 	@Override
 	protected void onResume() {
 		// metodo che popola il layout
-		updateLayout();
 		super.onResume();
+		updateLayout();
 	}
 	
 	/** Metodo chiamato per prelevare la lista degli ingredienti*/
