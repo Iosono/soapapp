@@ -6,20 +6,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.LoaderManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class AggiungiIngredienteActivity extends Activity {
+public class AggiungiIngredienteActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
 	/*
@@ -33,6 +37,7 @@ public class AggiungiIngredienteActivity extends Activity {
 	*/
 	
 	private static final String[] COLONNE_COEFFICIENTI_SAPONIFICAZIONE = new String[] {
+		SoapAPPContract.CoefficientiSaponificazione._ID,
 		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
 		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH};
 	
@@ -41,7 +46,8 @@ public class AggiungiIngredienteActivity extends Activity {
 	private ArrayList<String> listaCoeffSap = new ArrayList<String>();
 	
 	// cursori
-	Cursor cursoreTipi, cursoreCoeff;
+	private Cursor cursoreTipi, cursoreCoeff;
+	private SimpleCursorAdapter cAdapterCoeff;
 	
 	// riferimenti agli oggetti del layout
 	private Spinner spTipoIng, spCoeffSapon;
@@ -81,7 +87,7 @@ public class AggiungiIngredienteActivity extends Activity {
 		dataFormat = new SimpleDateFormat("yyyy/MM/dd");
 
 		// metodo che popola la lista contenente le tipologie di ingredienti
-		popolaTipiIng();
+		//popolaTipiIng();
 		
 		// ATTENZIONE: DA ERRORE
 		// RENDERE SELEZIONABILE LO SPINNER SOLO QUANDO È SELEZIONATO IL GRASSO
@@ -190,6 +196,13 @@ public class AggiungiIngredienteActivity extends Activity {
 	
 	/** Metodo chiamato per prelevare i valori dei coefficienti saponificazione*/
 	private void popolaCoeffSapon() {
+		
+		int[] spinnerCoeff = new int[] { R.id.sp_coeffSapon };
+		getLoaderManager().initLoader(0, null, this);
+		cAdapterCoeff = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, null, COLONNE_COEFFICIENTI_SAPONIFICAZIONE, spinnerCoeff, 0);
+		spCoeffSapon.setAdapter(cAdapterCoeff);
+		
+		/*
 		ContentResolver resolverCoeff = getContentResolver();
 		Uri uri = SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI;
 		cursoreCoeff = resolverCoeff.query(uri, null, null, null, null);
@@ -242,12 +255,35 @@ public class AggiungiIngredienteActivity extends Activity {
 		} else {
 			listaCoeffSap.add(getString(R.string.errore_prelievo_lista_ingredienti));
 			cursoreCoeff.close();
+			
 		}
 		
 		// popolo un arrayAdapter di stringhe con la lista dei coefficenti saponificazione e carico nello spinner
 		ArrayAdapter<String> coeffAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaCoeffSap);
 		spCoeffSapon.setAdapter(coeffAdapter);
+		*/
 	}
+	
+	// crea un nuovo loader dopo la chiamata initLoader()
+	  @Override
+	  public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+	    String[] projection = { SoapAPPContract.CoefficientiSaponificazione._ID,
+	    		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+	    		SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH };
+	    CursorLoader cursorLoader = new CursorLoader(this, SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI, projection, null, null, null);
+	    return cursorLoader;
+	  }
+
+	  @Override
+	  public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		  cAdapterCoeff.swapCursor(data);
+	  }
+
+	  @Override
+	  public void onLoaderReset(Loader<Cursor> loader) {
+	    // data is not available anymore, delete reference
+		  cAdapterCoeff.swapCursor(null);
+	  }
 	
 	/** Metodo chiamato quando si preme il bottone Salva */
 	public void salvaMagazzino(View view)
