@@ -980,6 +980,34 @@ public class SoapAPPProvider extends ContentProvider {
 						SoapAPPContract.CoefficientiSaponificazione.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
 
 		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
+		// tabella RicetteSaponiTipiIngredienti
+		ricetteSaponiTipiIngredientiCnstrNotNullMap = new HashMap<String, String>();
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti._ID,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_ID);
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_NAME);
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_MODIFICABILE);
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE);
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_CREATE_DATE);
+
+		ricetteSaponiTipiIngredientiCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
 		// tabella RicetteSaponiMagazzino
 		ricetteSaponiMagazzinoCnstrNotNullMap = new HashMap<String, String>();
 
@@ -1070,6 +1098,54 @@ public class SoapAPPProvider extends ContentProvider {
 		ricetteSaponiMagazzinoCnstrNotNullMap
 				.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
 						SoapAPPContract.RicetteSaponiMagazzino.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
+
+		// HashMap tra nome colonna e il relativo constraint NOT NULL per la
+		// tabella RicetteSaponiMagazzinoRicetta
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap = new HashMap<String, String>();
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_ID);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_RICETTESAPONI_ID);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_RICETTESAPONI_MAGAZZINO_ID);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_PERCENTUALE_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_PESO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_SODA_GRASSO_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_COSTO_INGREDIENTE_RICETTA);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_MODIFICABILE);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_CARICATO_UTENTE);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_CREATE_DATE);
+
+		ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+				.put(SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
+						SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_CNSTR_NOT_NULL_MODIFICATION_DATE);
 
 	}
 
@@ -1415,8 +1491,8 @@ public class SoapAPPProvider extends ContentProvider {
 					+ "	(\'Cocco Vergine\', \'Cocos nucifera2\', 0.258, 0.323, 0.184, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Colza, Ravizzone\', \'Brassica napus, B. campestris, B.tournefortii\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Comino nero, Grano nero\', \'Nigella sativa\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cotone\', \'Gossypium spp.\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cotono di Java, kapok\', \'Ceiba Pentandra\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+					+ "	(\'Cotone\', \'Gossypium spp\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+					+ "	(\'Cotone di Java, kapok\', \'Ceiba Pentandra\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Egoma, perilla\', \'Perilla Frutescens\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Enotera, Onagra\', \'Oenothera Biennis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Germe di Grano\', \'Triticum aestivum, T. durum\', 0.184, 0.230, 0.131, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
@@ -1459,7 +1535,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ "	(\'Riso\', \'Oryza Sativa\', 0.183, 0.229, 0.130, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Sesamo\', \'Sesamum Indicum\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Soia\', \'Glycine Max\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Vinaccioli, Semi d'Uva\', \'Vitis Vinifera\', 0.181, 0.226, 0.129, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+					+ "	(\'Vinaccioli, Semi Uva\', \'Vitis Vinifera\', 0.181, 0.226, 0.129, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
 					+ "	(\'Zucca\', \'Cucurbita Maxima\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\'));");
 		}
 
@@ -2093,6 +2169,11 @@ public class SoapAPPProvider extends ContentProvider {
 
 			// Controlli sulla variabile String sortOrder
 			if (TextUtils.isEmpty(sortOrder)) {
+				// PRIMA DI USARE L'ORDINAMENTO DI DEFAULT VA VERIFICATO CHE LA
+				// COLONNA _ID SI PRESENTE NELLA PROJECTION PERCHE' ALTRIMENTI
+				// VA IN ERRORE LA QUERY. L'ORDINAMENTO DI DEFAULT E' SULLA
+				// COLONNA _ID
+
 				sortOrderPrivate = SoapAPPContract.CoefficientiSaponificazione.DEFAULT_SORT_ORDER;
 			} else {
 				// da inserire verifiche sul contenuto della stringa per
@@ -2158,6 +2239,10 @@ public class SoapAPPProvider extends ContentProvider {
 
 			// Controlli sulla variabile String sortOrder
 			if (TextUtils.isEmpty(sortOrder)) {
+				// PRIMA DI USARE L'ORDINAMENTO DI DEFAULT VA VERIFICATO CHE LA
+				// COLONNA _ID SI PRESENTE NELLA PROJECTION PERCHE' ALTRIMENTI
+				// VA IN ERRORE LA QUERY. L'ORDINAMENTO DI DEFAULT E' SULLA
+				// COLONNA _ID
 				sortOrderPrivate = SoapAPPContract.RicetteSaponiTipiIngredienti.DEFAULT_SORT_ORDER;
 			} else {
 				// da inserire verifiche sul contenuto della stringa per
@@ -2222,6 +2307,10 @@ public class SoapAPPProvider extends ContentProvider {
 
 			// Controlli sulla variabile String sortOrder
 			if (TextUtils.isEmpty(sortOrder)) {
+				// PRIMA DI USARE L'ORDINAMENTO DI DEFAULT VA VERIFICATO CHE LA
+				// COLONNA _ID SI PRESENTE NELLA PROJECTION PERCHE' ALTRIMENTI
+				// VA IN ERRORE LA QUERY. L'ORDINAMENTO DI DEFAULT E' SULLA
+				// COLONNA _ID
 				sortOrderPrivate = SoapAPPContract.RicetteSaponiMagazzino.DEFAULT_SORT_ORDER;
 			} else {
 				// da inserire verifiche sul contenuto della stringa per
