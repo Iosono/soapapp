@@ -52,6 +52,7 @@ public class SoapAPPProvider extends ContentProvider {
 	private static final String TYPE_STRING = "String";
 	private static final String CONSTRAINT_NULL = "";
 	private static final String CONSTRAINT_NOT_NULL = "NOT NULL";
+	private static final boolean ENABLE = true;
 
 	// Lista di tutti i nomi di colonna per la tabella RicetteSaponi
 	private static final String[] READ_RICETTE_SAPONI_PROJECTION = new String[] {
@@ -1159,10 +1160,22 @@ public class SoapAPPProvider extends ContentProvider {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
+		public String getDatabaseName() {
+			return DATABASE_NAME;
+		}
+
 		public void onCreate(SQLiteDatabase db) {
 			/*
 			 * Query DDL per creare la tabella ricettesaponi
 			 */
+			// db.beginTransaction();
+			// try {
+			// ...
+			// db.setTransactionSuccessful();
+			// } finally {
+			// db.endTransaction();
+			// }
+
 			try {
 				db.execSQL("CREATE TABLE IF NOT EXISTS "
 
@@ -1674,6 +1687,10 @@ public class SoapAPPProvider extends ContentProvider {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
+		public void onConfigure(SQLiteDatabase db) {
+			// db.setForeignKeyConstraintsEnabled(ENABLE);
+		}
+
 		public void onCreate(SQLiteDatabase db) {
 			/*
 			 * Query DDL per creare la tabella ricettesaponi_magazzino
@@ -1954,6 +1971,11 @@ public class SoapAPPProvider extends ContentProvider {
 			// Recreates the database with a new version
 			onCreate(db);
 		}
+
+		public String getDatabaseName() {
+			return DATABASE_NAME;
+		}
+
 	}
 
 	/**
@@ -2071,6 +2093,41 @@ public class SoapAPPProvider extends ContentProvider {
 			// Recreates the database with a new version
 			onCreate(db);
 		}
+	}
+
+	public boolean initializeProvider() {
+
+		// DA CONTINUARE!!!!!!!!!!!
+		try {
+			SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
+					.getReadableDatabase();
+
+			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
+					.getReadableDatabase();
+
+			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
+					.getReadableDatabase();
+
+			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
+					.getReadableDatabase();
+
+			SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
+					.getReadableDatabase();
+			
+			dbRicetteSaponi.close();
+			
+			dbCoefficientiSaponificazione.close();
+			
+			dbRicetteSaponiTipiIngredienti.close();
+			
+			dbRicetteSaponiMagazzino.close();
+			
+			dbRicetteSaponiMagazzinoRicetta.close();
+			
+		} catch (SQLiteException sql) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -2191,6 +2248,7 @@ public class SoapAPPProvider extends ContentProvider {
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
 
+			dbCoefficientiSaponificazione.close();// da vedere che effetti ha
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
