@@ -138,11 +138,11 @@ public class SoapAPPProvider extends ContentProvider {
 
 	// Oggetti che servono per usare i metodi getReadableDatabase() o
 	// getWritableDatabase() per farsi restituire un oggetto SQLiteDatabase
-	private RicetteSaponiHelper mRicetteSaponiHelper;
-	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper;
-	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper;
-	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper;
-	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;
+	private RicetteSaponiHelper mRicetteSaponiHelper = null;
+	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper = null;
+	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper = null;
+	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper = null;
+	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper = null;
 
 	// Oggetti che servono per mappare i nomi delle colonne delle varie tabelle
 	private static HashMap<String, String> ricetteSaponiProjectionMap;
