@@ -1241,84 +1241,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
 					+ " ASC);");
 
-			/*
-			 * Query per popolare con una riga nella tabella ricettesaponi
-			 */
-
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String formattedDate = sdf.format(new Timestamp(date.getTime()));
-
-			ContentValues insertRicetteSaponi = new ContentValues();
-
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
-					"Prima Ricetta Prova");
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
-					"Primo Alias Prova");
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
-					"Prima Descrizione Prova");
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
-					"Prima Patch file Sistem Prova");
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
-							1000);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
-							330);
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
-					0.0);
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
-					0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
-							0.0);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
-							0.0);
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
-					"Prima Nota Prova");
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE, 0);
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
-					0);
-			insertRicetteSaponi.put(
-					SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
-					formattedDate);
-			insertRicetteSaponi
-					.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
-							formattedDate);
-			try {
-				long rowID = db.insertOrThrow(
-						SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
-						insertRicetteSaponi);
-			}
-
-			catch (SQLiteException sql) {
-				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
-			}
+			
 			/*
 			 * Riscritto il codice per l'inserimento di due righe nella tabella
 			 * RicetteSaponi db.execSQL("INSERT INTO " +
@@ -2095,41 +2018,6 @@ public class SoapAPPProvider extends ContentProvider {
 		}
 	}
 
-	public boolean initializeProvider() {
-
-		// DA CONTINUARE!!!!!!!!!!!
-		try {
-			SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
-					.getReadableDatabase();
-
-			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
-					.getReadableDatabase();
-
-			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
-					.getReadableDatabase();
-
-			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
-					.getReadableDatabase();
-
-			SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
-					.getReadableDatabase();
-			
-			dbRicetteSaponi.close();
-			
-			dbCoefficientiSaponificazione.close();
-			
-			dbRicetteSaponiTipiIngredienti.close();
-			
-			dbRicetteSaponiMagazzino.close();
-			
-			dbRicetteSaponiMagazzinoRicetta.close();
-			
-		} catch (SQLiteException sql) {
-			return false;
-		}
-		return true;
-	}
-
 	/**
 	 * 
 	 * Initializes the provider by creating a new
@@ -2478,8 +2366,8 @@ public class SoapAPPProvider extends ContentProvider {
 		Uri uriPrivate = Uri.EMPTY;
 		long idPrivate = 0;
 		boolean existsValues = true;
-		ContentValues valuesPrivate;
-		Object checkValues;
+		ContentValues valuesPrivate = null;
+		Object checkValues = null;
 		String typeColumn = "";
 		String cnstrNotNullColumn = "";
 		String caratteriSpeciali = "";
@@ -2487,30 +2375,462 @@ public class SoapAPPProvider extends ContentProvider {
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
-			// da completare
+
+			if (initialValues.size() <= 0) {
+				throw new IllegalArgumentException("Empty ContentValues "
+						+ initialValues.toString());
+			} else {
+
+				valuesPrivate = new ContentValues(
+						READ_RICETTE_SAPONI_PROJECTION.length);
+				// Il ciclo for parte dalla seconda colonna saltando la verifica
+				// sulla colonna _ID. Per il metodo insert non si fornisce il
+				// valore della colonna _ID, lo calcola il metodo insertOrThrow
+				// se non fornito
+				for (int i = 1; i < READ_RICETTE_SAPONI_PROJECTION.length; i++) {
+
+					existsValues = initialValues
+							.containsKey(READ_RICETTE_SAPONI_PROJECTION[i]);
+
+					if (existsValues) {
+
+						checkValues = initialValues
+								.get(READ_RICETTE_SAPONI_PROJECTION[i]);
+
+						if (checkValues == null) {
+
+							cnstrNotNullColumn = ricetteSaponiCnstrNotNullMap
+									.get(READ_RICETTE_SAPONI_PROJECTION[i]);
+							if (!cnstrNotNullColumn.equals(CONSTRAINT_NOT_NULL)) {
+								valuesPrivate
+										.putNull(READ_RICETTE_SAPONI_PROJECTION[i]);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' nullo, mentre la colonna "
+												+ READ_RICETTE_SAPONI_PROJECTION[i]
+												+ " non accetta valori nulli "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Double) {
+
+							typeColumn = ricetteSaponiTypeMap
+									.get(READ_RICETTE_SAPONI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_DOUBLE)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_PROJECTION[i],
+												initialValues
+														.getAsDouble(READ_RICETTE_SAPONI_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Double, mentre la colonna "
+												+ READ_RICETTE_SAPONI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Integer) {
+
+							typeColumn = ricetteSaponiTypeMap
+									.get(READ_RICETTE_SAPONI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_INTEGER)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_PROJECTION[i],
+												initialValues
+														.getAsInteger(READ_RICETTE_SAPONI_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Integer, mentre la colonna "
+												+ READ_RICETTE_SAPONI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof String) {
+
+							typeColumn = ricetteSaponiTypeMap
+									.get(READ_RICETTE_SAPONI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_STRING)) {
+
+								caratteriSpeciali = DatabaseUtils
+										.sqlEscapeString(initialValues
+												.getAsString(READ_RICETTE_SAPONI_PROJECTION[i]));
+
+								valuesPrivate.put(
+										READ_RICETTE_SAPONI_PROJECTION[i],
+										caratteriSpeciali);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo String, mentre la colonna "
+												+ READ_RICETTE_SAPONI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else {
+							throw new IllegalArgumentException(
+									"Il dato fornito "
+											+ checkValues
+											+ " per la colonna "
+											+ READ_RICETTE_SAPONI_PROJECTION[i]
+											+ " non appartiene a nessun tipo di dato tra quelli gestiti dalla tabella");
+						}
+					} else {
+						throw new IllegalArgumentException(
+								"Colonna sbagliata o non fornita "
+										+ initialValues.toString());
+						// Obbligatorio fornire tutte le colonne della tabella
+						// tranne la prima _ID
+					}
+				}
+
+			}
+
+			try {
+				SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
+						.getWritableDatabase();
+
+				idPrivate = dbRicetteSaponi.insertOrThrow(
+						SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
+						valuesPrivate);
+
+				if (idPrivate > 0) {
+					uriPrivate = Uri.withAppendedPath(
+							SoapAPPContract.RicetteSaponi.CONTENT_ID_URI_BASE,
+							String.valueOf(idPrivate));
+					getContext().getContentResolver().notifyChange(uriPrivate,
+							null);
+				}
+
+			} catch (NullPointerException npe) {
+				Log.e(TAG + " " + DATABASE_NAME, npe.toString());
+			} catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
 			break;
 
 		case URI_MATCH_RICETTESAPONI_ID:
-			// da completare
+			// DA LANCIARE ECCEZIONE, NON E' PERMESSO INSERIRE RIGHE INDICANDO
+			// IL VALORE DELLA CHIAVE
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE:
 
-			// SQLiteDatabase dbCoefficientiSaponificazione =
-			// mCoefficientiSaponificazioneHelper.getWritableDatabase();
-			// da completare
+			if (initialValues.size() <= 0) {
+				throw new IllegalArgumentException("Empty ContentValues "
+						+ initialValues.toString());
+			} else {
+
+				valuesPrivate = new ContentValues(
+						READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION.length);
+				// Il ciclo for parte dalla seconda colonna saltando la verifica
+				// sulla colonna _ID. Per il metodo insert non si fornisce il
+				// valore della colonna _ID, lo calcola il metodo insertOrThrow
+				// se non fornito
+				for (int i = 1; i < READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION.length; i++) {
+
+					existsValues = initialValues
+							.containsKey(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+
+					if (existsValues) {
+
+						checkValues = initialValues
+								.get(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+
+						if (checkValues == null) {
+
+							cnstrNotNullColumn = coefficientiSaponificazioneCnstrNotNullMap
+									.get(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+							if (!cnstrNotNullColumn.equals(CONSTRAINT_NOT_NULL)) {
+								valuesPrivate
+										.putNull(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' nullo, mentre la colonna "
+												+ READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]
+												+ " non accetta valori nulli "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Double) {
+
+							typeColumn = coefficientiSaponificazioneTypeMap
+									.get(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_DOUBLE)) {
+								valuesPrivate
+										.put(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i],
+												initialValues
+														.getAsDouble(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Double, mentre la colonna "
+												+ READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Integer) {
+
+							typeColumn = coefficientiSaponificazioneTypeMap
+									.get(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_INTEGER)) {
+								valuesPrivate
+										.put(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i],
+												initialValues
+														.getAsInteger(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Integer, mentre la colonna "
+												+ READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof String) {
+
+							typeColumn = coefficientiSaponificazioneTypeMap
+									.get(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_STRING)) {
+
+								caratteriSpeciali = DatabaseUtils
+										.sqlEscapeString(initialValues
+												.getAsString(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]));
+
+								valuesPrivate
+										.put(READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i],
+												caratteriSpeciali);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo String, mentre la colonna "
+												+ READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else {
+							throw new IllegalArgumentException(
+									"Il dato fornito "
+											+ checkValues
+											+ " per la colonna "
+											+ READ_COEFFICIENTI_SAPONIFICAZIONE_PROJECTION[i]
+											+ " non appartiene a nessun tipo di dato tra quelli gestiti dalla tabella");
+						}
+					} else {
+						throw new IllegalArgumentException(
+								"Colonna sbagliata o non fornita "
+										+ initialValues.toString());
+						// Obbligatorio fornire tutte le colonne della tabella
+						// tranne la prima _ID
+					}
+				}
+
+			}
+
+			try {
+				SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
+						.getWritableDatabase();
+
+				idPrivate = dbCoefficientiSaponificazione.insertOrThrow(
+						SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
+						null, valuesPrivate);
+
+				if (idPrivate > 0) {
+					uriPrivate = Uri
+							.withAppendedPath(
+									SoapAPPContract.CoefficientiSaponificazione.CONTENT_ID_URI_BASE,
+									String.valueOf(idPrivate));
+					getContext().getContentResolver().notifyChange(uriPrivate,
+							null);
+				}
+
+			} catch (NullPointerException npe) {
+				Log.e(TAG + " " + DATABASE_NAME, npe.toString());
+			} catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
-			// da completare
+			// DA LANCIARE ECCEZIONE, NON E' PERMESSO INSERIRE RIGHE INDICANDO
+			// IL VALORE DELLA CHIAVE
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI:
-			// da completare
+
+			if (initialValues.size() <= 0) {
+				throw new IllegalArgumentException("Empty ContentValues "
+						+ initialValues.toString());
+			} else {
+
+				valuesPrivate = new ContentValues(
+						READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION.length);
+				// Il ciclo for parte dalla seconda colonna saltando la verifica
+				// sulla colonna _ID. Per il metodo insert non si fornisce il
+				// valore della colonna _ID, lo calcola il metodo insertOrThrow
+				// se non fornito
+				for (int i = 1; i < READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION.length; i++) {
+
+					existsValues = initialValues
+							.containsKey(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+
+					if (existsValues) {
+
+						checkValues = initialValues
+								.get(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+
+						if (checkValues == null) {
+
+							cnstrNotNullColumn = ricetteSaponiTipiIngredientiCnstrNotNullMap
+									.get(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+							if (!cnstrNotNullColumn.equals(CONSTRAINT_NOT_NULL)) {
+								valuesPrivate
+										.putNull(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' nullo, mentre la colonna "
+												+ READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]
+												+ " non accetta valori nulli "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Double) {
+
+							typeColumn = ricetteSaponiTipiIngredientiTypeMap
+									.get(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_DOUBLE)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i],
+												initialValues
+														.getAsDouble(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Double, mentre la colonna "
+												+ READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Integer) {
+
+							typeColumn = ricetteSaponiTipiIngredientiTypeMap
+									.get(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_INTEGER)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i],
+												initialValues
+														.getAsInteger(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Integer, mentre la colonna "
+												+ READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof String) {
+
+							typeColumn = ricetteSaponiTipiIngredientiTypeMap
+									.get(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_STRING)) {
+
+								caratteriSpeciali = DatabaseUtils
+										.sqlEscapeString(initialValues
+												.getAsString(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]));
+
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i],
+												caratteriSpeciali);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo String, mentre la colonna "
+												+ READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else {
+							throw new IllegalArgumentException(
+									"Il dato fornito "
+											+ checkValues
+											+ " per la colonna "
+											+ READ_RICETTE_SAPONI_TIPI_INGREDIENTI_PROJECTION[i]
+											+ " non appartiene a nessun tipo di dato tra quelli gestiti dalla tabella");
+						}
+					} else {
+						throw new IllegalArgumentException(
+								"Colonna sbagliata o non fornita "
+										+ initialValues.toString());
+						// Obbligatorio fornire tutte le colonne della tabella
+						// tranne la prima _ID
+					}
+				}
+
+			}
+
+			try {
+				SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
+						.getWritableDatabase();
+
+				idPrivate = dbRicetteSaponiTipiIngredienti
+						.insertOrThrow(
+								SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
+								null, valuesPrivate);
+
+				if (idPrivate > 0) {
+					uriPrivate = Uri
+							.withAppendedPath(
+									SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_ID_URI_BASE,
+									String.valueOf(idPrivate));
+					getContext().getContentResolver().notifyChange(uriPrivate,
+							null);
+				}
+
+			} catch (NullPointerException npe) {
+				Log.e(TAG + " " + DATABASE_NAME, npe.toString());
+			} catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
-			// da completare
+			// DA LANCIARE ECCEZIONE, NON E' PERMESSO INSERIRE RIGHE INDICANDO
+			// IL VALORE DELLA CHIAVE
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO:
@@ -2662,15 +2982,162 @@ public class SoapAPPProvider extends ContentProvider {
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_ID:
-			// da completare
+			// DA LANCIARE ECCEZIONE, NON E' PERMESSO INSERIRE RIGHE INDICANDO
+			// IL VALORE DELLA CHIAVE
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
-			// da completare
+
+			if (initialValues.size() <= 0) {
+				throw new IllegalArgumentException("Empty ContentValues "
+						+ initialValues.toString());
+			} else {
+
+				valuesPrivate = new ContentValues(
+						READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION.length);
+				// Il ciclo for parte dalla seconda colonna saltando la verifica
+				// sulla colonna _ID. Per il metodo insert non si fornisce il
+				// valore della colonna _ID, lo calcola il metodo insertOrThrow
+				// se non fornito
+				for (int i = 1; i < READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION.length; i++) {
+
+					existsValues = initialValues
+							.containsKey(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+
+					if (existsValues) {
+
+						checkValues = initialValues
+								.get(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+
+						if (checkValues == null) {
+
+							cnstrNotNullColumn = ricetteSaponiMagazzinoRicettaCnstrNotNullMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+							if (!cnstrNotNullColumn.equals(CONSTRAINT_NOT_NULL)) {
+								valuesPrivate
+										.putNull(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' nullo, mentre la colonna "
+												+ READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]
+												+ " non accetta valori nulli "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Double) {
+
+							typeColumn = ricetteSaponiMagazzinoRicettaTypeMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_DOUBLE)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i],
+												initialValues
+														.getAsDouble(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Double, mentre la colonna "
+												+ READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof Integer) {
+
+							typeColumn = ricetteSaponiMagazzinoRicettaTypeMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_INTEGER)) {
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i],
+												initialValues
+														.getAsInteger(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]));
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo Integer, mentre la colonna "
+												+ READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else if (checkValues instanceof String) {
+
+							typeColumn = ricetteSaponiMagazzinoRicettaTypeMap
+									.get(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]);
+
+							if (typeColumn.equals(TYPE_STRING)) {
+
+								caratteriSpeciali = DatabaseUtils
+										.sqlEscapeString(initialValues
+												.getAsString(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]));
+
+								valuesPrivate
+										.put(READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i],
+												caratteriSpeciali);
+							} else {
+								throw new IllegalArgumentException(
+										"Il dato fornito "
+												+ checkValues
+												+ " e\' di tipo String, mentre la colonna "
+												+ READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]
+												+ " e\' definita come "
+												+ typeColumn);
+							}
+
+						} else {
+							throw new IllegalArgumentException(
+									"Il dato fornito "
+											+ checkValues
+											+ " per la colonna "
+											+ READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION[i]
+											+ " non appartiene a nessun tipo di dato tra quelli gestiti dalla tabella");
+						}
+					} else {
+						throw new IllegalArgumentException(
+								"Colonna sbagliata o non fornita "
+										+ initialValues.toString());
+						// Obbligatorio fornire tutte le colonne della tabella
+						// tranne la prima _ID
+					}
+				}
+
+			}
+
+			try {
+				SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
+						.getWritableDatabase();
+
+				idPrivate = dbRicetteSaponiMagazzinoRicetta
+						.insertOrThrow(
+								SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME,
+								null, valuesPrivate);
+
+				if (idPrivate > 0) {
+					uriPrivate = Uri
+							.withAppendedPath(
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_ID_URI_BASE,
+									String.valueOf(idPrivate));
+					getContext().getContentResolver().notifyChange(uriPrivate,
+							null);
+				}
+
+			} catch (NullPointerException npe) {
+				Log.e(TAG + " " + DATABASE_NAME, npe.toString());
+			} catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:
-			// da completare
+			// DA LANCIARE ECCEZIONE, NON E' PERMESSO INSERIRE RIGHE INDICANDO
+			// IL VALORE DELLA CHIAVE
 			break;
 
 		default:
@@ -2678,11 +3145,8 @@ public class SoapAPPProvider extends ContentProvider {
 			// exception.
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-		// if (mCursor.getCount() <= 0) {
-		// mCursor = null;
-		// }
 
-		return uriPrivate; // da riscivere
+		return uriPrivate; // da riscrivere
 	}
 
 	/**

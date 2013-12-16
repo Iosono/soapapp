@@ -42,14 +42,6 @@
                 android:value="it.soapapp.MainActivity" />
         </activity>
         <activity
-            android:name="it.soapapp.ReStoreActivity"
-            android:label="@string/title_activity_store"
-            android:parentActivityName="it.soapapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="it.soapapp.MainActivity" />
-        </activity>
-        <activity
             android:name="it.soapapp.AggiungiIngredienteActivity"
             android:label="@string/title_activity_aggiungi_ingrediente"
             android:parentActivityName="it.soapapp.MagazzinoActivity" >
