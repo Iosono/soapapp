@@ -1241,7 +1241,6 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
 					+ " ASC);");
 
-			
 			/*
 			 * Riscritto il codice per l'inserimento di due righe nella tabella
 			 * RicetteSaponi db.execSQL("INSERT INTO " +
@@ -1372,107 +1371,185 @@ public class SoapAPPProvider extends ContentProvider {
 			/*
 			 * Query per popolare la tabella coefficienti_saponificazione DA
 			 * RISCRIVERE USANDO IL METODO INSERT E NON execSQL
+			 * 
+			 * db.execSQL("INSERT INTO " +
+			 * SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME + " (" +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME +
+			 * ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI +
+			 * ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98
+			 * + ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80 +
+			 * ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH +
+			 * ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF
+			 * + ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE
+			 * + ", " + SoapAPPContract.CoefficientiSaponificazione.
+			 * COLUMN_NAME_CARICATO_UTENTE + ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione
+			 * .COLUMN_NAME_CREATE_DATE + ", " +
+			 * SoapAPPContract.CoefficientiSaponificazione
+			 * .COLUMN_NAME_MODIFICATION_DATE +
+			 * ") VALUES (\'Aringa (olio)\', \'NO INCI Aringa\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * " (\'Bue (sego)\', \'NO INCI Bue\', 0.197, 0.246, 0.140, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * " (\'Burro Caprino - Ovino\', \'NO INCI Burro Caprino\', 0.234, 0.293, 0.167, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Burro Vaccino\', \'NO INCI Burro Vaccino\', 0.227, 0.284, 0.162, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Capra (sego)\', \'NO INCI Capra\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cera Api\', \'NO INCI Api\', 0.095, 0.119, 0.068, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Emu (olio)\', \'NO INCI Emu\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Fegato di Merluzzo (olio)\', \'NO INCI Merluzzo\', 0.185, 0.231, 0.132, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Lana, grasso di (lanolina)\', \'NO INCI Lanolina\', 0.104, 0.130, 0.074, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Maiale (strutto)\', \'NO INCI Maiale\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Oca (grasso)\', \'NO INCI Oca\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Pecora, Montone (sego)\', \'NO INCI Montone\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Piede di Bue (olio)\', \'NO INCI Piede Bue\', 0.198, 0.248, 0.141, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Pollo (grasso)\', \'NO INCI Pollo\', 0.195, 0.244, 0.139, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Struzzo (olio, grasso)\', \'NO INCI Struzzo\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Albicocca, armellinaa\', \'Prunus Armeniaca\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Arachidi\', \'Arachis ipogaea\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Argania\', \'Argania Spinosa\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Avocado\', \'Persea gratissima, P. americana\', 0.186, 0.233, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Borragine\', \'Borago Officinalis\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cacao\', \'Theobroma cacao\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Canapa\', \'Cannabis Sativa\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Canola\', \'Brassica napus, B. campestris\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Carnauba (cera)\', \'Copernicia prunifera, C. cerifera\', 0.075, 0.094, 0.053, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cartamo\', \'Carthamus tinctorius\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cartamo > 70% oleico\', \'Carthamus tinctorius2\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cera o sego del Giappone\', \'Rhus Succedanea\', 0.215, 0.269, 0.153, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cocco, copra\', \'Cocos nucifera\', 0.258, 0.323, 0.184, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cocco frazionato\', \'Caprylic, capric triglyceride\', 0.330, 0.413, 0.235, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cocco Vergine\', \'Cocos nucifera2\', 0.258, 0.323, 0.184, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Colza, Ravizzone\', \'Brassica napus, B. campestris, B.tournefortii\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Comino nero, Grano nero\', \'Nigella sativa\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cotone\', \'Gossypium spp\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Cotone di Java, kapok\', \'Ceiba Pentandra\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Egoma, perilla\', \'Perilla Frutescens\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Enotera, Onagra\', \'Oenothera Biennis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Germe di Grano\', \'Triticum aestivum, T. durum\', 0.184, 0.230, 0.131, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Gingelly, Sesamo\', \'Sesamum Orientalis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Girasole\', \'Helianthus annuus\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Girasole > 75% oleico\', \'Helianthus annuus2\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Guizotia, semi del Niger\', \'Guizotia Abyssinica\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Jojoba\', \'Simmondsia Chinensis\', 0.083, 0.104, 0.059, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Karite\', \'Butyrospermum parkii, Vitellaria Paradoxa\', 0.179, 0.224, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Lino\', \'Linum Usitatissimum\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Macadamia\', \'Macadamia integrifolia, M. ternifolia\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Mais\', \'Zea Mays\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Mandorle Dolci\', \'Prunus Amygdalus dulcis\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Mango - noccioli\', \'Mangifera indica\', 0.186, 0.233, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Marula\', \'Sclerocarya birrea\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Mowrah, bassia\', \'Madhuca latifolia, M. longifolia\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Nem, Neem\', \'Melia Azadirachta, Azadirachta Indica\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Nigella\', \'Nigella Sativa\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Nocciole\', \'Corylus Avellana\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Noci\', \'Juglans Regia\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Noci Brasiliane\', \'Bertholletia Excelsa\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Oiticica\', \'Licania Rigida\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Oliva, Sansa\', \'Olea Europaea\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Olivello Spinoso\', \'Hippophae Rhamnoides\', 0.195, 0.244, 0.139, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Onagra, Enotera\', \'Oenothera Biennis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Ouricouri (grasso), Cohune (olio)\', \'Orbignya Cohune\', 0.250, 0.313, 0.178, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Palma\', \'Elaeis Guineensis\', 0.199, 0.249, 0.142, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Palma - Noccioli\', \'Elaeis Guineensis\', 0.230, 0.288, 0.164, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Palma - Oleina\', \'Elaeis Guineensis\', 0.198, 0.248, 0.141, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Palma - Stearina\', \'Elaeis Guineensis\', 0.204, 0.255, 0.145, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Passiflora\', \'Passiflora Incarnata\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Perilla, Egoma\', \'Perilla Ocymoides\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Pesca\', \'Prunus Persica\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Pistacchio\', \'Pistacia Vera\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Pongamia\', \'Pongamia Glabra\', 0.185, 0.231, 0.132, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Prugna\', \'Prunus Domestica\', 0.180, 0.225, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Ravizzone, Colza\', \'Brassica Napus, B. Campestris, B. Tournefortii\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Ricino\', \'Ricinus Communis\', 0.180, 0.225, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Ricino Solfonato\', \'Sulfonated castor oil\', 0.178, 0.223, 0.127, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Riso\', \'Oryza Sativa\', 0.183, 0.229, 0.130, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Sesamo\', \'Sesamum Indicum\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Soia\', \'Glycine Max\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Vinaccioli, Semi Uva\', \'Vitis Vinifera\', 0.181, 0.226, 0.129, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * +
+			 * "	(\'Zucca\', \'Cucurbita Maxima\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\'));"
+			 * );
 			 */
-			db.execSQL("INSERT INTO "
-					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
-					+ " ("
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE
-					+ ", "
-					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE
-					+ ") VALUES (\'Aringa (olio)\', \'NO INCI Aringa\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ " (\'Bue (sego)\', \'NO INCI Bue\', 0.197, 0.246, 0.140, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ " (\'Burro Caprino - Ovino\', \'NO INCI Burro Caprino\', 0.234, 0.293, 0.167, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Burro Vaccino\', \'NO INCI Burro Vaccino\', 0.227, 0.284, 0.162, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Capra (sego)\', \'NO INCI Capra\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cera Api\', \'NO INCI Api\', 0.095, 0.119, 0.068, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Emu (olio)\', \'NO INCI Emu\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Fegato di Merluzzo (olio)\', \'NO INCI Merluzzo\', 0.185, 0.231, 0.132, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Lana, grasso di (lanolina)\', \'NO INCI Lanolina\', 0.104, 0.130, 0.074, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Maiale (strutto)\', \'NO INCI Maiale\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Oca (grasso)\', \'NO INCI Oca\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Pecora, Montone (sego)\', \'NO INCI Montone\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Piede di Bue (olio)\', \'NO INCI Piede Bue\', 0.198, 0.248, 0.141, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Pollo (grasso)\', \'NO INCI Pollo\', 0.195, 0.244, 0.139, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Struzzo (olio, grasso)\', \'NO INCI Struzzo\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Albicocca, armellinaa\', \'Prunus Armeniaca\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Arachidi\', \'Arachis ipogaea\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Argania\', \'Argania Spinosa\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Avocado\', \'Persea gratissima, P. americana\', 0.186, 0.233, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Borragine\', \'Borago Officinalis\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cacao\', \'Theobroma cacao\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Canapa\', \'Cannabis Sativa\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Canola\', \'Brassica napus, B. campestris\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Carnauba (cera)\', \'Copernicia prunifera, C. cerifera\', 0.075, 0.094, 0.053, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cartamo\', \'Carthamus tinctorius\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cartamo > 70% oleico\', \'Carthamus tinctorius2\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cera o sego del Giappone\', \'Rhus Succedanea\', 0.215, 0.269, 0.153, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cocco, copra\', \'Cocos nucifera\', 0.258, 0.323, 0.184, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cocco frazionato\', \'Caprylic, capric triglyceride\', 0.330, 0.413, 0.235, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cocco Vergine\', \'Cocos nucifera2\', 0.258, 0.323, 0.184, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Colza, Ravizzone\', \'Brassica napus, B. campestris, B.tournefortii\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Comino nero, Grano nero\', \'Nigella sativa\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cotone\', \'Gossypium spp\', 0.194, 0.243, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Cotone di Java, kapok\', \'Ceiba Pentandra\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Egoma, perilla\', \'Perilla Frutescens\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Enotera, Onagra\', \'Oenothera Biennis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Germe di Grano\', \'Triticum aestivum, T. durum\', 0.184, 0.230, 0.131, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Gingelly, Sesamo\', \'Sesamum Orientalis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Girasole\', \'Helianthus annuus\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Girasole > 75% oleico\', \'Helianthus annuus2\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Guizotia, semi del Niger\', \'Guizotia Abyssinica\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Jojoba\', \'Simmondsia Chinensis\', 0.083, 0.104, 0.059, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Karite\', \'Butyrospermum parkii, Vitellaria Paradoxa\', 0.179, 0.224, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Lino\', \'Linum Usitatissimum\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Macadamia\', \'Macadamia integrifolia, M. ternifolia\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Mais\', \'Zea Mays\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Mandorle Dolci\', \'Prunus Amygdalus dulcis\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Mango - noccioli\', \'Mangifera indica\', 0.186, 0.233, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Marula\', \'Sclerocarya birrea\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Mowrah, bassia\', \'Madhuca latifolia, M. longifolia\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Nem, Neem\', \'Melia Azadirachta, Azadirachta Indica\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Nigella\', \'Nigella Sativa\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Nocciole\', \'Corylus Avellana\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Noci\', \'Juglans Regia\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Noci Brasiliane\', \'Bertholletia Excelsa\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Oiticica\', \'Licania Rigida\', 0.193, 0.241, 0.138, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Oliva, Sansa\', \'Olea Europaea\', 0.188, 0.235, 0.134, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Olivello Spinoso\', \'Hippophae Rhamnoides\', 0.195, 0.244, 0.139, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Onagra, Enotera\', \'Oenothera Biennis\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Ouricouri (grasso), Cohune (olio)\', \'Orbignya Cohune\', 0.250, 0.313, 0.178, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Palma\', \'Elaeis Guineensis\', 0.199, 0.249, 0.142, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Palma - Noccioli\', \'Elaeis Guineensis\', 0.230, 0.288, 0.164, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Palma - Oleina\', \'Elaeis Guineensis\', 0.198, 0.248, 0.141, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Palma - Stearina\', \'Elaeis Guineensis\', 0.204, 0.255, 0.145, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Passiflora\', \'Passiflora Incarnata\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Perilla, Egoma\', \'Perilla Ocymoides\', 0.192, 0.240, 0.137, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Pesca\', \'Prunus Persica\', 0.191, 0.239, 0.136, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Pistacchio\', \'Pistacia Vera\', 0.189, 0.236, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Pongamia\', \'Pongamia Glabra\', 0.185, 0.231, 0.132, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Prugna\', \'Prunus Domestica\', 0.180, 0.225, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Ravizzone, Colza\', \'Brassica Napus, B. Campestris, B. Tournefortii\', 0.174, 0.218, 0.124, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Ricino\', \'Ricinus Communis\', 0.180, 0.225, 0.128, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Ricino Solfonato\', \'Sulfonated castor oil\', 0.178, 0.223, 0.127, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Riso\', \'Oryza Sativa\', 0.183, 0.229, 0.130, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Sesamo\', \'Sesamum Indicum\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Soia\', \'Glycine Max\', 0.190, 0.238, 0.135, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Vinaccioli, Semi Uva\', \'Vitis Vinifera\', 0.181, 0.226, 0.129, NULL, 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'Zucca\', \'Cucurbita Maxima\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\'));");
 		}
 
 		@Override
@@ -1553,25 +1630,24 @@ public class SoapAPPProvider extends ContentProvider {
 			 * Query per popolare con due righe la tabella
 			 * ricettesaponi_tipi_ingredienti DA RISCRIVERE USANDO IL METODO
 			 * INSERT E NON execSQL
+			 * 
+			 * db.execSQL("INSERT INTO " +
+			 * SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME + " (" +
+			 * SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME +
+			 * ", " +
+			 * SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE
+			 * + ", " + SoapAPPContract.RicetteSaponiTipiIngredienti.
+			 * COLUMN_NAME_CARICATO_UTENTE + ", " +
+			 * SoapAPPContract.RicetteSaponiTipiIngredienti
+			 * .COLUMN_NAME_CREATE_DATE + ", " +
+			 * SoapAPPContract.RicetteSaponiTipiIngredienti
+			 * .COLUMN_NAME_MODIFICATION_DATE +
+			 * ") VALUES (\'GRASSO\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * + "	(\'LIQUIDO\', 0, 0, datetime(\'now\'), datetime(\'now\'))," +
+			 * "	(\'FARINA\', 0, 0, datetime(\'now\'), datetime(\'now\'))," +
+			 * "	(\'OLIO ESSENZIALE\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
+			 * + "	(\'ALCALE\', 0, 0, datetime(\'now\'), datetime(\'now\'));");
 			 */
-			db.execSQL("INSERT INTO "
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
-					+ " ("
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME
-					+ ", "
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE
-					+ ", "
-					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE
-					+ ") VALUES (\'GRASSO\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'LIQUIDO\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'FARINA\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'OLIO ESSENZIALE\', 0, 0, datetime(\'now\'), datetime(\'now\')),"
-					+ "	(\'ALCALE\', 0, 0, datetime(\'now\'), datetime(\'now\'));");
-
 		}
 
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -1709,162 +1785,148 @@ public class SoapAPPProvider extends ContentProvider {
 			/*
 			 * Query per popolare con una riga nella tabella
 			 * ricettesaponi_magazzino_ricetta
+			 * 
+			 * 
+			 * Date date = new Date(); SimpleDateFormat sdf = new
+			 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String formattedDate =
+			 * sdf.format(new Timestamp(date.getTime()));
+			 * 
+			 * ContentValues insertRicetteSaponiMagazzino = new ContentValues();
+			 * // Popolo la prima tupla insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID, 1);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID, 57);
+			 * insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+			 * "Olio Oliva Default"); insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+			 * "Olio Oliva Default Alias"); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+			 * "Olio Oliva Default Description");
+			 * insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+			 * "Patch file Sistem Image Oliva"); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino.
+			 * COLUMN_NAME_COSTO_LORDO_INGREDIENTE, 5.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_NETTO_INGREDIENTE, 4.5);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_TARA_INGREDIENTE, 0.5);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO, 0.0045);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_LORDO_INGREDIENTE, 1100.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_NETTO_INGREDIENTE, 1000.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_TARA_INGREDIENTE, 100.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_NOME_NEGOZIO_ACQUISTO, "Negozio di Fiducia");
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_DATA_SCADENZA_INGREDIENTE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_NOTE_INGREDIENTE, "Nota Olio Oliva Default");
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_MODIFICABILE, 0); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE, 0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_CREATE_DATE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_MODIFICATION_DATE, formattedDate); try { long rowID
+			 * = db.insertOrThrow(
+			 * SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null,
+			 * insertRicetteSaponiMagazzino); }
+			 * 
+			 * catch (SQLiteException sql) { Log.e(TAG + " " + DATABASE_NAME,
+			 * sql.toString()); }
+			 * 
+			 * insertRicetteSaponiMagazzino.clear();
+			 * 
+			 * // Popolo la seconda tupla insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID, 2);
+			 * insertRicetteSaponiMagazzino
+			 * .putNull(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+			 * insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+			 * "Acqua Default"); insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+			 * "Acqua Default Alias"); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+			 * "Acqua Default Description"); insertRicetteSaponiMagazzino.put(
+			 * SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+			 * "Patch file Sistem Image Acqua"); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino.
+			 * COLUMN_NAME_COSTO_LORDO_INGREDIENTE, 1.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_NETTO_INGREDIENTE, 0.9);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_TARA_INGREDIENTE, 0.1);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO, 0.0009);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_LORDO_INGREDIENTE, 1010.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_NETTO_INGREDIENTE, 1000.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_PESO_TARA_INGREDIENTE, 10.0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_NOME_NEGOZIO_ACQUISTO, "Negozio di Fiducia");
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_DATA_SCADENZA_INGREDIENTE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_NOTE_INGREDIENTE, "Nota Acqua Default");
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_MODIFICABILE, 0); insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract
+			 * .RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE, 0);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_CREATE_DATE, formattedDate);
+			 * insertRicetteSaponiMagazzino
+			 * .put(SoapAPPContract.RicetteSaponiMagazzino
+			 * .COLUMN_NAME_MODIFICATION_DATE, formattedDate); try { long rowID
+			 * = db.insertOrThrow(
+			 * SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME, null,
+			 * insertRicetteSaponiMagazzino); }
+			 * 
+			 * catch (SQLiteException sql) { Log.e(TAG + " " + DATABASE_NAME,
+			 * sql.toString()); }
 			 */
-
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String formattedDate = sdf.format(new Timestamp(date.getTime()));
-
-			ContentValues insertRicetteSaponiMagazzino = new ContentValues();
-			// Popolo la prima tupla
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
-							1);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
-							57);
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
-					"Olio Oliva Default");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
-					"Olio Oliva Default Alias");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
-							"Olio Oliva Default Description");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
-					"Patch file Sistem Image Oliva");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
-							5.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
-							4.5);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
-							0.5);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
-							0.0045);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
-							1100.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
-							1000.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
-							100.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
-							"Negozio di Fiducia");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
-							"Nota Olio Oliva Default");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
-							formattedDate);
-			try {
-				long rowID = db.insertOrThrow(
-						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
-						null, insertRicetteSaponiMagazzino);
-			}
-
-			catch (SQLiteException sql) {
-				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
-			}
-
-			insertRicetteSaponiMagazzino.clear();
-
-			// Popolo la seconda tupla
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
-							2);
-			insertRicetteSaponiMagazzino
-					.putNull(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
-					"Acqua Default");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
-					"Acqua Default Alias");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
-							"Acqua Default Description");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
-					"Patch file Sistem Image Acqua");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
-							1.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
-							0.9);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
-							0.1);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
-							0.0009);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
-							1010.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
-							1000.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
-							10.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
-							"Negozio di Fiducia");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
-							"Nota Acqua Default");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
-							formattedDate);
-			try {
-				long rowID = db.insertOrThrow(
-						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
-						null, insertRicetteSaponiMagazzino);
-			}
-
-			catch (SQLiteException sql) {
-				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
-			}
-
 		}
 
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

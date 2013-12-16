@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ricettesaponi_magazzino_ricetta>
+
+    <record
+        ricettesaponi_id=""
+        ricettesaponi_magazzino_id=""      
+        percentuale_grasso_ricetta="GRASSO"
+        peso_ingrediente_ricetta=""
+        soda_grasso_ricetta=""
+        costo_ingrediente_ricetta=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        ricettesaponi_id=""
+        ricettesaponi_magazzino_id=""      
+        percentuale_grasso_ricetta="GRASSO"
+        peso_ingrediente_ricetta=""
+        soda_grasso_ricetta=""
+        costo_ingrediente_ricetta=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        ricettesaponi_id=""
+        ricettesaponi_magazzino_id=""      
+        percentuale_grasso_ricetta="GRASSO"
+        peso_ingrediente_ricetta=""
+        soda_grasso_ricetta=""
+        costo_ingrediente_ricetta=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+   
+</ricettesaponi_magazzino_ricetta>

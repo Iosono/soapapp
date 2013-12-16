@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ricettesaponi_tipi_ingredienti>
+
+    <record
+        name="GRASSO"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        name="LIQUIDO"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        name="FARINA"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        name="OLIO ESSENZIALE"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        name="ALCALE"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+
+</ricettesaponi_tipi_ingredienti>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ricettesaponi_magazzino>
+
+    <record
+        tipo_ingrediente_id=""
+        coeffsaponificazione_id=""      
+        name="GRASSO"
+        alias=""
+        description=""
+        image=""
+        costo_lordo_ingrediente=""
+        costo_netto_ingrediente=""
+        costo_tara_ingrediente=""
+        costo_ingrediente_grammo=""
+        peso_lordo_ingrediente=""
+        peso_netto_ingrediente=""
+        peso_tara_ingrediente=""
+        data_acquisto_ingrediente=""
+        nome_negozio_acquisto=""
+        data_scadenza_ingrediente=""
+        note_ingrediente=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        tipo_ingrediente_id=""
+        coeffsaponificazione_id=""      
+        name="GRASSO"
+        alias=""
+        description=""
+        image=""
+        costo_lordo_ingrediente=""
+        costo_netto_ingrediente=""
+        costo_tara_ingrediente=""
+        costo_ingrediente_grammo=""
+        peso_lordo_ingrediente=""
+        peso_netto_ingrediente=""
+        peso_tara_ingrediente=""
+        data_acquisto_ingrediente=""
+        nome_negozio_acquisto=""
+        data_scadenza_ingrediente=""
+        note_ingrediente=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        tipo_ingrediente_id=""
+        coeffsaponificazione_id=""      
+        name="GRASSO"
+        alias=""
+        description=""
+        image=""
+        costo_lordo_ingrediente=""
+        costo_netto_ingrediente=""
+        costo_tara_ingrediente=""
+        costo_ingrediente_grammo=""
+        peso_lordo_ingrediente=""
+        peso_netto_ingrediente=""
+        peso_tara_ingrediente=""
+        data_acquisto_ingrediente=""
+        nome_negozio_acquisto=""
+        data_scadenza_ingrediente=""
+        note_ingrediente=""
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+							1);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+							57);
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+					"Olio Oliva Default");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+					"Olio Oliva Default Alias");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+							"Olio Oliva Default Description");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+					"Patch file Sistem Image Oliva");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+							5.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+							4.5);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+							0.5);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+							0.0045);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+							1100.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+							1000.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+							100.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+							"Negozio di Fiducia");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+							"Nota Olio Oliva Default");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+							formattedDate);
+			try {
+				long rowID = db.insertOrThrow(
+						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
+						null, insertRicetteSaponiMagazzino);
+			}
+
+			catch (SQLiteException sql) {
+				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
+			}
+
+			insertRicetteSaponiMagazzino.clear();
+
+			// Popolo la seconda tupla
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+							2);
+			insertRicetteSaponiMagazzino
+					.putNull(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+					"Acqua Default");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+					"Acqua Default Alias");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+							"Acqua Default Description");
+			insertRicetteSaponiMagazzino.put(
+					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+					"Patch file Sistem Image Acqua");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+							1.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+							0.9);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+							0.1);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+							0.0009);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+							1010.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+							1000.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+							10.0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+							"Negozio di Fiducia");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+							"Nota Acqua Default");
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+							0);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+							formattedDate);
+			insertRicetteSaponiMagazzino
+					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+							formattedDate);  
+</ricettesaponi_magazzino>
