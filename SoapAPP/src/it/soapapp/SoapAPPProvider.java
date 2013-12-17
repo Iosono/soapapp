@@ -16,9 +16,6 @@
 
 package it.soapapp;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
@@ -45,7 +42,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "soap_app.db";
 
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 4;
 
 	private static final String TYPE_DOUBLE = "Double";
 	private static final String TYPE_INTEGER = "Integer";

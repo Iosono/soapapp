@@ -1,99 +1,227 @@
 package it.soapapp;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
-import android.net.Uri;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 public class MainActivity extends Activity {
 
+	private static final String TAG = "";
+
 	private ArrayList<ContentProviderOperation> popolamentoIniziale = new ArrayList<ContentProviderOperation>();
 
 	private ContentProviderResult[] risultatoPopolamentoIniziale = null;
 
-	/*
-	 * CREARE GLI OGGETTI ContentValues DA FILE XML private static ContentValues
-	 * createInitialContentValues(Uri initialUri) {
-	 * 
-	 * Date date = new Date(); SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String formattedDate =
-	 * sdf.format(new Timestamp(date.getTime()));
-	 * 
-	 * ContentValues insertRicetteSaponi = new ContentValues();
-	 * 
-	 * insertRicetteSaponi.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
-	 * "Prima Ricetta Prova"); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS, "Primo Alias Prova");
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
-	 * "Prima Descrizione Prova"); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
-	 * "Prima Patch file Sistem Prova"); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA, 1000);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA, 330);
-	 * insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA, 0.0);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA, 0.0);
-	 * insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
-	 * 0.0); insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA
-	 * , 0.0); insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA
-	 * , 0.0); insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
-	 * 0.0); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA, 0.0);
-	 * insertRicetteSaponi
-	 * .put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
-	 * 0.0); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA, 0.0);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
-	 * "Prima Nota Prova"); insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE, 0);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE, 0);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE, formattedDate);
-	 * insertRicetteSaponi.put(
-	 * SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
-	 * formattedDate); return insertRicetteSaponi; }
-	 */
+	private final Context fContext = (Context) this;
+
+	private ContentValues _Values = null;
+
+	private Resources res = null;
+
+	private XmlResourceParser xmlRicetteSaponi = null;
+	private XmlResourceParser xmlCoefficientiSaponificazione = null;
+	private XmlResourceParser xmlRicetteSaponiTipiIngredienti = null;
+	private XmlResourceParser xmlRicetteSaponiMagazzino = null;
+	private XmlResourceParser xmlRicetteSaponiMagazzinoRicetta = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		popolamentoIniziale
-				.add(ContentProviderOperation
-						.newInsert(SoapAPPContract.RicetteSaponi.CONTENT_URI)
-						.withValues(
-								createInitialContentValues(SoapAPPContract.RicetteSaponi.CONTENT_URI)) // DA
-																										// FORNIRE
-																										// OGGETTO
-																										// ContentValues
-																										// CREATO
-																										// DA
-																										// FILE
-																										// XML
-						.withYieldAllowed(true).build());
+		_Values = new ContentValues();
+		// Get xml resource file
+		res = fContext.getResources();
+
+		// Open xml file
+		xmlRicetteSaponi = res.getXml(R.xml.ricette_saponi_tuple);
+		try {
+			// Check for end of document
+			int eventType = xmlRicetteSaponi.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				// Search for record tags
+				if ((eventType == XmlPullParser.START_TAG)
+						&& (xmlRicetteSaponi.getName().equals("record"))) {
+					// Record tag found, now get values and insert record
+
+					String _Name = xmlRicetteSaponi.getAttributeValue(null,
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME);
+					String _Alias = xmlRicetteSaponi.getAttributeValue(null,
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS);
+					String _Description = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION);
+					String _Image = xmlRicetteSaponi.getAttributeValue(null,
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE);
+					String _Tot_Grassi_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA);
+					String _Tot_Liquidi_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA);
+					String _Tot_Soda_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA);
+					String _Sconto_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA);
+					String _Tot_Soda_Sconto_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA);
+					String _Tot_Costo_Ingredienti_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA);
+					String _Tot_Costo_Manodopera_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA);
+					String _Tot_Costo_Varie_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA);
+					String _Tot_Costo_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA);
+					String _Tot_Etti_Stimati_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA);
+					String _Costo_Etto_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA);
+					String _Note_Ricetta = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA);
+					String _Modificabile = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE);
+					String _Caricato_Utente = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE);
+					String _Create_Date = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE);
+					String _Modification_Date = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE);
+
+					_Values.put(SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME,
+							_Name);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS,
+							_Alias);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_DESCRIPTION,
+							_Description);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_IMAGE,
+							_Image);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_GRASSI_RICETTA,
+							Integer.valueOf(_Tot_Grassi_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_LIQUIDI_RICETTA,
+							Integer.valueOf(_Tot_Liquidi_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_RICETTA,
+							Double.valueOf(_Tot_Soda_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_SCONTO_RICETTA,
+							Double.valueOf(_Sconto_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_SODA_SCONTO_RICETTA,
+							Double.valueOf(_Tot_Soda_Sconto_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_INGREDIENTI_RICETTA,
+							Double.valueOf(_Tot_Costo_Ingredienti_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_MANODOPERA_RICETTA,
+							Double.valueOf(_Tot_Costo_Manodopera_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_VARIE_RICETTA,
+							Double.valueOf(_Tot_Costo_Varie_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_COSTO_RICETTA,
+							Double.valueOf(_Tot_Costo_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_TOT_ETTI_STIMATI_RICETTA,
+							Double.valueOf(_Tot_Etti_Stimati_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_COSTO_ETTO_RICETTA,
+							Double.valueOf(_Costo_Etto_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_NOTE_RICETTA,
+							_Note_Ricetta);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICABILE,
+							Integer.valueOf(_Modificabile));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_CARICATO_UTENTE,
+							Integer.valueOf(_Caricato_Utente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_CREATE_DATE,
+							_Create_Date);
+					_Values.put(
+							SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE,
+							_Modification_Date);
+
+					popolamentoIniziale
+							.add(ContentProviderOperation
+									.newInsert(
+											SoapAPPContract.RicetteSaponi.CONTENT_URI)
+									.withValues(_Values).withYieldAllowed(true)
+									.build());
+
+				}
+				eventType = xmlRicetteSaponi.next();
+			}
+		}
+		// Catch errors
+		catch (XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+
+		} finally {
+			// Close the xml file
+			xmlRicetteSaponi.close();
+		}
+
+		_Values.clear();
 
 		try {
+			// Comando per lanciare effettivamente il caricamento
 			risultatoPopolamentoIniziale = getContentResolver().applyBatch(
 					SoapAPPContract.AUTHORITY, popolamentoIniziale);
 		} catch (RemoteException e) {
