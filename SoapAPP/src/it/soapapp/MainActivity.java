@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 		// Get xml resource file
 		res = fContext.getResources();
 
-		// Open xml file
+		// Open xml file per la tabella ricette_saponi
 		xmlRicetteSaponi = res.getXml(R.xml.ricette_saponi_tuple);
 		try {
 			// Check for end of document
@@ -220,6 +220,111 @@ public class MainActivity extends Activity {
 
 		_Values.clear();
 
+		// Open xml file per la tabella coefficienti_saponificazione
+		xmlCoefficientiSaponificazione = res.getXml(R.xml.coefficienti_saponificazione_tuple);
+		try {
+			// Check for end of document
+			int eventType = xmlCoefficientiSaponificazione.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				// Search for record tags
+				if ((eventType == XmlPullParser.START_TAG)
+						&& (xmlCoefficientiSaponificazione.getName()
+								.equals("record"))) {
+					// Record tag found, now get values and insert record
+
+					String _Name = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME);
+					String _Inci = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI);
+					String _Koh_96_98 = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98);
+					String _Koh_80 = xmlCoefficientiSaponificazione.getAttributeValue(null,
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80);
+					String _Naoh = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH);
+					String _Note_Coeff = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF);
+					String _Modificabile = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE);
+					String _Caricato_Utente = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE);
+					String _Create_Date = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE);
+					String _Modification_Date = xmlRicetteSaponi
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE);
+
+					_Values.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+							_Name);
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI,
+							_Inci);
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98,
+							Double.valueOf(_Koh_96_98));
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80,
+							Double.valueOf(_Koh_80));
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH,
+							Double.valueOf(_Naoh));
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF,
+							_Note_Coeff);
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE,
+							Integer.valueOf(_Modificabile));
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE,
+							Integer.valueOf(_Caricato_Utente));
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE,
+							_Create_Date);
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE,
+							_Modification_Date);
+
+					popolamentoIniziale
+							.add(ContentProviderOperation
+									.newInsert(
+											SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI)
+									.withValues(_Values).withYieldAllowed(true)
+									.build());
+
+				}
+				eventType = xmlCoefficientiSaponificazione.next();
+			}
+		}
+		// Catch errors
+		catch (XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+
+		} finally {
+			// Close the xml file
+			xmlCoefficientiSaponificazione.close();
+		}
+
+		_Values.clear();
+		
 		try {
 			// Comando per lanciare effettivamente il caricamento
 			risultatoPopolamentoIniziale = getContentResolver().applyBatch(
