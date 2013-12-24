@@ -42,7 +42,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "soap_app.db";
 
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	private static final String TYPE_DOUBLE = "Double";
 	private static final String TYPE_INTEGER = "Integer";

@@ -50,6 +50,9 @@ public class MainActivity extends Activity {
 		// Get xml resource file
 		res = fContext.getResources();
 
+		// DA GESTIRE LA VERIFICA SE LA TABELLA E' GIA' POPOLATA. SE POPOLATA
+		// DEVE SALTARE IL CARICAMENTO DA FILE XML
+
 		// Open xml file per la tabella ricette_saponi
 		xmlRicetteSaponi = res.getXml(R.xml.ricette_saponi_tuple);
 		try {
@@ -220,8 +223,12 @@ public class MainActivity extends Activity {
 
 		_Values.clear();
 
+		// DA GESTIRE LA VERIFICA SE LA TABELLA E' GIA' POPOLATA. SE POPOLATA
+		// DEVE SALTARE IL CARICAMENTO DA FILE XML
+
 		// Open xml file per la tabella coefficienti_saponificazione
-		xmlCoefficientiSaponificazione = res.getXml(R.xml.coefficienti_saponificazione_tuple);
+		xmlCoefficientiSaponificazione = res
+				.getXml(R.xml.coefficienti_saponificazione_tuple);
 		try {
 			// Check for end of document
 			int eventType = xmlCoefficientiSaponificazione.getEventType();
@@ -244,8 +251,10 @@ public class MainActivity extends Activity {
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98);
-					String _Koh_80 = xmlCoefficientiSaponificazione.getAttributeValue(null,
-							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80);
+					String _Koh_80 = xmlCoefficientiSaponificazione
+							.getAttributeValue(
+									null,
+									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80);
 					String _Naoh = xmlCoefficientiSaponificazione
 							.getAttributeValue(
 									null,
@@ -254,24 +263,25 @@ public class MainActivity extends Activity {
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF);
-					String _Modificabile = xmlRicetteSaponi
+					String _Modificabile = xmlCoefficientiSaponificazione
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE);
-					String _Caricato_Utente = xmlRicetteSaponi
+					String _Caricato_Utente = xmlCoefficientiSaponificazione
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE);
-					String _Create_Date = xmlRicetteSaponi
+					String _Create_Date = xmlCoefficientiSaponificazione
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE);
-					String _Modification_Date = xmlRicetteSaponi
+					String _Modification_Date = xmlCoefficientiSaponificazione
 							.getAttributeValue(
 									null,
 									SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE);
 
-					_Values.put(SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
+					_Values.put(
+							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME,
 							_Name);
 					_Values.put(
 							SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI,
@@ -324,7 +334,7 @@ public class MainActivity extends Activity {
 		}
 
 		_Values.clear();
-		
+
 		try {
 			// Comando per lanciare effettivamente il caricamento
 			risultatoPopolamentoIniziale = getContentResolver().applyBatch(
