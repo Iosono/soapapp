@@ -46,6 +46,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// SCRIVERE QUALCOSA PER CREARE LE TABELLE, ES QUERY GENERICA X OGNI TABELLA.
+
 		_Values = new ContentValues();
 		// Get xml resource file
 		res = fContext.getResources();
@@ -335,6 +337,388 @@ public class MainActivity extends Activity {
 
 		_Values.clear();
 
+		// DA GESTIRE LA VERIFICA SE LA TABELLA E' GIA' POPOLATA. SE POPOLATA
+		// DEVE SALTARE IL CARICAMENTO DA FILE XML
+
+		// Open xml file per la tabella ricettesaponi_tipi_ingredienti
+		xmlRicetteSaponiTipiIngredienti = res
+				.getXml(R.xml.ricettesaponi_tipi_ingredienti_tuple);
+		try {
+			// Check for end of document
+			int eventType = xmlRicetteSaponiTipiIngredienti.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				// Search for record tags
+				if ((eventType == XmlPullParser.START_TAG)
+						&& (xmlRicetteSaponiTipiIngredienti.getName()
+								.equals("record"))) {
+					// Record tag found, now get values and insert record
+
+					String _Name = xmlRicetteSaponiTipiIngredienti
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME);
+					String _Modificabile = xmlRicetteSaponiTipiIngredienti
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE);
+					String _Caricato_Utente = xmlRicetteSaponiTipiIngredienti
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE);
+					String _Create_Date = xmlRicetteSaponiTipiIngredienti
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE);
+					String _Modification_Date = xmlRicetteSaponiTipiIngredienti
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE);
+
+					_Values.put(
+							SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME,
+							_Name);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE,
+							Integer.valueOf(_Modificabile));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE,
+							Integer.valueOf(_Caricato_Utente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE,
+							_Create_Date);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE,
+							_Modification_Date);
+
+					popolamentoIniziale
+							.add(ContentProviderOperation
+									.newInsert(
+											SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI)
+									.withValues(_Values).withYieldAllowed(true)
+									.build());
+
+				}
+				eventType = xmlRicetteSaponiTipiIngredienti.next();
+			}
+		}
+		// Catch errors
+		catch (XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+
+		} finally {
+			// Close the xml file
+			xmlRicetteSaponiTipiIngredienti.close();
+		}
+
+		_Values.clear();
+
+		// DA GESTIRE LA VERIFICA SE LA TABELLA E' GIA' POPOLATA. SE POPOLATA
+		// DEVE SALTARE IL CARICAMENTO DA FILE XML
+
+		// Open xml file per la tabella ricettesaponi_magazzino
+		xmlRicetteSaponiMagazzino = res
+				.getXml(R.xml.ricettesaponi_magazzino_tuple);
+		try {
+			// Check for end of document
+			int eventType = xmlRicetteSaponiMagazzino.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				// Search for record tags
+				if ((eventType == XmlPullParser.START_TAG)
+						&& (xmlRicetteSaponiMagazzino.getName()
+								.equals("record"))) {
+					// Record tag found, now get values and insert record
+
+					String _Tipo_Ingrediente_Id = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID);
+					String _CoefficienteSaponificazione_Id = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+					String _Name = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME);
+					String _Alias = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS);
+					String _Description = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION);
+					String _Image = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE);
+					String _Costo_Lordo_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE);
+					String _Costo_Netto_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE);
+					String _Costo_Tara_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE);
+					String _Costo_Ingrediente_Grammo = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO);
+					String _Peso_Lordo_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE);
+					String _Peso_Netto_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE);
+					String _Peso_Tara_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE);
+					String _Data_Acquisto_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE);
+					String _Nome_Negozio_Acquisto = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO);
+					String _Data_Scadenza_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE);
+					String _Note_Ingrediente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE);
+					String _Modificabile = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE);
+					String _Caricato_Utente = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE);
+					String _Create_Date = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE);
+					String _Modification_Date = xmlRicetteSaponiMagazzino
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE);
+
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
+							Integer.valueOf(_Tipo_Ingrediente_Id));
+					if (_CoefficienteSaponificazione_Id.equals("NULL")) {
+						_Values.putNull(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
+					} else {
+						_Values.put(
+								SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
+								Integer.valueOf(_CoefficienteSaponificazione_Id));
+					}
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
+							_Name);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
+							_Alias);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
+							_Description);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
+							_Image);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
+							Double.valueOf(_Costo_Lordo_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
+							Double.valueOf(_Costo_Netto_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
+							Double.valueOf(_Costo_Tara_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
+							Double.valueOf(_Costo_Ingrediente_Grammo));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
+							Double.valueOf(_Peso_Lordo_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
+							Double.valueOf(_Peso_Netto_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
+							Double.valueOf(_Peso_Tara_Ingrediente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
+							_Data_Acquisto_Ingrediente);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
+							_Nome_Negozio_Acquisto);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
+							_Data_Scadenza_Ingrediente);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
+							_Note_Ingrediente);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
+							Integer.valueOf(_Modificabile));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
+							Integer.valueOf(_Caricato_Utente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
+							_Create_Date);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
+							_Modification_Date);
+
+					popolamentoIniziale
+							.add(ContentProviderOperation
+									.newInsert(
+											SoapAPPContract.RicetteSaponiMagazzino.CONTENT_URI)
+									.withValues(_Values).withYieldAllowed(true)
+									.build());
+
+				}
+				eventType = xmlRicetteSaponiMagazzino.next();
+			}
+		}
+		// Catch errors
+		catch (XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+
+		} finally {
+			// Close the xml file
+			xmlRicetteSaponiMagazzino.close();
+		}
+
+		_Values.clear();
+
+		// DA GESTIRE LA VERIFICA SE LA TABELLA E' GIA' POPOLATA. SE POPOLATA
+		// DEVE SALTARE IL CARICAMENTO DA FILE XML
+
+		// Open xml file per la tabella ricettesaponi_magazzino_ricetta
+		xmlRicetteSaponiMagazzinoRicetta = res
+				.getXml(R.xml.ricettesaponi_magazzino_ricetta_tuple);
+		try {
+			// Check for end of document
+			int eventType = xmlRicetteSaponiMagazzinoRicetta.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				// Search for record tags
+				if ((eventType == XmlPullParser.START_TAG)
+						&& (xmlRicetteSaponiMagazzinoRicetta.getName()
+								.equals("record"))) {
+					// Record tag found, now get values and insert record
+
+					String _Ricettesaponi_Id = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID);
+					String _Ricettesaponi_Magazzino_Id = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID);
+					String _Percentuale_Grasso_Ricetta = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA);
+					String _Peso_Ingrediente_Ricetta = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA);
+					String _Soda_Grasso_Ricetta = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA);
+					String _Costo_Ingrediente_Ricetta = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA);
+					String _Modificabile = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE);
+					String _Caricato_Utente = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE);
+					String _Create_Date = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE);
+					String _Modification_Date = xmlRicetteSaponiMagazzinoRicetta
+							.getAttributeValue(
+									null,
+									SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE);
+
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID,
+							Integer.valueOf(_Ricettesaponi_Id));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID,
+							Integer.valueOf(_Ricettesaponi_Magazzino_Id));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA,
+							Double.valueOf(_Percentuale_Grasso_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA,
+							Double.valueOf(_Peso_Ingrediente_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA,
+							Double.valueOf(_Soda_Grasso_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA,
+							Double.valueOf(_Costo_Ingrediente_Ricetta));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE,
+							Integer.valueOf(_Modificabile));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE,
+							Integer.valueOf(_Caricato_Utente));
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE,
+							_Create_Date);
+					_Values.put(
+							SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE,
+							_Modification_Date);
+
+					popolamentoIniziale
+							.add(ContentProviderOperation
+									.newInsert(
+											SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_URI)
+									.withValues(_Values).withYieldAllowed(true)
+									.build());
+
+				}
+				eventType = xmlRicetteSaponiMagazzinoRicetta.next();
+			}
+		}
+		// Catch errors
+		catch (XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+
+		} finally {
+			// Close the xml file
+			xmlRicetteSaponiMagazzinoRicetta.close();
+		}
+
+		_Values.clear();
+
 		try {
 			// Comando per lanciare effettivamente il caricamento
 			risultatoPopolamentoIniziale = getContentResolver().applyBatch(
@@ -344,6 +728,8 @@ public class MainActivity extends Activity {
 		} catch (OperationApplicationException e) {
 			// do s.th.
 		}
+
+		// eliminare l'oggetto _Values
 	}
 
 	/** Metodo chiamato quando si preme il bottone Magazzino */

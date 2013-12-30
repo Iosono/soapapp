@@ -2,206 +2,114 @@
 <ricettesaponi_magazzino>
 
     <record
-        tipo_ingrediente_id=""
-        coeffsaponificazione_id=""      
-        name="GRASSO"
-        alias=""
-        description=""
-        image=""
-        costo_lordo_ingrediente=""
-        costo_netto_ingrediente=""
-        costo_tara_ingrediente=""
-        costo_ingrediente_grammo=""
-        peso_lordo_ingrediente=""
-        peso_netto_ingrediente=""
-        peso_tara_ingrediente=""
-        data_acquisto_ingrediente=""
-        nome_negozio_acquisto=""
-        data_scadenza_ingrediente=""
-        note_ingrediente=""
+        tipo_ingrediente_id="1"
+        coeffsaponificazione_id="57"      
+        name="Olio Oliva Default"
+        alias="Olio Oliva Default Alias"
+        description="Olio Oliva Default Description"
+        image="Patch file Sistem Image Oliva"
+        costo_lordo_ingrediente="5.0"
+        costo_netto_ingrediente="4.5"
+        costo_tara_ingrediente="0.5"
+        costo_ingrediente_grammo="0.0045"
+        peso_lordo_ingrediente="1100.0"
+        peso_netto_ingrediente="1000.0"
+        peso_tara_ingrediente="100.0"
+        data_acquisto_ingrediente="2011-11-11 11:11:11"
+        nome_negozio_acquisto="Negozio di Fiducia"
+        data_scadenza_ingrediente="2014-11-11 14:14:14"
+        note_ingrediente="Nota Olio Oliva Default"
         modificabile="0"
         caricato_utente="0"
         create_date="2013-12-13 11:11:11"
         modification_date="2013-12-13 11:11:11" />
     <record
-        tipo_ingrediente_id=""
-        coeffsaponificazione_id=""      
-        name="GRASSO"
-        alias=""
-        description=""
-        image=""
-        costo_lordo_ingrediente=""
-        costo_netto_ingrediente=""
-        costo_tara_ingrediente=""
-        costo_ingrediente_grammo=""
-        peso_lordo_ingrediente=""
-        peso_netto_ingrediente=""
-        peso_tara_ingrediente=""
-        data_acquisto_ingrediente=""
-        nome_negozio_acquisto=""
-        data_scadenza_ingrediente=""
-        note_ingrediente=""
+        tipo_ingrediente_id="2"
+        coeffsaponificazione_id="NULL"      
+        name="Acqua Default"
+        alias="Acqua Default Alias"
+        description="Acqua Default Description"
+        image="Patch file Sistem Image Acqua"
+        costo_lordo_ingrediente="1.0"
+        costo_netto_ingrediente="0.9"
+        costo_tara_ingrediente="0.1"
+        costo_ingrediente_grammo="0.0009"
+        peso_lordo_ingrediente="1010.0"
+        peso_netto_ingrediente="1000.0"
+        peso_tara_ingrediente="10.0"
+        data_acquisto_ingrediente="2011-11-11 11:11:11"
+        nome_negozio_acquisto="Negozio di Fiducia"
+        data_scadenza_ingrediente="2014-11-11 14:14:14"
+        note_ingrediente="Nota Acqua Default"
         modificabile="0"
         caricato_utente="0"
         create_date="2013-12-13 11:11:11"
         modification_date="2013-12-13 11:11:11" />
     <record
-        tipo_ingrediente_id=""
-        coeffsaponificazione_id=""      
-        name="GRASSO"
-        alias=""
-        description=""
-        image=""
-        costo_lordo_ingrediente=""
-        costo_netto_ingrediente=""
-        costo_tara_ingrediente=""
-        costo_ingrediente_grammo=""
-        peso_lordo_ingrediente=""
-        peso_netto_ingrediente=""
-        peso_tara_ingrediente=""
-        data_acquisto_ingrediente=""
-        nome_negozio_acquisto=""
-        data_scadenza_ingrediente=""
-        note_ingrediente=""
+        tipo_ingrediente_id="3"
+        coeffsaponificazione_id="NULL"      
+        name="Farina di Riso Default"
+        alias="Farina di Riso Default Alias"
+        description="Farina di Riso Default Description"
+        image="Patch file Sistem Image Farina di Riso"
+        costo_lordo_ingrediente="5.0"
+        costo_netto_ingrediente="4.7"
+        costo_tara_ingrediente="0.3"
+        costo_ingrediente_grammo="0.00969"
+        peso_lordo_ingrediente="500.0"
+        peso_netto_ingrediente="485.0"
+        peso_tara_ingrediente="15.0"
+        data_acquisto_ingrediente="2011-11-11 11:11:11"
+        nome_negozio_acquisto="Negozio di Fiducia"
+        data_scadenza_ingrediente="2014-11-11 14:14:14"
+        note_ingrediente="Nota Farina di Riso Default"
         modificabile="0"
         caricato_utente="0"
         create_date="2013-12-13 11:11:11"
         modification_date="2013-12-13 11:11:11" />
-SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
-							1);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID,
-							57);
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
-					"Olio Oliva Default");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
-					"Olio Oliva Default Alias");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
-							"Olio Oliva Default Description");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
-					"Patch file Sistem Image Oliva");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
-							5.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
-							4.5);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
-							0.5);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
-							0.0045);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
-							1100.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
-							1000.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
-							100.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
-							"Negozio di Fiducia");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
-							"Nota Olio Oliva Default");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
-							formattedDate);
-			try {
-				long rowID = db.insertOrThrow(
-						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
-						null, insertRicetteSaponiMagazzino);
-			}
-
-			catch (SQLiteException sql) {
-				Log.e(TAG + " " + DATABASE_NAME, sql.toString());
-			}
-
-			insertRicetteSaponiMagazzino.clear();
-
-			// Popolo la seconda tupla
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID,
-							2);
-			insertRicetteSaponiMagazzino
-					.putNull(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID);
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME,
-					"Acqua Default");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS,
-					"Acqua Default Alias");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION,
-							"Acqua Default Description");
-			insertRicetteSaponiMagazzino.put(
-					SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE,
-					"Patch file Sistem Image Acqua");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE,
-							1.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE,
-							0.9);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE,
-							0.1);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO,
-							0.0009);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE,
-							1010.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE,
-							1000.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE,
-							10.0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO,
-							"Negozio di Fiducia");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE,
-							"Nota Acqua Default");
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE,
-							0);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE,
-							formattedDate);
-			insertRicetteSaponiMagazzino
-					.put(SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE,
-							formattedDate);  
+    <record
+        tipo_ingrediente_id="4"
+        coeffsaponificazione_id="NULL"      
+        name="Olio Essenziale di Lavanda Default"
+        alias="Olio Essenziale di Lavanda Default Alias"
+        description="Olio Essenziale di Lavanda Default Description"
+        image="Patch file Sistem Image Olio Essenziale di Lavanda"
+        costo_lordo_ingrediente="10.0"
+        costo_netto_ingrediente="9.5"
+        costo_tara_ingrediente="0.5"
+        costo_ingrediente_grammo="0.95"
+        peso_lordo_ingrediente="13.0"
+        peso_netto_ingrediente="10.0"
+        peso_tara_ingrediente="3.0"
+        data_acquisto_ingrediente="2011-11-11 11:11:11"
+        nome_negozio_acquisto="Negozio di Fiducia"
+        data_scadenza_ingrediente="2014-11-11 14:14:14"
+        note_ingrediente="Nota Olio Essenziale di Lavanda Default"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+    <record
+        tipo_ingrediente_id="5"
+        coeffsaponificazione_id="NULL"      
+        name="Soda Caustica (Idrossido di Sodio) Default"
+        alias="Soda Caustica (Idrossido di Sodio) Default Alias"
+        description="Soda Caustica (Idrossido di Sodio) Default Description"
+        image="Patch file Sistem Image Soda Caustica (Idrossido di Sodio)"
+        costo_lordo_ingrediente="3.0"
+        costo_netto_ingrediente="2.9"
+        costo_tara_ingrediente="0.1"
+        costo_ingrediente_grammo="0.0029"
+        peso_lordo_ingrediente="1010.0"
+        peso_netto_ingrediente="1000.0"
+        peso_tara_ingrediente="10.0"
+        data_acquisto_ingrediente="2011-11-11 11:11:11"
+        nome_negozio_acquisto="Negozio di Fiducia"
+        data_scadenza_ingrediente="2014-11-11 14:14:14"
+        note_ingrediente="Nota Soda Caustica (Idrossido di Sodio) Default"
+        modificabile="0"
+        caricato_utente="0"
+        create_date="2013-12-13 11:11:11"
+        modification_date="2013-12-13 11:11:11" />
+			  
 </ricettesaponi_magazzino>
