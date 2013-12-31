@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 	private XmlResourceParser xmlRicetteSaponiTipiIngredienti = null;
 	private XmlResourceParser xmlRicetteSaponiMagazzino = null;
 	private XmlResourceParser xmlRicetteSaponiMagazzinoRicetta = null;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		// SCRIVERE QUALCOSA PER CREARE LE TABELLE, ES QUERY GENERICA X OGNI TABELLA.
-
+		
 		_Values = new ContentValues();
 		// Get xml resource file
 		res = fContext.getResources();
