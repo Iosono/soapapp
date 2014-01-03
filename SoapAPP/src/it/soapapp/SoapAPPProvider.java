@@ -135,11 +135,11 @@ public class SoapAPPProvider extends ContentProvider {
 
 	// Oggetti che servono per usare i metodi getReadableDatabase() o
 	// getWritableDatabase() per farsi restituire un oggetto SQLiteDatabase
-	private RicetteSaponiHelper mRicetteSaponiHelper = null;
-	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper = null;
-	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper = null;
-	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper = null;
-	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper = null;
+	private RicetteSaponiHelper mRicetteSaponiHelper;
+	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper;
+	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper;
+	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper;
+	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;
 
 	// Oggetti che servono per mappare i nomi delle colonne delle varie tabelle
 	private static HashMap<String, String> ricetteSaponiProjectionMap;
@@ -2062,7 +2062,69 @@ public class SoapAPPProvider extends ContentProvider {
 		switch (sUriMatcher.match(uri)) {
 
 		case URI_MATCH_RICETTESAPONI:
-			// da completare
+			// Controlli sulla variabile String[] projection
+			if (projection == null || projection.length == 0) {
+				projectionPrivate = READ_RICETTE_SAPONI_PROJECTION;
+			} else {
+				for (int i = 0; i < projection.length; i++) {
+					existsProjection = ricetteSaponiProjectionMap
+							.containsKey(projection[i]);
+					if (!existsProjection) {
+						throw new IllegalArgumentException(
+								"Unknown projection "
+										+ projection[i]
+										+ " for table "
+										+ SoapAPPContract.RicetteSaponi.TABLE_NAME);
+					}
+				}
+				projectionPrivate = projection;
+			}
+
+			// Controlli sulla variabile String selection
+			if (TextUtils.isEmpty(selection)) {
+				selectionPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// la selezione
+				// Esiste la colonna fornita per la selezione su questa
+				// tabella?
+				selectionPrivate = selection;
+			}
+
+			// Controlli sulla variabile String[] selectionArgs
+			if (selectionArgs == null || selectionArgs.length == 0) {
+				selectionArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// per verificare se è congruo il parametro per il where
+				selectionArgsPrivate = selectionArgs;
+			}
+
+			// Controlli sulla variabile String sortOrder
+			if (TextUtils.isEmpty(sortOrder)) {
+				// PRIMA DI USARE L'ORDINAMENTO DI DEFAULT VA VERIFICATO CHE LA
+				// COLONNA _ID SI PRESENTE NELLA PROJECTION PERCHE' ALTRIMENTI
+				// VA IN ERRORE LA QUERY. L'ORDINAMENTO DI DEFAULT E' SULLA
+				// COLONNA _ID
+
+				sortOrderPrivate = SoapAPPContract.RicetteSaponi.DEFAULT_SORT_ORDER;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				sortOrderPrivate = sortOrder;
+			}
+
+			SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
+					.getReadableDatabase();
+
+			queryCursor = dbRicetteSaponi.query(
+					SoapAPPContract.RicetteSaponi.TABLE_NAME,
+					projectionPrivate, selectionPrivate, selectionArgsPrivate,
+					null, null, sortOrderPrivate);
+
+			// dbRicetteSaponi.close();// da vedere che effetti ha
 			break;
 
 		case URI_MATCH_RICETTESAPONI_ID:
@@ -2133,7 +2195,7 @@ public class SoapAPPProvider extends ContentProvider {
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
 
-			dbCoefficientiSaponificazione.close();// da vedere che effetti ha
+			// dbCoefficientiSaponificazione.close();// da vedere che effetti ha
 			break;
 
 		case URI_MATCH_COEFFICIENTI_SAPONIFICAZIONE_ID:
@@ -2278,7 +2340,70 @@ public class SoapAPPProvider extends ContentProvider {
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA:
-			// da completare
+			// Controlli sulla variabile String[] projection
+			if (projection == null || projection.length == 0) {
+				projectionPrivate = READ_RICETTE_SAPONI_MAGAZZINO_RICETTA_PROJECTION;
+			} else {
+				for (int i = 0; i < projection.length; i++) {
+					existsProjection = ricetteSaponiMagazzinoRicettaProjectionMap
+							.containsKey(projection[i]);
+					if (!existsProjection) {
+						throw new IllegalArgumentException(
+								"Unknown projection "
+										+ projection[i]
+										+ " for table "
+										+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME);
+					}
+				}
+				projectionPrivate = projection;
+			}
+
+			// Controlli sulla variabile String selection
+			if (TextUtils.isEmpty(selection)) {
+				selectionPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// la selezione
+				// Esiste la colonna fornita per la selezione su questa
+				// tabella?
+				selectionPrivate = selection;
+			}
+
+			// Controlli sulla variabile String[] selectionArgs
+			if (selectionArgs == null || selectionArgs.length == 0) {
+				selectionArgsPrivate = null;
+			} else {
+				// da inserire verifiche sul contenuto dell'array di stringhe
+				// per verificare se è congruo il parametro per il where
+				selectionArgsPrivate = selectionArgs;
+			}
+
+			// Controlli sulla variabile String sortOrder
+			if (TextUtils.isEmpty(sortOrder)) {
+				// PRIMA DI USARE L'ORDINAMENTO DI DEFAULT VA VERIFICATO CHE LA
+				// COLONNA _ID SI PRESENTE NELLA PROJECTION PERCHE' ALTRIMENTI
+				// VA IN ERRORE LA QUERY. L'ORDINAMENTO DI DEFAULT E' SULLA
+				// COLONNA _ID
+
+				sortOrderPrivate = SoapAPPContract.RicetteSaponiMagazzinoRicetta.DEFAULT_SORT_ORDER;
+			} else {
+				// da inserire verifiche sul contenuto della stringa per
+				// l'ordinamento
+				// Esiste la colonna fornita per l'ordinamento su questa
+				// tabella?
+				sortOrderPrivate = sortOrder;
+			}
+
+			SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
+					.getReadableDatabase();
+
+			queryCursor = dbRicetteSaponiMagazzinoRicetta.query(
+					SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME,
+					projectionPrivate, selectionPrivate, selectionArgsPrivate,
+					null, null, sortOrderPrivate);
+
+			// dbRicetteSaponiMagazzinoRicetta.close();// da vedere che effetti
+			// ha
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_MAGAZZINO_RICETTA_ID:

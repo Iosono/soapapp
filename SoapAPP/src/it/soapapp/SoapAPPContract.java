@@ -20,7 +20,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class SoapAPPContract {
-	public static final String AUTHORITY = "it.soapapp.provider";
+	public static final String AUTHORITY = "it.soapapp.contentprovider.SoapAPPProvider";
 
 	// This class cannot be instantiated
 	private SoapAPPContract() {

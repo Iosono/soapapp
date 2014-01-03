@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
@@ -40,15 +41,32 @@ public class MainActivity extends Activity {
 	private XmlResourceParser xmlRicetteSaponiTipiIngredienti = null;
 	private XmlResourceParser xmlRicetteSaponiMagazzino = null;
 	private XmlResourceParser xmlRicetteSaponiMagazzinoRicetta = null;
-	
+
+	private Cursor cursore;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// SCRIVERE QUALCOSA PER CREARE LE TABELLE, ES QUERY GENERICA X OGNI TABELLA.
-		
+		// SCRIVERE QUALCOSA PER CREARE LE TABELLE, ES QUERY GENERICA X OGNI
+		// TABELLA.
+		cursore = getContentResolver().query(
+				SoapAPPContract.RicetteSaponi.CONTENT_URI, null, null, null,
+				null);
+		cursore = getContentResolver().query(
+				SoapAPPContract.CoefficientiSaponificazione.CONTENT_URI, null,
+				null, null, null);
+		cursore = getContentResolver().query(
+				SoapAPPContract.RicetteSaponiTipiIngredienti.CONTENT_URI, null,
+				null, null, null);
+		cursore = getContentResolver().query(
+				SoapAPPContract.RicetteSaponiMagazzino.CONTENT_URI, null, null,
+				null, null);
+		cursore = getContentResolver().query(
+				SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_URI,
+				null, null, null, null);
+
 		_Values = new ContentValues();
 		// Get xml resource file
 		res = fContext.getResources();
