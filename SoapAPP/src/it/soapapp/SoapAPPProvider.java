@@ -42,7 +42,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "soap_app.db";
 
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
 
 	private static final String TYPE_DOUBLE = "Double";
 	private static final String TYPE_INTEGER = "Integer";
@@ -140,6 +140,12 @@ public class SoapAPPProvider extends ContentProvider {
 	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper;
 	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper;
 	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;
+
+	private SQLiteDatabase dbRicetteSaponi;
+	private SQLiteDatabase dbCoefficientiSaponificazione;
+	private SQLiteDatabase dbRicetteSaponiTipiIngredienti;
+	private SQLiteDatabase dbRicetteSaponiMagazzino;
+	private SQLiteDatabase dbRicetteSaponiMagazzinoRicetta;
 
 	// Oggetti che servono per mappare i nomi delle colonne delle varie tabelle
 	private static HashMap<String, String> ricetteSaponiProjectionMap;
@@ -1150,7 +1156,7 @@ public class SoapAPPProvider extends ContentProvider {
 	/**
 	 * Classe per gestire la tabella ricettesaponi
 	 */
-	static class RicetteSaponiHelper extends SQLiteOpenHelper {
+	private static class RicetteSaponiHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiHelper(Context context) {
 
@@ -1179,7 +1185,7 @@ public class SoapAPPProvider extends ContentProvider {
 						+ SoapAPPContract.RicetteSaponi.TABLE_NAME
 						+ " ("
 						+ SoapAPPContract.RicetteSaponi._ID
-						+ " INTEGER PRIMARY KEY ASC,"
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
 						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_NAME
 						+ " TEXT UNIQUE,"
 						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
@@ -1297,7 +1303,7 @@ public class SoapAPPProvider extends ContentProvider {
 	/**
 	 * Classe per gestire la tabella coefficienti_saponificazione
 	 */
-	static class CoefficientiSaponificazioneHelper extends SQLiteOpenHelper {
+	private static class CoefficientiSaponificazioneHelper extends SQLiteOpenHelper {
 
 		CoefficientiSaponificazioneHelper(Context context) {
 
@@ -1312,7 +1318,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
 					+ " ("
 					+ SoapAPPContract.CoefficientiSaponificazione._ID
-					+ " INTEGER PRIMARY KEY ASC,"
+					+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
 					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME
 					+ " TEXT DEFAULT 'NO NAME',"
 					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI
@@ -1604,7 +1610,7 @@ public class SoapAPPProvider extends ContentProvider {
 	/**
 	 * Classe per gestire la tabella ricettesaponi_tipi_ingredienti
 	 */
-	static class RicetteSaponiTipiIngredientiHelper extends SQLiteOpenHelper {
+	private static class RicetteSaponiTipiIngredientiHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiTipiIngredientiHelper(Context context) {
 
@@ -1619,7 +1625,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
 					+ " ("
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti._ID
-					+ " INTEGER PRIMARY KEY ASC,"
+					+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME
 					+ " TEXT UNIQUE,"
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE
@@ -1700,7 +1706,7 @@ public class SoapAPPProvider extends ContentProvider {
 	/**
 	 * Classe per gestire la tabella ricettesaponi_magazzino
 	 */
-	static class RicetteSaponiMagazzinoHelper extends SQLiteOpenHelper {
+	private static class RicetteSaponiMagazzinoHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiMagazzinoHelper(Context context) {
 
@@ -1719,7 +1725,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME
 					+ " ("
 					+ SoapAPPContract.RicetteSaponiMagazzino._ID
-					+ " INTEGER PRIMARY KEY ASC,"
+					+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
 					+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID
 					+ " INTEGER NOT NULL,"
 					+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID
@@ -1871,7 +1877,7 @@ public class SoapAPPProvider extends ContentProvider {
 	/**
 	 * Classe per gestire la tabella ricettesaponi_magazzino_ricetta
 	 */
-	static class RicetteSaponiMagazzinoRicettaHelper extends SQLiteOpenHelper {
+	private static class RicetteSaponiMagazzinoRicettaHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiMagazzinoRicettaHelper(Context context) {
 
@@ -1886,7 +1892,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
 					+ " ("
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID
-					+ " INTEGER PRIMARY KEY ASC,"
+					+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID
 					+ " INTEGER NOT NULL,"
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID
@@ -2035,7 +2041,30 @@ public class SoapAPPProvider extends ContentProvider {
 		mRicetteSaponiMagazzinoRicettaHelper = new RicetteSaponiMagazzinoRicettaHelper(
 				getContext());
 
-		return true;
+		dbRicetteSaponi = mRicetteSaponiHelper
+				.getWritableDatabase();
+
+		dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
+				.getWritableDatabase();
+
+		dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
+				.getWritableDatabase();
+
+		dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
+				.getWritableDatabase();
+
+		dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
+				.getWritableDatabase();
+
+		if (dbRicetteSaponi == null || dbCoefficientiSaponificazione == null
+				|| dbRicetteSaponiTipiIngredienti == null
+				|| dbRicetteSaponiMagazzino == null
+				|| dbRicetteSaponiMagazzinoRicetta == null) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 
 	/**
@@ -2116,14 +2145,17 @@ public class SoapAPPProvider extends ContentProvider {
 				sortOrderPrivate = sortOrder;
 			}
 
-			SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
-					.getReadableDatabase();
+			/*
+			 * SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
+			 * .getReadableDatabase();
+			 */
 
 			queryCursor = dbRicetteSaponi.query(
 					SoapAPPContract.RicetteSaponi.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
-
+			
+			queryCursor.setNotificationUri(getContext().getContentResolver(), uri);
 			// dbRicetteSaponi.close();// da vedere che effetti ha
 			break;
 
@@ -2187,14 +2219,17 @@ public class SoapAPPProvider extends ContentProvider {
 				sortOrderPrivate = sortOrder;
 			}
 
-			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
-					.getReadableDatabase();
+			/*
+			 * SQLiteDatabase dbCoefficientiSaponificazione =
+			 * mCoefficientiSaponificazioneHelper .getReadableDatabase();
+			 */
 
 			queryCursor = dbCoefficientiSaponificazione.query(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
 
+			queryCursor.setNotificationUri(getContext().getContentResolver(), uri);
 			// dbCoefficientiSaponificazione.close();// da vedere che effetti ha
 			break;
 
@@ -2257,13 +2292,18 @@ public class SoapAPPProvider extends ContentProvider {
 				sortOrderPrivate = sortOrder;
 			}
 
-			SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
-					.getReadableDatabase();
+			/*
+			 * SQLiteDatabase dbRicetteSaponiTipiIngredienti =
+			 * mRicetteSaponiTipiIngredientiHelper .getReadableDatabase();
+			 */
 
 			queryCursor = dbRicetteSaponiTipiIngredienti.query(
 					SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
+			
+			queryCursor.setNotificationUri(getContext().getContentResolver(), uri);
+			
 			break;
 
 		case URI_MATCH_RICETTE_SAPONI_TIPI_INGREDIENTI_ID:
@@ -2325,13 +2365,17 @@ public class SoapAPPProvider extends ContentProvider {
 				sortOrderPrivate = sortOrder;
 			}
 
-			SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
-					.getReadableDatabase();
+			/*
+			 * SQLiteDatabase dbRicetteSaponiMagazzino =
+			 * mRicetteSaponiMagazzinoHelper .getReadableDatabase();
+			 */
 
 			queryCursor = dbRicetteSaponiMagazzino.query(
 					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
+			
+			queryCursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 			break;
 
@@ -2394,13 +2438,17 @@ public class SoapAPPProvider extends ContentProvider {
 				sortOrderPrivate = sortOrder;
 			}
 
-			SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
-					.getReadableDatabase();
+			/*
+			 * SQLiteDatabase dbRicetteSaponiMagazzinoRicetta =
+			 * mRicetteSaponiMagazzinoRicettaHelper .getReadableDatabase();
+			 */
 
 			queryCursor = dbRicetteSaponiMagazzinoRicetta.query(
 					SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
+			
+			queryCursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 			// dbRicetteSaponiMagazzinoRicetta.close();// da vedere che effetti
 			// ha
@@ -2620,8 +2668,10 @@ public class SoapAPPProvider extends ContentProvider {
 			}
 
 			try {
-				SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
-						.getWritableDatabase();
+				/*
+				 * SQLiteDatabase dbRicetteSaponi = mRicetteSaponiHelper
+				 * .getWritableDatabase();
+				 */
 
 				idPrivate = dbRicetteSaponi.insertOrThrow(
 						SoapAPPContract.RicetteSaponi.TABLE_NAME, null,
@@ -2772,8 +2822,10 @@ public class SoapAPPProvider extends ContentProvider {
 			}
 
 			try {
-				SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
-						.getWritableDatabase();
+				/*
+				 * SQLiteDatabase dbCoefficientiSaponificazione =
+				 * mCoefficientiSaponificazioneHelper .getWritableDatabase();
+				 */
 
 				idPrivate = dbCoefficientiSaponificazione.insertOrThrow(
 						SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
@@ -2925,8 +2977,10 @@ public class SoapAPPProvider extends ContentProvider {
 			}
 
 			try {
-				SQLiteDatabase dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
-						.getWritableDatabase();
+				/*
+				 * SQLiteDatabase dbRicetteSaponiTipiIngredienti =
+				 * mRicetteSaponiTipiIngredientiHelper .getWritableDatabase();
+				 */
 
 				idPrivate = dbRicetteSaponiTipiIngredienti
 						.insertOrThrow(
@@ -3079,8 +3133,10 @@ public class SoapAPPProvider extends ContentProvider {
 			}
 
 			try {
-				SQLiteDatabase dbRicetteSaponiMagazzino = mRicetteSaponiMagazzinoHelper
-						.getWritableDatabase();
+				/*
+				 * SQLiteDatabase dbRicetteSaponiMagazzino =
+				 * mRicetteSaponiMagazzinoHelper .getWritableDatabase();
+				 */
 
 				idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
 						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
@@ -3232,8 +3288,10 @@ public class SoapAPPProvider extends ContentProvider {
 			}
 
 			try {
-				SQLiteDatabase dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
-						.getWritableDatabase();
+				/*
+				 * SQLiteDatabase dbRicetteSaponiMagazzinoRicetta =
+				 * mRicetteSaponiMagazzinoRicettaHelper .getWritableDatabase();
+				 */
 
 				idPrivate = dbRicetteSaponiMagazzinoRicetta
 						.insertOrThrow(
@@ -3331,8 +3389,10 @@ public class SoapAPPProvider extends ContentProvider {
 				whereArgsPrivate = whereArgs;
 			}
 
-			SQLiteDatabase dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
-					.getWritableDatabase();
+			/*
+			 * SQLiteDatabase dbCoefficientiSaponificazione =
+			 * mCoefficientiSaponificazioneHelper .getWritableDatabase();
+			 */
 			// the number of rows affected if a whereClause is passed in, 0
 			// otherwise. To remove all rows and get a count pass "1" as the
 			// whereClause.
@@ -3474,8 +3534,8 @@ public class SoapAPPProvider extends ContentProvider {
 	 * to setUp()
 	 * 
 	 * @return a handle to the database helper object for the provider's data.
+	 * 
+	 *         CoefficientiSaponificazioneHelper getOpenHelperForTest() { return
+	 *         mCoefficientiSaponificazioneHelper; }
 	 */
-	CoefficientiSaponificazioneHelper getOpenHelperForTest() {
-		return mCoefficientiSaponificazioneHelper;
-	}
 }

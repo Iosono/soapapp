@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 
 		// SCRIVERE QUALCOSA PER CREARE LE TABELLE, ES QUERY GENERICA X OGNI
 		// TABELLA.
-		cursore = getContentResolver().query(
+		/*cursore = getContentResolver().query(
 				SoapAPPContract.RicetteSaponi.CONTENT_URI, null, null, null,
 				null);
 		cursore = getContentResolver().query(
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 				null, null);
 		cursore = getContentResolver().query(
 				SoapAPPContract.RicetteSaponiMagazzinoRicetta.CONTENT_URI,
-				null, null, null, null);
+				null, null, null, null);*/
 
 		_Values = new ContentValues();
 		// Get xml resource file
