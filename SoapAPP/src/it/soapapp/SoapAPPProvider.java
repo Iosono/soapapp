@@ -42,7 +42,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	private static final String DATABASE_NAME = "soap_app.db";
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private static final String TYPE_DOUBLE = "Double";
 	private static final String TYPE_INTEGER = "Integer";
@@ -136,16 +136,16 @@ public class SoapAPPProvider extends ContentProvider {
 	// Oggetti che servono per usare i metodi getReadableDatabase() o
 	// getWritableDatabase() per farsi restituire un oggetto SQLiteDatabase
 	private RicetteSaponiHelper mRicetteSaponiHelper;
-	private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper;
+	/*private CoefficientiSaponificazioneHelper mCoefficientiSaponificazioneHelper;
 	private RicetteSaponiTipiIngredientiHelper mRicetteSaponiTipiIngredientiHelper;
 	private RicetteSaponiMagazzinoHelper mRicetteSaponiMagazzinoHelper;
-	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;
+	private RicetteSaponiMagazzinoRicettaHelper mRicetteSaponiMagazzinoRicettaHelper;*/
 
 	private SQLiteDatabase dbRicetteSaponi;
-	private SQLiteDatabase dbCoefficientiSaponificazione;
+	/*private SQLiteDatabase dbCoefficientiSaponificazione;
 	private SQLiteDatabase dbRicetteSaponiTipiIngredienti;
 	private SQLiteDatabase dbRicetteSaponiMagazzino;
-	private SQLiteDatabase dbRicetteSaponiMagazzinoRicetta;
+	private SQLiteDatabase dbRicetteSaponiMagazzinoRicetta;*/
 
 	// Oggetti che servono per mappare i nomi delle colonne delle varie tabelle
 	private static HashMap<String, String> ricetteSaponiProjectionMap;
@@ -1226,6 +1226,170 @@ public class SoapAPPProvider extends ContentProvider {
 						+ " TEXT DEFAULT NULL,"
 						+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_MODIFICATION_DATE
 						+ " TEXT DEFAULT NULL" + ");");
+			
+				db.execSQL("CREATE TABLE IF NOT EXISTS "
+						+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.CoefficientiSaponificazione._ID
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME
+						+ " TEXT DEFAULT 'NO NAME',"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI
+						+ " TEXT DEFAULT 'NO INCI',"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_96_98
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_KOH_80
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAOH
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NOTE_COEFF
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICABILE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CARICATO_UTENTE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_CREATE_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE
+						+ " TEXT DEFAULT NULL" + ");");
+				
+				db.execSQL("CREATE TABLE IF NOT EXISTS "
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti._ID
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME
+						+ " TEXT UNIQUE,"
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICABILE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CARICATO_UTENTE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_CREATE_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE
+						+ " TEXT DEFAULT NULL" + ");");
+				
+				db.execSQL("CREATE TABLE IF NOT EXISTS "
+						+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.RicetteSaponiMagazzino._ID
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID
+						+ " INTEGER NOT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID
+						+ " INTEGER,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NAME
+						+ " TEXT DEFAULT 'Default Nome Ingrediente',"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_ALIAS
+						+ " TEXT DEFAULT 'Default Alias Ingrediente',"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DESCRIPTION
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_IMAGE
+						+ " TEXT NOT NULL DEFAULT 'ImmagineIngredienteStandar',"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_LORDO_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_NETTO_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_TARA_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COSTO_INGREDIENTE_GRAMMO
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_LORDO_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_NETTO_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_PESO_TARA_INGREDIENTE
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_ACQUISTO_INGREDIENTE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOME_NEGOZIO_ACQUISTO
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_DATA_SCADENZA_INGREDIENTE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_NOTE_INGREDIENTE
+						+ " TEXT DEFAULT 'note ingrediente',"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICABILE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CARICATO_UTENTE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_CREATE_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_MODIFICATION_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ " CONSTRAINT "
+						+ SoapAPPContract.RicetteSaponiMagazzino.FK_COEFFSAPONIFICAZIONE
+						+ " FOREIGN KEY ("
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID
+						+ ")"
+						+ " REFERENCES "
+						+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.CoefficientiSaponificazione._ID
+						+ ")"
+						+ " ON DELETE RESTRICT"
+						+ " ON UPDATE CASCADE,"
+						+ " CONSTRAINT "
+						+ SoapAPPContract.RicetteSaponiMagazzino.FK_TIPO_INGREDIENTE
+						+ " FOREIGN KEY ("
+						+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID
+						+ ")" + " REFERENCES "
+						+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
+						+ " (" + SoapAPPContract.RicetteSaponiTipiIngredienti._ID
+						+ ")" + " ON DELETE RESTRICT" + " ON UPDATE CASCADE);");
+				
+				db.execSQL("CREATE TABLE IF NOT EXISTS "
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta._ID
+						+ " INTEGER PRIMARY KEY AUTOINCREMENT ASC,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID
+						+ " INTEGER NOT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID
+						+ " INTEGER NOT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PERCENTUALE_GRASSO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_PESO_INGREDIENTE_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_SODA_GRASSO_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_COSTO_INGREDIENTE_RICETTA
+						+ " REAL NOT NULL DEFAULT 0.0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICABILE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CARICATO_UTENTE
+						+ " INTEGER NOT NULL DEFAULT 0,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_CREATE_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_MODIFICATION_DATE
+						+ " TEXT DEFAULT NULL,"
+						+ " UNIQUE ("
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID
+						+ ", "
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID
+						+ "),"
+						+ " CONSTRAINT "
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.FK_RICETTESAPONI
+						+ " FOREIGN KEY ("
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID
+						+ ")"
+						+ " REFERENCES "
+						+ SoapAPPContract.RicetteSaponi.TABLE_NAME
+						+ " ("
+						+ SoapAPPContract.RicetteSaponi._ID
+						+ ")"
+						+ " ON DELETE RESTRICT"
+						+ " ON UPDATE CASCADE,"
+						+ " CONSTRAINT "
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.FK_RICETTESAPONI_MAGAZZINO
+						+ " FOREIGN KEY ("
+						+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID
+						+ ")" + " REFERENCES "
+						+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME + " ("
+						+ SoapAPPContract.RicetteSaponiMagazzino._ID + ")"
+						+ " ON DELETE RESTRICT" + " ON UPDATE CASCADE);");
+			
+			
+			
 			} catch (SQLException e) {
 				Log.e(DATABASE_NAME, e.toString());
 			}
@@ -1242,6 +1406,78 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponi.ALIAS_RICETTESAPONI_IDX
 					+ " ON " + SoapAPPContract.RicetteSaponi.TABLE_NAME + " ("
 					+ SoapAPPContract.RicetteSaponi.COLUMN_NAME_ALIAS
+					+ " ASC);");
+			
+			/*
+			 * Query DDL per creare gli indici della tabella
+			 * coefficienti_saponificazione
+			 */
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ " ON "
+					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_NAME
+					+ " ASC);");
+
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ " ON "
+					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI
+					+ " ASC);");
+			
+			/*
+			 * Query DDL per creare gli indici della tabella
+			 * ricettesaponi_tipi_ingredienti
+			 */
+			db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
+					+ " ON "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_NAME
+					+ " ASC);");
+			
+			/*
+			 * Query DDL per creare gli indici della tabella
+			 * ricettesaponi_magazzino
+			 */
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ " ON "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_TIPO_INGREDIENTE_ID
+					+ " ASC);");
+
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ " ON "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.RicetteSaponiMagazzino.COLUMN_NAME_COEFFICIENTESAPONIFICAZIONE_ID
+					+ " ASC);");
+			
+			/*
+			 * Query DDL per creare gli indici della tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ " ON "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_ID
+					+ " ASC);");
+
+			db.execSQL("CREATE INDEX IF NOT EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_MAGAZZINO_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ " ON "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
+					+ " ("
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.COLUMN_NAME_RICETTESAPONI_MAGAZZINO_ID
 					+ " ASC);");
 
 		}
@@ -1268,6 +1504,84 @@ public class SoapAPPProvider extends ContentProvider {
 			 */
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponi.TABLE_NAME + ";");
+			
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * coefficienti_saponificazione
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * coefficienti_saponificazione
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+					+ ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_tipi_ingredienti
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_tipi_ingredienti
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
+					+ ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_magazzino
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_magazzino
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME + ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_MAGAZZINO_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
+					+ ";");
+			
+			
 			// Recreates the database with a new version
 			onCreate(db);
 		}
@@ -1295,6 +1609,84 @@ public class SoapAPPProvider extends ContentProvider {
 			 */
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponi.TABLE_NAME + ";");
+			
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * coefficienti_saponificazione
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * coefficienti_saponificazione
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
+					+ ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_tipi_ingredienti
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_tipi_ingredienti
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
+					+ ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_magazzino
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_magazzino
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME + ";");
+			
+			/*
+			 * Query DDL per eliminare gli indici della tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ ";");
+
+			db.execSQL("DROP INDEX IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_MAGAZZINO_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
+					+ ";");
+
+			/*
+			 * Query DDL per eliminare lo schema della tabella
+			 * ricettesaponi_magazzino_ricetta
+			 */
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
+					+ ";");
+			
+			
 			// Recreates the database with a new version
 			onCreate(db);
 		}
@@ -1302,7 +1694,7 @@ public class SoapAPPProvider extends ContentProvider {
 
 	/**
 	 * Classe per gestire la tabella coefficienti_saponificazione
-	 */
+	
 	private static class CoefficientiSaponificazioneHelper extends SQLiteOpenHelper {
 
 		CoefficientiSaponificazioneHelper(Context context) {
@@ -1311,9 +1703,9 @@ public class SoapAPPProvider extends ContentProvider {
 		}
 
 		public void onCreate(SQLiteDatabase db) {
-			/*
-			 * Query DDL per creare la tabella coefficienti_saponificazione
-			 */
+			
+			// Query DDL per creare la tabella coefficienti_saponificazione
+			 
 			db.execSQL("CREATE TABLE IF NOT EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
 					+ " ("
@@ -1340,10 +1732,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_MODIFICATION_DATE
 					+ " TEXT DEFAULT NULL" + ");");
 
-			/*
-			 * Query DDL per creare gli indici della tabella
-			 * coefficienti_saponificazione
-			 */
+			
+			  //Query DDL per creare gli indici della tabella coefficienti_saponificazione
+			 
 			db.execSQL("CREATE INDEX IF NOT EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
 					+ " ON "
@@ -1359,7 +1750,7 @@ public class SoapAPPProvider extends ContentProvider {
 					+ " ("
 					+ SoapAPPContract.CoefficientiSaponificazione.COLUMN_NAME_INCI
 					+ " ASC);");
-
+			*/
 			/*
 			 * Query per popolare la tabella coefficienti_saponificazione DA
 			 * RISCRIVERE USANDO IL METODO INSERT E NON execSQL
@@ -1541,9 +1932,9 @@ public class SoapAPPProvider extends ContentProvider {
 			 * +
 			 * "	(\'Zucca\', \'Cucurbita Maxima\', 0.187, 0.234, 0.133, NULL, 0, 0, datetime(\'now\'), datetime(\'now\'));"
 			 * );
-			 */
-		}
-
+			 
+		}*/
+/*
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -1551,10 +1942,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * coefficienti_saponificazione
-			 */
+			
+			 // Query DDL per eliminare gli indici della tabella coefficienti_saponificazione
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
 					+ ";");
@@ -1563,10 +1953,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.CoefficientiSaponificazione.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * coefficienti_saponificazione
-			 */
+			
+			 // Query DDL per eliminare lo schema della tabella coefficienti_saponificazione
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
 					+ ";");
@@ -1582,10 +1971,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * coefficienti_saponificazione
-			 */
+			
+			  //Query DDL per eliminare gli indici della tabella coefficienti_saponificazione
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.NAME_COEFFICIENTI_SAPONIFICAZIONE_IDX
 					+ ";");
@@ -1594,10 +1982,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.CoefficientiSaponificazione.INCI_COEFFICIENTI_SAPONIFICAZIONE_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * coefficienti_saponificazione
-			 */
+			
+			 //Query DDL per eliminare lo schema della tabella coefficienti_saponificazione
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME
 					+ ";");
@@ -1606,10 +1993,10 @@ public class SoapAPPProvider extends ContentProvider {
 			onCreate(db);
 		}
 	}
-
-	/**
-	 * Classe per gestire la tabella ricettesaponi_tipi_ingredienti
-	 */
+*/
+	
+	// Classe per gestire la tabella ricettesaponi_tipi_ingredienti
+	/* 
 	private static class RicetteSaponiTipiIngredientiHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiTipiIngredientiHelper(Context context) {
@@ -1618,9 +2005,9 @@ public class SoapAPPProvider extends ContentProvider {
 		}
 
 		public void onCreate(SQLiteDatabase db) {
-			/*
-			 * Query DDL per creare la tabella ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per creare la tabella ricettesaponi_tipi_ingredienti
+			 
 			db.execSQL("CREATE TABLE IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
 					+ " ("
@@ -1637,10 +2024,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.COLUMN_NAME_MODIFICATION_DATE
 					+ " TEXT DEFAULT NULL" + ");");
 
-			/*
-			 * Query DDL per creare gli indici della tabella
-			 * ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per creare gli indici della tabella ricettesaponi_tipi_ingredienti
+			
 			db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
 					+ " ON "
@@ -1657,18 +2043,16 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per eliminare gli indici della tabella ricettesaponi_tipi_ingredienti
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per eliminare lo schema della tabella ricettesaponi_tipi_ingredienti
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
 					+ ";");
@@ -1683,18 +2067,16 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per eliminare gli indici della tabella ricettesaponi_tipi_ingredienti
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.NAME_RICETTE_SAPONI_TIPI_INGREDIENTI_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_tipi_ingredienti
-			 */
+			
+			 // Query DDL per eliminare lo schema della tabella ricettesaponi_tipi_ingredienti
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME
 					+ ";");
@@ -1702,10 +2084,10 @@ public class SoapAPPProvider extends ContentProvider {
 			onCreate(db);
 		}
 	}
-
-	/**
-	 * Classe per gestire la tabella ricettesaponi_magazzino
-	 */
+*/
+	
+	// Classe per gestire la tabella ricettesaponi_magazzino
+	 /*
 	private static class RicetteSaponiMagazzinoHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiMagazzinoHelper(Context context) {
@@ -1718,9 +2100,9 @@ public class SoapAPPProvider extends ContentProvider {
 		}
 
 		public void onCreate(SQLiteDatabase db) {
-			/*
-			 * Query DDL per creare la tabella ricettesaponi_magazzino
-			 */
+			
+			 // Query DDL per creare la tabella ricettesaponi_magazzino
+			 
 			db.execSQL("CREATE TABLE IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME
 					+ " ("
@@ -1789,10 +2171,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ " (" + SoapAPPContract.RicetteSaponiTipiIngredienti._ID
 					+ ")" + " ON DELETE RESTRICT" + " ON UPDATE CASCADE);");
 
-			/*
-			 * Query DDL per creare gli indici della tabella
-			 * ricettesaponi_magazzino
-			 */
+			
+			 // Query DDL per creare gli indici della tabella ricettesaponi_magazzino
+			 
 			db.execSQL("CREATE INDEX IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
 					+ " ON "
@@ -1817,10 +2198,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_magazzino
-			 */
+			
+			  //Query DDL per eliminare gli indici della tabella ricettesaponi_magazzino
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
 					+ ";");
@@ -1829,10 +2209,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_magazzino
-			 */
+			
+			 // Query DDL per eliminare lo schema della tabella ricettesaponi_magazzino
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME + ";");
 			// Recreates the database with a new version
@@ -1846,10 +2225,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_magazzino
-			 */
+			
+			 //Query DDL per eliminare gli indici della tabella ricettesaponi_magazzino
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TIPO_INGREDIENTE_ID_RICETTESAPONI_MAGAZZINO_IDX
 					+ ";");
@@ -1858,10 +2236,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzino.COEFFSAPONIFICAZIONE_ID_RICETTESAPONI_MAGAZZINO_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_magazzino
-			 */
+			
+			// Query DDL per eliminare lo schema della tabella ricettesaponi_magazzino
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME + ";");
 			// Recreates the database with a new version
@@ -1872,11 +2249,11 @@ public class SoapAPPProvider extends ContentProvider {
 			return DATABASE_NAME;
 		}
 
-	}
+	}*/
 
-	/**
-	 * Classe per gestire la tabella ricettesaponi_magazzino_ricetta
-	 */
+	
+	 //Classe per gestire la tabella ricettesaponi_magazzino_ricetta
+	 /*
 	private static class RicetteSaponiMagazzinoRicettaHelper extends SQLiteOpenHelper {
 
 		RicetteSaponiMagazzinoRicettaHelper(Context context) {
@@ -1885,9 +2262,9 @@ public class SoapAPPProvider extends ContentProvider {
 		}
 
 		public void onCreate(SQLiteDatabase db) {
-			/*
-			 * Query DDL per creare la tabella ricettesaponi_magazzino_ricetta
-			 */
+			
+			 //Query DDL per creare la tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("CREATE TABLE IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
 					+ " ("
@@ -1939,10 +2316,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzino._ID + ")"
 					+ " ON DELETE RESTRICT" + " ON UPDATE CASCADE);");
 
-			/*
-			 * Query DDL per creare gli indici della tabella
-			 * ricettesaponi_magazzino_ricetta
-			 */
+			
+			 //Query DDL per creare gli indici della tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("CREATE INDEX IF NOT EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
 					+ " ON "
@@ -1967,10 +2343,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_magazzino_ricetta
-			 */
+			
+			// Query DDL per eliminare gli indici della tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
 					+ ";");
@@ -1979,10 +2354,9 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_MAGAZZINO_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_magazzino_ricetta
-			 */
+			
+			 // Query DDL per eliminare lo schema della tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
 					+ ";");
@@ -1997,10 +2371,9 @@ public class SoapAPPProvider extends ContentProvider {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 
-			/*
-			 * Query DDL per eliminare gli indici della tabella
-			 * ricettesaponi_magazzino_ricetta
-			 */
+			
+			 //Query DDL per eliminare gli indici della tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("DROP INDEX IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
 					+ ";");
@@ -2009,17 +2382,16 @@ public class SoapAPPProvider extends ContentProvider {
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.RICETTESAPONI_MAGAZZINO_ID_RICETTESAPONI_MAGAZZINO_RICETTA_IDX
 					+ ";");
 
-			/*
-			 * Query DDL per eliminare lo schema della tabella
-			 * ricettesaponi_magazzino_ricetta
-			 */
+			
+			 //Query DDL per eliminare lo schema della tabella ricettesaponi_magazzino_ricetta
+			 
 			db.execSQL("DROP TABLE IF EXISTS "
 					+ SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME
 					+ ";");
 			// Recreates the database with a new version
 			onCreate(db);
 		}
-	}
+	}*/
 
 	/**
 	 * 
@@ -2032,19 +2404,19 @@ public class SoapAPPProvider extends ContentProvider {
 	public boolean onCreate() {
 
 		mRicetteSaponiHelper = new RicetteSaponiHelper(getContext());
-		mCoefficientiSaponificazioneHelper = new CoefficientiSaponificazioneHelper(
+		/*mCoefficientiSaponificazioneHelper = new CoefficientiSaponificazioneHelper(
 				getContext());
 		mRicetteSaponiTipiIngredientiHelper = new RicetteSaponiTipiIngredientiHelper(
 				getContext());
 		mRicetteSaponiMagazzinoHelper = new RicetteSaponiMagazzinoHelper(
 				getContext());
 		mRicetteSaponiMagazzinoRicettaHelper = new RicetteSaponiMagazzinoRicettaHelper(
-				getContext());
+				getContext());*/
 
 		dbRicetteSaponi = mRicetteSaponiHelper
 				.getWritableDatabase();
 
-		dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
+		/*dbCoefficientiSaponificazione = mCoefficientiSaponificazioneHelper
 				.getWritableDatabase();
 
 		dbRicetteSaponiTipiIngredienti = mRicetteSaponiTipiIngredientiHelper
@@ -2054,12 +2426,12 @@ public class SoapAPPProvider extends ContentProvider {
 				.getWritableDatabase();
 
 		dbRicetteSaponiMagazzinoRicetta = mRicetteSaponiMagazzinoRicettaHelper
-				.getWritableDatabase();
+				.getWritableDatabase();*/
 
-		if (dbRicetteSaponi == null || dbCoefficientiSaponificazione == null
+		if (dbRicetteSaponi == null /*|| dbCoefficientiSaponificazione == null
 				|| dbRicetteSaponiTipiIngredienti == null
 				|| dbRicetteSaponiMagazzino == null
-				|| dbRicetteSaponiMagazzinoRicetta == null) {
+				|| dbRicetteSaponiMagazzinoRicetta == null*/) {
 			return false;
 		} else {
 			return true;
@@ -2224,7 +2596,7 @@ public class SoapAPPProvider extends ContentProvider {
 			 * mCoefficientiSaponificazioneHelper .getReadableDatabase();
 			 */
 
-			queryCursor = dbCoefficientiSaponificazione.query(
+			queryCursor = /*dbCoefficientiSaponificazione*/dbRicetteSaponi.query(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -2297,7 +2669,7 @@ public class SoapAPPProvider extends ContentProvider {
 			 * mRicetteSaponiTipiIngredientiHelper .getReadableDatabase();
 			 */
 
-			queryCursor = dbRicetteSaponiTipiIngredienti.query(
+			queryCursor = /*dbRicetteSaponiTipiIngredienti*/dbRicetteSaponi.query(
 					SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -2370,7 +2742,7 @@ public class SoapAPPProvider extends ContentProvider {
 			 * mRicetteSaponiMagazzinoHelper .getReadableDatabase();
 			 */
 
-			queryCursor = dbRicetteSaponiMagazzino.query(
+			queryCursor = /*dbRicetteSaponiMagazzino*/dbRicetteSaponi.query(
 					SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -2443,7 +2815,7 @@ public class SoapAPPProvider extends ContentProvider {
 			 * mRicetteSaponiMagazzinoRicettaHelper .getReadableDatabase();
 			 */
 
-			queryCursor = dbRicetteSaponiMagazzinoRicetta.query(
+			queryCursor = /*dbRicetteSaponiMagazzinoRicetta*/dbRicetteSaponi.query(
 					SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME,
 					projectionPrivate, selectionPrivate, selectionArgsPrivate,
 					null, null, sortOrderPrivate);
@@ -2827,7 +3199,7 @@ public class SoapAPPProvider extends ContentProvider {
 				 * mCoefficientiSaponificazioneHelper .getWritableDatabase();
 				 */
 
-				idPrivate = dbCoefficientiSaponificazione.insertOrThrow(
+				idPrivate = /*dbCoefficientiSaponificazione*/dbRicetteSaponi.insertOrThrow(
 						SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 						null, valuesPrivate);
 
@@ -2982,7 +3354,7 @@ public class SoapAPPProvider extends ContentProvider {
 				 * mRicetteSaponiTipiIngredientiHelper .getWritableDatabase();
 				 */
 
-				idPrivate = dbRicetteSaponiTipiIngredienti
+				idPrivate = /*dbRicetteSaponiTipiIngredienti*/dbRicetteSaponi
 						.insertOrThrow(
 								SoapAPPContract.RicetteSaponiTipiIngredienti.TABLE_NAME,
 								null, valuesPrivate);
@@ -3138,7 +3510,7 @@ public class SoapAPPProvider extends ContentProvider {
 				 * mRicetteSaponiMagazzinoHelper .getWritableDatabase();
 				 */
 
-				idPrivate = dbRicetteSaponiMagazzino.insertOrThrow(
+				idPrivate = /*dbRicetteSaponiMagazzino*/dbRicetteSaponi.insertOrThrow(
 						SoapAPPContract.RicetteSaponiMagazzino.TABLE_NAME,
 						null, valuesPrivate);
 
@@ -3293,7 +3665,7 @@ public class SoapAPPProvider extends ContentProvider {
 				 * mRicetteSaponiMagazzinoRicettaHelper .getWritableDatabase();
 				 */
 
-				idPrivate = dbRicetteSaponiMagazzinoRicetta
+				idPrivate = /*dbRicetteSaponiMagazzinoRicetta*/dbRicetteSaponi
 						.insertOrThrow(
 								SoapAPPContract.RicetteSaponiMagazzinoRicetta.TABLE_NAME,
 								null, valuesPrivate);
@@ -3396,7 +3768,7 @@ public class SoapAPPProvider extends ContentProvider {
 			// the number of rows affected if a whereClause is passed in, 0
 			// otherwise. To remove all rows and get a count pass "1" as the
 			// whereClause.
-			count = dbCoefficientiSaponificazione.delete(
+			count = /*dbCoefficientiSaponificazione*/dbRicetteSaponi.delete(
 					SoapAPPContract.CoefficientiSaponificazione.TABLE_NAME,
 					wherePrivate, whereArgsPrivate);
 			break;
